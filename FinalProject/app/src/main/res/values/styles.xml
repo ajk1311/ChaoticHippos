@@ -2,7 +2,18 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light">
-        <!-- Customize your theme here. -->
+       
     </style>
+
+	<!-- Theme for fullscreen Activities (like the StartActivity) -->
+	<style name="AppTheme.Fullscreen" parent="AppTheme">
+		<item name="android:windowFullscreen">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+	</style>
+
+	<!-- Theme for the main content of the app -->
+	<style name="AppTheme.Main" parent="AppTheme">
+
+	</style>
 
 </resources>

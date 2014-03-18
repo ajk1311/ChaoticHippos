@@ -2,7 +2,18 @@
 <resources>
 
     <string name="app_name">FinalProject</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+
+	<!-- StartActivity strings -->
+	<string name="btn_student">Student</string>
+	<string name="btn_instructor">Instructor</string>
+
+	<!-- Question list strings -->
+	<string name="question_prefix">Question </string>
+	<string name="question_type_dialog_title">Select Question Type</string>
+	<string name="question_type_multiple_choice">Multiple Choice</string>
+	<string name="question_type_true_or_false">True or False</string>
+	<string name="question_type_matching">Matching</string>
+	<string name="question_type_fill_in_the_blank">Fill in the Blank</string>
+	<string name="question_list_btn_add">Add Question</string>
 
 </resources>

@@ -11,6 +11,9 @@ public class InstructorActivity extends MainActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if (savedInstanceState == null) {
+
+		}
 	}
 
 	@Override

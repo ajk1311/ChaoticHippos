@@ -12,6 +12,9 @@ public class StudentActivity extends MainActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getQuestionListFragment().setQuestionListEditable(false);
+		if (savedInstanceState == null) {
+
+		}
 	}
 
 	@Override

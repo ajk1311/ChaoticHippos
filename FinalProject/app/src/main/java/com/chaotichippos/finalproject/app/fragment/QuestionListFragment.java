@@ -145,26 +145,14 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	}
 
 	/**
-	 * Selects the question at the given position.
-	 * If any question was previously selected, it will be unselected.
-	 *
-	 * @param position The position of the question to be selected
-	 */
-	public void setQuestionSelected(int position) {
-		final int sz = mListView.getChildCount();
-		for (int i = 0; i < sz; i++) {
-			mListView.getChildAt(i).setActivated(i == position);
-		}
-	}
-
-	/**
 	 * Adds a question to display in the list
 	 *
 	 * @param question The question to display
 	 */
 	public void addQuestion(Question question) {
-		((QuestionListAdapter) mListView.getAdapter()).addQuestion(question);
-		setQuestionSelected(mListView.getAdapter().getCount() - 1);
+		final QuestionListAdapter adapter = (QuestionListAdapter) mListView.getAdapter();
+		adapter.addQuestion(question);
+		adapter.setQuestionSelected(adapter.getCount() - 1);
 	}
 
 	@Override
@@ -175,7 +163,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 			mListener.onAddQuestionRequested();
 		} else {
 			// A question was selected
-			setQuestionSelected(position);
+			((QuestionListAdapter) mListView.getAdapter()).setQuestionSelected(position);
 			mListener.onQuestionSelected((Question) adapter.getItem(position));
 		}
 	}
@@ -183,8 +171,17 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	/** Adapter that provides Question objects for our list to display */
 	private class QuestionListAdapter extends BaseAdapter {
 
+		private static final int INVALID_POSITION = -1;
+
 		/** The backing data for the adapter */
 		private List<Question> mList;
+
+		/**
+		 * Keeps track of the selected position in the list. We aren't using
+		 * {@link android.widget.ListView#CHOICE_MODE_SINGLE} because we don't
+		 * want the footer we add to be highlighted ever.
+		 */
+		private int mSelectedPosition = INVALID_POSITION;
 
 		/**
 		 * Adds a new question to the list
@@ -209,6 +206,20 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 				mList = list;
 				notifyDataSetChanged();
 			}
+		}
+
+		/**
+		 * Selects the question at the given position.
+		 * If any question was previously selected, it will be unselected.
+		 *
+		 * @param position The position of the question to be selected
+		 */
+		public void setQuestionSelected(int position) {
+			if (position == mSelectedPosition) {
+				return;
+			}
+			mSelectedPosition = position;
+			notifyDataSetChanged();
 		}
 
 		@Override
@@ -248,6 +259,8 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 			} else {
 				((TextView) convertView).setText(text);
 			}
+
+			convertView.setActivated(position == mSelectedPosition);
 
 			return convertView;
 		}

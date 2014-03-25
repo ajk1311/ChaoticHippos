@@ -1,7 +1,6 @@
 package com.chaotichippos.finalproject.app.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.view.Menu;
@@ -83,8 +82,8 @@ public abstract class MainActivity extends Activity
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
+	protected void onResume() {
+		super.onResume();
 		QuestionAdditionDialogFragment dialog = (QuestionAdditionDialogFragment)
 				getFragmentManager().findFragmentByTag(KEY_DIALOG_ADD_QUESTION);
 		if (dialog != null) {

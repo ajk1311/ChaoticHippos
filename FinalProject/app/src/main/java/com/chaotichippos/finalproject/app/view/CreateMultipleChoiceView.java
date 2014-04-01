@@ -7,21 +7,16 @@ import android.widget.RelativeLayout;
 import android.view.LayoutInflater;
 import com.chaotichippos.finalproject.app.R;
 
-import android.os.Bundle;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.text.Editable;
 import android.widget.EditText;
-import android.util.Log;
 import android.widget.Button;
 import android.view.View;
-import android.view.View.OnClickListener;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
-import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.ListView;
 import android.widget.CheckBox;
@@ -55,7 +50,7 @@ public class CreateMultipleChoiceView extends RelativeLayout{
     public CreateMultipleChoiceView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        LayoutInflater.from(context).inflate(R.layout.createMultipleChoiceBaseView, this, true);
+        LayoutInflater.from(context).inflate(R.layout.create_multiple_choice_base_view, this, true);
 
         questionTextEditor = (EditText)findViewById(R.id.QuestionText);
         questionTextEditor.addTextChangedListener(questionTextWatcher);
@@ -87,7 +82,7 @@ public class CreateMultipleChoiceView extends RelativeLayout{
 
         // Instantiating an adapter to store each items
         // R.layout.listview_layout defines the layout of each item
-        adapter = new SimpleAdapter(context, aList, R.layout.createMultipleChoiceListItemView, from, to);
+        adapter = new SimpleAdapter(context, aList, R.layout.create_multiple_choice_list_item_view, from, to);
 
         // Getting a reference to listview of main.xml layout file
         listView = ( ListView ) findViewById(R.id.listview);

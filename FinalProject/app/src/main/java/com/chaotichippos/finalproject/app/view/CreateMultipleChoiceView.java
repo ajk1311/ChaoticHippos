@@ -1,43 +1,69 @@
 package com.chaotichippos.finalproject.app.view;
 
+import android.app.Activity;
 import android.content.Context;
-import android.util.AttributeSet;
-import android.widget.RelativeLayout;
-
-import android.view.LayoutInflater;
-import com.chaotichippos.finalproject.app.R;
-
+import android.os.Bundle;
 import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.util.Pair;
+import android.view.ActionMode;
+import android.view.LayoutInflater;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.util.Log;
 import android.widget.Button;
 import android.view.View;
+import android.view.View.OnClickListener;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.ListView;
 import android.widget.CheckBox;
+
+import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.util.SparseBooleanArray;
+import android.widget.CheckedTextView;
+
+import com.chaotichippos.finalproject.app.R;
+
+import org.w3c.dom.Text;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by SebastianMartinez on 3/31/14.
  */
 public class CreateMultipleChoiceView extends RelativeLayout{
+    private static final String TAG = "MainActivity";
 
     EditText questionTextEditor;
-    String questionText;
+    EditText answerTextEditor;
 
     Button addAnswerButton;
-    Button deleteSelectedAnswersButton;
 
-    List<HashMap<String,String>> aList;
-    SimpleAdapter adapter;
+    MyAdapter adapter;
     ListView listView;
 
     List<String> answerIDs = new ArrayList<String>();
     List<String> answers = new ArrayList<String>();
+    List<String> alphabet = new ArrayList<String>();
+    int alphabetIndex = 0;
+
+    MultiChoiceModeListener mMultiChoiceModeListener;
 
     public CreateMultipleChoiceView(Context context)  {
         this(context, null, 0);
@@ -52,57 +78,66 @@ public class CreateMultipleChoiceView extends RelativeLayout{
 
         LayoutInflater.from(context).inflate(R.layout.create_multiple_choice_base_view, this, true);
 
+        listView = ( ListView ) findViewById(R.id.listview);
+
+        /** For contextual action mode, the choice mode should be CHOICE_MODE_MULTIPLE_MODAL */
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+        /** Setting multichoicemode listener for the listview */
+        listView.setMultiChoiceModeListener(mMultiChoiceModeListener);
+
         questionTextEditor = (EditText)findViewById(R.id.QuestionText);
-        questionTextEditor.addTextChangedListener(questionTextWatcher);
+        answerTextEditor = (EditText)findViewById(R.id.CurrentAnswerText);
 
         addListenerOnAnswerButton();
-        addListenerOnDeleteButton();
 
-        answerIDs.add("AnswerID 1");
-        answerIDs.add("AnswerID 2");
+        createAlphabet();
 
-        answers.add("Answer");
-        answers.add("Answer");
-
-        // Each row in the list stores country name, currency and flag
-        aList = new ArrayList<HashMap<String,String>>();
-
-        for(int i=0;i<answerIDs.size();i++){
-            HashMap<String, String> hm = new HashMap<String,String>();
-            hm.put("AnswerID", answerIDs.get(i));
-            hm.put("Answer", answers.get(i));
-            aList.add(hm);
-        }
-
-        // Keys used in Hashmap
-        String[] from = { "AnswerID","Answer"};
-
-        // Ids of views in listview_layout
-        int[] to = { R.id.AnswerID,R.id.Answer,};
-
-        // Instantiating an adapter to store each items
-        // R.layout.listview_layout defines the layout of each item
-        adapter = new SimpleAdapter(context, aList, R.layout.create_multiple_choice_list_item_view, from, to);
+        // Instantiating an adapter for the list
+        adapter = new MyAdapter();
 
         // Getting a reference to listview of main.xml layout file
         listView = ( ListView ) findViewById(R.id.listview);
-//        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         // Setting the adapter to the listView
         listView.setAdapter(adapter);
+
+        mMultiChoiceModeListener = new AbsListView.MultiChoiceModeListener() {
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+            }
+
+            /** This will be invoked when action mode is created. In our case , it is on long clicking a menu item */
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                final Activity activity = (Activity) getContext();
+                activity.getMenuInflater().inflate(R.menu.create_multiple_choice_menu, menu);
+                return true;
+            }
+
+            /** Invoked when an action in the action mode is clicked */
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                deleteCheckedItems();
+                return false;
+            }
+
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+            }
+        };
     }
 
-    private final TextWatcher questionTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            questionText = questionTextEditor.getText().toString();
-        }
-    };
+    /** Returning the selected answers */
+    public void deleteCheckedItems() {
+        adapter.deleteSelectedItems();
+    }
 
     public void addListenerOnAnswerButton() {
         addAnswerButton = (Button)findViewById(R.id.AddAnswer);
@@ -110,35 +145,143 @@ public class CreateMultipleChoiceView extends RelativeLayout{
         addAnswerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg) {
-                //Add Custom Answer Cell to List
-                HashMap<String, String> hm = new HashMap<String,String>();
-                hm.put("AnswerID", "Enter ID");
-                hm.put("Answer", "Enter Answer");
-                aList.add(hm);
-                adapter.notifyDataSetChanged();
+                //Add Answer Cell to List
+                if(alphabetIndex < alphabet.size()) {
+                    String answer = answerTextEditor.getText().toString();
+                    answerTextEditor.setText(null);
+
+                    adapter.addPair(new Pair<String,String>(alphabet.get(alphabetIndex),answer));
+
+                    alphabetIndex++;
+                }
             }
         });
     }
 
-    public void addListenerOnDeleteButton() {
-        deleteSelectedAnswersButton = (Button)findViewById(R.id.RemoveSelectedAnswers);
+    public void createAlphabet() {
+        alphabet.add("A");
+        alphabet.add("B");
+        alphabet.add("C");
+        alphabet.add("D");
+        alphabet.add("E");
+        alphabet.add("F");
+        alphabet.add("G");
+        alphabet.add("H");
+        alphabet.add("I");
+        alphabet.add("J");
+        alphabet.add("K");
+        alphabet.add("L");
+        alphabet.add("M");
+        alphabet.add("N");
+        alphabet.add("O");
+        alphabet.add("P");
+        alphabet.add("Q");
+        alphabet.add("R");
+        alphabet.add("S");
+        alphabet.add("T");
+        alphabet.add("U");
+        alphabet.add("V");
+        alphabet.add("W");
+        alphabet.add("X");
+        alphabet.add("Y");
+        alphabet.add("Z");
+    }
 
-        deleteSelectedAnswersButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg) {
-                CheckBox cb;
-                int listSize = aList.size();
-                for (int x = 0; x < listSize; x++) {
-                    cb = (CheckBox)listView.getChildAt(x).findViewById(R.id.checkBox);
-                    if(cb.isChecked()){
-                        //delete that cell
-                        cb.setChecked(false);
-                        aList.remove(x);
-                    }
+    private class MyAdapter extends BaseAdapter {
+
+        private List<Pair<String, String>> mList;
+
+        public MyAdapter() {
+            mList = new ArrayList<Pair<String, String>>();
+        }
+
+        public void addPair(Pair<String, String> pair) {
+            mList.add(pair);
+            notifyDataSetChanged();
+        }
+
+        public void setList(List<Pair<String, String>> list) {
+            mList = list;
+            notifyDataSetChanged();
+        }
+
+        public List<Pair<String, String>> getList() {
+            return mList;
+        }
+
+        public void deleteSelectedItems() {
+            SparseBooleanArray checkedItemIndexes =  listView.getCheckedItemPositions();
+            List<Pair<String, String>> deleteItems = new ArrayList<Pair<String, String>>();
+            List<Pair<String, String>> newmList = new ArrayList<Pair<String, String>>();
+
+            for(int i = 0; i < mList.size(); i++) {
+                if(checkedItemIndexes.get(i) == true) {
+                    deleteItems.add(mList.get(i));
                 }
-
-                adapter.notifyDataSetChanged();
             }
-        });
+
+            for (int i = 0; i < mList.size(); i++) {
+                if (listView.isItemChecked(i)) {
+                    listView.setItemChecked(i, false);
+                }
+            }
+
+            for(int i = 0; i < deleteItems.size(); i++) {
+                mList.remove(deleteItems.get(i));
+            }
+
+            for(int i = 0; i < mList.size(); i++) {
+                newmList.add(new Pair<String,String>(alphabet.get(i), mList.get(i).second));
+            }
+
+            mList = newmList;
+
+            alphabetIndex = mList.size();
+
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public int getCount() {
+            return mList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            //on first create
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.create_multiple_choice_list_item_view, null);
+            }
+
+            // Check box state
+            CheckBox box = (CheckBox) convertView.findViewById(R.id.checkBox);
+            box.setOnCheckedChangeListener(null);
+            box.setChecked(listView.isItemChecked(position));
+            box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    listView.setItemChecked(position, isChecked);
+                }
+            });
+
+            // TextViews
+            Pair<String, String> pair = mList.get(position);
+            TextView answer = (TextView) convertView.findViewById(R.id.Answer);
+            TextView answerID = (TextView) convertView.findViewById(R.id.AnswerID);
+            answerID.setText(pair.first);
+            answer.setText(pair.second);
+
+            return convertView;
+        }
     }
 }

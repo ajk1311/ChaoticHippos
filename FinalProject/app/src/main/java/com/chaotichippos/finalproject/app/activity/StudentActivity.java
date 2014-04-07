@@ -11,10 +11,15 @@ public class StudentActivity extends MainActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getQuestionListFragment().setQuestionListEditable(false);
 		if (savedInstanceState == null) {
 
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		getQuestionListFragment().setQuestionListEditable(false);
 	}
 
 	@Override

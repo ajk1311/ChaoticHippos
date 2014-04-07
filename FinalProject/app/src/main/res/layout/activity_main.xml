@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.android.support.v4.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/main_pane"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -16,4 +16,4 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"/>
 
-</com.android.support.v4.widget.SlidingPaneLayout>
+</android.support.v4.widget.SlidingPaneLayout>

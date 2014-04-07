@@ -6,16 +6,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Question;
+import com.chaotichippos.finalproject.app.model.Test;
 import com.chaotichippos.finalproject.app.view.EditableQuestionListItemView;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 
 import java.util.List;
 
@@ -50,6 +53,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	//================================================================
 
 	private ListView mListView;
+	private QuestionListAdapter mListAdapter;
 
 	/** {@code true} if the user can add or remove questions from the list */
 	private boolean mIsEditable = true;
@@ -90,7 +94,8 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		if (mIsEditable) {
 			mListView.addFooterView(mAddQuestionListFooterView);
 		}
-		mListView.setAdapter(new QuestionListAdapter());
+		mListAdapter = new QuestionListAdapter();
+		mListView.setAdapter(mListAdapter);
 	}
 
 	@Override
@@ -133,15 +138,40 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		}
 		mIsEditable = editable;
 		// Safely adds or removes the footer by making sure it is called when no adapter is set
-		ListAdapter adapter = mListView.getAdapter();
 		mListView.setAdapter(null);
 		if (mIsEditable) {
 			mListView.addFooterView(mAddQuestionListFooterView);
 		} else {
 			mListView.removeFooterView(mAddQuestionListFooterView);
 		}
-		mListView.setAdapter(adapter);
-		((BaseAdapter) adapter).notifyDataSetChanged();
+		mListView.setAdapter(mListAdapter);
+		mListAdapter.notifyDataSetChanged();
+	}
+
+	/**
+	 * Called when the current {@link com.chaotichippos.finalproject.app.model.Test} is
+	 * loaded in the {@link com.chaotichippos.finalproject.app.activity.MainActivity}
+	 *
+	 * @param test The current Test from the instructor
+	 */
+	public void onTestLoaded(Test test) {
+		ParseQuery<Question> questionQuery = ParseQuery.getQuery(Question.class);
+		questionQuery.whereEqualTo("parentExam", test.getObjectId());
+		questionQuery.findInBackground(new FindCallback<Question>() {
+			@Override
+			public void done(List<Question> questions, ParseException e) {
+				if (!isAdded()) {
+					return;
+				}
+				if (e == null) {
+					mListAdapter.swapQuestions(questions);
+				} else {
+					Toast.makeText(getActivity(), "Error loading test questions: " + e.getMessage(),
+							Toast.LENGTH_SHORT)
+							.show();
+				}
+			}
+		});
 	}
 
 	/**
@@ -150,21 +180,19 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	 * @param question The question to display
 	 */
 	public void addQuestion(Question question) {
-		final QuestionListAdapter adapter = (QuestionListAdapter) mListView.getAdapter();
-		adapter.addQuestion(question);
-		adapter.setQuestionSelected(adapter.getCount() - 1);
+		mListAdapter.addQuestion(question);
+		mListAdapter.setQuestionSelected(mListAdapter.getCount() - 1);
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		final Adapter adapter = parent.getAdapter();
-		if (position == adapter.getCount()) {
+		if (position == mListAdapter.getCount()) {
 			// The "add question" footer was selected
 			mListener.onAddQuestionRequested();
 		} else {
 			// A question was selected
-			((QuestionListAdapter) mListView.getAdapter()).setQuestionSelected(position);
-			mListener.onQuestionSelected((Question) adapter.getItem(position));
+			mListAdapter.setQuestionSelected(position);
+			mListener.onQuestionSelected((Question) mListAdapter.getItem(position));
 		}
 	}
 

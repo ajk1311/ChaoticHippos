@@ -6,11 +6,16 @@ import android.support.v4.widget.SlidingPaneLayout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.dialog.QuestionAdditionDialogFragment;
 import com.chaotichippos.finalproject.app.fragment.QuestionListFragment;
 import com.chaotichippos.finalproject.app.model.Question;
+import com.chaotichippos.finalproject.app.model.Test;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 
 /**
  * Base class for out application's two main {@link android.app.Activity}s.
@@ -59,6 +64,9 @@ public abstract class MainActivity extends Activity
 	// Fields
 	//================================================================
 
+	/** The current test from the instructor */
+	private Test mCurrentTest;
+
 	/** The main layout for the content of the Activity */
 	private SlidingPaneLayout mMainPane;
 
@@ -75,9 +83,13 @@ public abstract class MainActivity extends Activity
 		setContentView(R.layout.activity_main);
 		mMainPane = (SlidingPaneLayout) findViewById(R.id.main_pane);
 		mMainPane.setPanelSlideListener(new MainPanelSlideListener());
+		mMainPane.setShadowResource(R.drawable.pane_shadow);
+		mMainPane.setParallaxDistance(getResources()
+				.getDimensionPixelSize(R.dimen.question_list_parallax));
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.replace(R.id.list_fragment_container, new QuestionListFragment()).commit();
+			loadTestFromServer();
 		}
 	}
 
@@ -137,6 +149,24 @@ public abstract class MainActivity extends Activity
 		((QuestionListFragment) getFragmentManager()
 				.findFragmentById(R.id.list_fragment_container)).addQuestion(question);
 		showViewWhenAppropriate(question);
+	}
+
+	private void loadTestFromServer() {
+		ParseQuery<Test> testQuery = ParseQuery.getQuery(Test.class);
+		testQuery.orderByDescending("createdAt");
+		testQuery.getFirstInBackground(new GetCallback<Test>() {
+			@Override
+			public void done(Test test, ParseException e) {
+				if (e == null) {
+					mCurrentTest = test;
+					getQuestionListFragment().onTestLoaded(mCurrentTest);
+				} else {
+					Toast.makeText(MainActivity.this, "Error loading test: " + e.getMessage(),
+							Toast.LENGTH_SHORT)
+							.show();
+				}
+			}
+		});
 	}
 
 	/** Either shows a view for the given question immediately,

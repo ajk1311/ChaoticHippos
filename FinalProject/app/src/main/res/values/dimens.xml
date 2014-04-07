@@ -7,4 +7,6 @@
 	<dimen name="margin_small">8dp</dimen>
 	<dimen name="list_item_height">?android:listPreferredItemHeight</dimen>
 
+	<dimen name="question_list_parallax">32dp</dimen>
+
 </resources>

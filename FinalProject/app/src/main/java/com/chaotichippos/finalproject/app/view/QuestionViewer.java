@@ -17,10 +17,10 @@ public interface QuestionViewer {
 	public Question getQuestion();
 
 	/**
-	 * @return An {@link com.chaotichippos.finalproject.app.model.Answer} object to be
+	 * @return An array of {@link com.chaotichippos.finalproject.app.model.Answer} objects to be
 	 * added to a {@link com.chaotichippos.finalproject.app.model.Submission}
 	 */
-	public Answer getAnswers();
+	public Answer getAnswer();
 
 	/**
 	 * Tells the {@link android.view.View} to display this {@link com.chaotichippos.finalproject.app.model.Question}.

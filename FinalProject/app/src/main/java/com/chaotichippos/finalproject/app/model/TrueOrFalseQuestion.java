@@ -1,5 +1,8 @@
 package com.chaotichippos.finalproject.app.model;
 
+import com.parse.ParseClassName;
+
+@ParseClassName("Question")
 public class TrueOrFalseQuestion extends Question {
 
 	private static final String KEY_QUESTION_TEXT = "questionText";

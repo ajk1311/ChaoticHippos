@@ -1,8 +1,8 @@
 package com.chaotichippos.finalproject.app.model;
 
-/**
- *
- */
+import com.parse.ParseClassName;
+
+@ParseClassName("Question")
 public class FillInTheBlankQuestion extends Question {
 
     private static final String KEY_ANSWER1 = "answer1";

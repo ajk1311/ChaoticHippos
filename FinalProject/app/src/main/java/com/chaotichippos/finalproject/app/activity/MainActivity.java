@@ -6,6 +6,7 @@ import android.support.v4.widget.SlidingPaneLayout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.chaotichippos.finalproject.app.R;
@@ -70,6 +71,9 @@ public abstract class MainActivity extends Activity
 	/** The main layout for the content of the Activity */
 	private SlidingPaneLayout mMainPane;
 
+	/** The container layout where the content for each question goes */
+	private FrameLayout mContentContainer;
+
 	/** A task to be run when the pane is done sliding, if it is indeed slidable */
 	private static Runnable sPendingOperation = null;
 
@@ -86,6 +90,7 @@ public abstract class MainActivity extends Activity
 		mMainPane.setShadowResource(R.drawable.pane_shadow);
 		mMainPane.setParallaxDistance(getResources()
 				.getDimensionPixelSize(R.dimen.question_list_parallax));
+		mContentContainer = (FrameLayout) findViewById(R.id.content_container);
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.replace(R.id.list_fragment_container, new QuestionListFragment()).commit();
@@ -122,6 +127,11 @@ public abstract class MainActivity extends Activity
 		return mMainPane;
 	}
 
+	/** @return the {@link android.widget.FrameLayout} that holds question contents */
+	public FrameLayout getContentContainer() {
+		return mContentContainer;
+	}
+
 	/** @return The {@link com.chaotichippos.finalproject.app.fragment.QuestionListFragment}
 	 * containing the questions
 	 */
@@ -144,7 +154,7 @@ public abstract class MainActivity extends Activity
 
 	@Override
 	public void onQuestionTypeSelected(Question.Type type) {
-		final Question question = new Question();
+		Question question = new Question();
 		question.setType(type);
 		((QuestionListFragment) getFragmentManager()
 				.findFragmentById(R.id.list_fragment_container)).addQuestion(question);

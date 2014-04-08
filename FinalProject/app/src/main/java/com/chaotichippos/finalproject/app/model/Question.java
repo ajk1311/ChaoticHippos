@@ -61,6 +61,11 @@ public class Question extends ParseObject {
 	}
 
 	public ParseObject getData() {
-		return getParseObject(KEY_DATA);
+		ParseObject data = getParseObject(KEY_DATA);
+		if (data == null) {
+			data = new ParseObject("data");
+			put(KEY_DATA, data);
+		}
+		return data;
 	}
 }

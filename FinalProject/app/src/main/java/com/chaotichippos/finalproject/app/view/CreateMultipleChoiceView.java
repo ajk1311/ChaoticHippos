@@ -2,50 +2,33 @@ package com.chaotichippos.finalproject.app.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Pair;
+import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.util.Log;
-import android.widget.Button;
-import android.view.View;
-import android.view.View.OnClickListener;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.ListView;
-import android.widget.CheckBox;
-
-import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.util.SparseBooleanArray;
-import android.widget.CheckedTextView;
 
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.MultipleChoiceQuestion;
 import com.chaotichippos.finalproject.app.model.Question;
 
-import org.w3c.dom.Text;
-
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -306,7 +289,7 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
     }
 
     @Override
-    public Answer getAnswers() {
+    public Answer getAnswer() {
         return null;
     }
 

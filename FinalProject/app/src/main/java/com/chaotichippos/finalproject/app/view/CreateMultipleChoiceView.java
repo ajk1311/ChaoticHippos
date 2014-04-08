@@ -38,16 +38,21 @@ import android.util.SparseBooleanArray;
 import android.widget.CheckedTextView;
 
 import com.chaotichippos.finalproject.app.R;
+import com.chaotichippos.finalproject.app.model.Answer;
+import com.chaotichippos.finalproject.app.model.MultipleChoiceQuestion;
+import com.chaotichippos.finalproject.app.model.Question;
 
 import org.w3c.dom.Text;
 
 import java.util.Map;
 import java.util.Set;
 
+
+
 /**
  * Created by SebastianMartinez on 3/31/14.
  */
-public class CreateMultipleChoiceView extends RelativeLayout{
+public class CreateMultipleChoiceView extends RelativeLayout implements QuestionViewer {
     private static final String TAG = "MainActivity";
 
     EditText questionTextEditor;
@@ -64,6 +69,8 @@ public class CreateMultipleChoiceView extends RelativeLayout{
     int alphabetIndex = 0;
 
     MultiChoiceModeListener mMultiChoiceModeListener;
+
+    MultipleChoiceQuestion thisQuestion;
 
     public CreateMultipleChoiceView(Context context)  {
         this(context, null, 0);
@@ -282,6 +289,40 @@ public class CreateMultipleChoiceView extends RelativeLayout{
             answer.setText(pair.second);
 
             return convertView;
+        }
+    }
+
+    @Override
+    public Question getQuestion() {
+        thisQuestion.setQuestionText(questionTextEditor.getText().toString());
+
+        List<Pair<String, String>> list = adapter.getList();
+
+        for(int i = 0; i < list.size(); i++) {
+            thisQuestion.addChoice(list.get(i).second);
+        }
+
+        return thisQuestion;
+    }
+
+    @Override
+    public Answer getAnswers() {
+        return null;
+    }
+
+    @Override
+    public void setQuestion(Question question) {
+        thisQuestion = (MultipleChoiceQuestion)question;
+
+        if(thisQuestion.getQuestionText().length() > 0) {
+            questionTextEditor.setText(thisQuestion.getQuestionText());
+        }
+
+        if(thisQuestion.getChoices().size() > 0) {
+            List<String> list = thisQuestion.getChoices();
+            for(int i = 0; i < list.size(); i++) {
+                adapter.addPair(new Pair<String,String>(alphabet.get(alphabetIndex),list.get(i)));
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ package com.chaotichippos.finalproject.app.view;
 
 import android.content.Context;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -115,6 +116,7 @@ public class TrueFalseCreateView extends LinearLayout implements QuestionViewer 
 			textView.setOnClickListener(mSelectionListener);
 			textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
 			textView.setText(answer == ANSWER_TRUE ? "T" : "F");
+			textView.setGravity(Gravity.CENTER);
 			textView.setLayoutParams(PARAMS);
 			textView.setClickable(true);
 			return textView;

@@ -108,7 +108,12 @@ public class CreateMatchingView extends LinearLayout {
 
             @Override
             public void onDestroyActionMode(ActionMode actionMode) {
-
+                for(int i:selectedIndexes)
+                {
+                    matchItems.get(i).setSelected(false);
+                }
+                selectedIndexes.clear();
+                listAdapter.notifyDataSetChanged();
             }
         });
 

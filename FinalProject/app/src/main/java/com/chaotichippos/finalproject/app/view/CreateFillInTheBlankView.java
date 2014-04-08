@@ -26,7 +26,6 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
 
     private Question question;
     private Button insertBlankButton;
-    private Button createButton;
     private EditText questionTitleEditText;
     private EditText questionTextEditText;
     private EditText blank1EditText;
@@ -44,7 +43,6 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         question.setType(Question.Type.FILL_IN_THE_BLANK);
         numBlanks = 0;
         insertBlankButton = (Button) findViewById(R.id.fitb_insertblank_button);
-        createButton = (Button) findViewById(R.id.fitb_create_button);
         questionTitleEditText = (EditText) findViewById(R.id.fitb_title_edittext);
         questionTextEditText = (EditText) findViewById(R.id.fitb_qtext_edittext);
         blank1EditText = (EditText) findViewById(R.id.fitb_blank1_edittext);
@@ -144,6 +142,12 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     }
     @Override
     public Question getQuestion() {
+        ParseObject data = new ParseObject("fillInTheBlank");
+        data.add("questionText", questionTextEditText.getText().toString());
+        data.add("blank1", blank1EditText.getText().toString());
+        data.add("blank2", blank2EditText.getText().toString());
+        data.add("blank3", blank3EditText.getText().toString());
+        question.setData(data);
         return question;
     }
 

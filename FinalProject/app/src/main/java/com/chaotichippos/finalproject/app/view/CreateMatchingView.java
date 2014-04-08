@@ -112,6 +112,7 @@ public class CreateMatchingView extends LinearLayout {
                 {
                     matchItems.get(i).setSelected(false);
                 }
+                selectedIndexes.clear();
                 listAdapter.notifyDataSetChanged();
             }
         });

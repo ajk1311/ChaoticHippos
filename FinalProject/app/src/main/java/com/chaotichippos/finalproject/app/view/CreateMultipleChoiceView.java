@@ -30,7 +30,8 @@ import com.chaotichippos.finalproject.app.model.Question;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import android.os.Parcelable;
+import android.os.Bundle;
 
 /**
  * Created by SebastianMartinez on 3/31/14.
@@ -306,6 +307,63 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
             for(int i = 0; i < list.size(); i++) {
                 adapter.addPair(new Pair<String,String>(alphabet.get(alphabetIndex),list.get(i)));
             }
+        }
+    }
+//-------------------------------------------------------
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        // The vars you want to save - in this instance a string and a boolean
+
+        String questionString = questionTextEditor.getText().toString();
+        String answerString = answerTextEditor.getText().toString();
+        List<Pair<String, String>> list = adapter.getList();
+
+        State state = new State(super.onSaveInstanceState(), questionString, answerString, list);
+        bundle.putParcelable(State.STATE, state);
+        return bundle;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+            State customViewState = (State) bundle.getParcelable(State.STATE);
+            // The vars you saved - do whatever you want with them
+            questionTextEditor.setText(customViewState.getQuestionText());
+            answerTextEditor.setText(customViewState.getAnswerText());
+            adapter.setList(customViewState.getList());
+
+            super.onRestoreInstanceState(customViewState.getSuperState());
+            return;
+        }
+        super.onRestoreInstanceState(BaseSavedState.EMPTY_STATE); // Stops a bug with the wrong state being passed to the super
+    }
+
+    protected static class State extends BaseSavedState {
+        protected static final String STATE = "YourCustomView.STATE";
+
+        private final String questionText;
+        private final String answerText;
+        private final List<Pair<String, String>> list;
+
+        public State(Parcelable superState, String questionText, String answerText, List<Pair<String, String>> list) {
+            super(superState);
+            this.questionText = questionText;
+            this.answerText = answerText;
+            this.list = list;
+        }
+
+        public String getAnswerText() {
+            return this.answerText;
+        }
+
+        public String getQuestionText() {
+            return this.questionText;
+        }
+
+        public List<Pair<String, String>> getList(){
+            return this.list;
         }
     }
 }

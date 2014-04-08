@@ -74,7 +74,7 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     }
 
     @Override
-    public Answer getAnswers() {
+    public Answer getAnswer() {
         return null;
     }
 }

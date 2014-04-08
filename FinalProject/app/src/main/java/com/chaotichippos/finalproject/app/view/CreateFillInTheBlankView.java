@@ -7,14 +7,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.chaotichippos.finalproject.app.R;
-import com.chaotichippos.finalproject.app.model.FillInTheBlankQuestion;
+import com.chaotichippos.finalproject.app.model.Answer;
+import com.chaotichippos.finalproject.app.model.Question;
+import com.parse.ParseObject;
 
 /**
  *
  */
-public class CreateFillInTheBlankView extends LinearLayout {
+public class CreateFillInTheBlankView extends LinearLayout implements QuestionViewer {
 
-    private FillInTheBlankQuestion question;
+    private Question question;
     private Button insertBlankButton;
     private Button createButton;
     private EditText questionTitleEditText;
@@ -25,7 +27,8 @@ public class CreateFillInTheBlankView extends LinearLayout {
 
     public CreateFillInTheBlankView(Context context) {
         super(context);
-        question = new FillInTheBlankQuestion();
+        question = new Question();
+        question.setType(Question.Type.FILL_IN_THE_BLANK);
         insertBlankButton = (Button) findViewById(R.id.fitb_insertblank_button);
         createButton = (Button) findViewById(R.id.fitb_create_button);
         questionTitleEditText = (EditText) findViewById(R.id.fitb_title_edittext);
@@ -50,14 +53,28 @@ public class CreateFillInTheBlankView extends LinearLayout {
         createButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                question.setQuestionText(questionTextEditText.getText().toString());
-                question.setAnswer1(blank1EditText.getText().toString());
-                question.setAnswer2(blank2EditText.getText().toString());
-                question.setAnswer3(blank3EditText.getText().toString());
+                ParseObject data = new ParseObject("fillInTheBlank");
+                data.add("questionText", questionTextEditText.getText().toString());
+                data.add("blank1", blank1EditText.getText().toString());
+                data.add("blank2", blank2EditText.getText().toString());
+                data.add("blank3", blank3EditText.getText().toString());
+                question.setData(data);
             }
         });
     }
 
+    @Override
+    public Question getQuestion() {
+        return question;
+    }
 
+    @Override
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 
+    @Override
+    public Answer getAnswers() {
+        return null;
+    }
 }

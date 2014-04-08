@@ -3,7 +3,6 @@ package com.chaotichippos.finalproject.app.view;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -18,8 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import com.chaotichippos.finalproject.app.R;
+
+import java.util.ArrayList;
 
 
 /**
@@ -57,8 +57,8 @@ public class StudentMatchingView extends LinearLayout{
     }
 
 
-    public StudentMatchingView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
+    public StudentMatchingView(Context context) {
+        super(context);
 
         //((Activity)getContext()).startActionMode();
 

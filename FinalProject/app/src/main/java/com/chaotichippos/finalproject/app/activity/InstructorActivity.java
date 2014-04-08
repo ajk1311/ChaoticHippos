@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.chaotichippos.finalproject.app.model.Question;
 import com.chaotichippos.finalproject.app.view.CreateFillInTheBlankView;
+import com.chaotichippos.finalproject.app.view.CreateMatchingView;
 import com.chaotichippos.finalproject.app.view.CreateMultipleChoiceView;
 import com.chaotichippos.finalproject.app.view.TrueFalseCreateView;
 
@@ -41,7 +42,7 @@ public class InstructorActivity extends MainActivity {
 				break;
 
 			case MATCHING:
-
+				view = new CreateMatchingView(this);
 				break;
 
 			case TRUE_OR_FALSE:

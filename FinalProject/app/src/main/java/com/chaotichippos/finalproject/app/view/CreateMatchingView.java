@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -22,16 +21,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.chaotichippos.finalproject.app.R;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-/**
- * Created by Nick on 4/3/14.
- */
-
-
 
 public class CreateMatchingView extends LinearLayout {
 
@@ -54,8 +48,8 @@ public class CreateMatchingView extends LinearLayout {
 
 
 
-    public CreateMatchingView(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
+    public CreateMatchingView(Context context) {
+        super(context);
 
         //((Activity)getContext()).startActionMode();
 
@@ -114,7 +108,12 @@ public class CreateMatchingView extends LinearLayout {
 
             @Override
             public void onDestroyActionMode(ActionMode actionMode) {
-
+                for(int i:selectedIndexes)
+                {
+                    matchItems.get(i).setSelected(false);
+                }
+                selectedIndexes.clear();
+                listAdapter.notifyDataSetChanged();
             }
         });
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
+import com.chaotichippos.finalproject.app.model.TrueOrFalseQuestion;
 import com.chaotichippos.finalproject.app.util.ScreenUtil;
 
 /**
@@ -25,36 +26,54 @@ public class TrueFalseCreateView extends LinearLayout implements QuestionViewer 
 	private static final int ANSWER_FALSE = 1;
 
 
-	//	Views
-	//================
-
 	private EditText mQuestionText;
 	private TrueFalseAnswerGroup mAnswer;
 
+	private TrueOrFalseQuestion mQuestion;
+
+
 	public TrueFalseCreateView(Context context) {
 		super(context);
-		mQuestionText = new EditText(context);
-		final LayoutParams params = new LayoutParams(
-				ViewGroup.LayoutParams.MATCH_PARENT,
-				ViewGroup.LayoutParams.WRAP_CONTENT);
+		setOrientation(VERTICAL);
+
 		final int marginSmall = ScreenUtil.getDimensionPixelSize(8);
 		final int marginMedium = ScreenUtil.getDimensionPixelSize(16);
-//		params.setMargins();
-	}
 
-	@Override
-	public Question getQuestion() {
-		return null;
-	}
+		final LayoutParams params = new LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT, // Width
+				ViewGroup.LayoutParams.WRAP_CONTENT); // Height
+		params.setMargins(marginMedium, marginMedium, marginMedium, marginSmall);
 
-	@Override
-	public Answer getAnswers() {
-		return null;
+		final LayoutParams params2 = new LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT, // Width
+				0,  // Height
+				1.0f); // Weight
+		params2.setMargins(marginMedium, marginSmall, marginMedium, marginMedium);
+
+		mQuestionText = new EditText(context);
+		addView(mQuestionText, params);
+
+		mAnswer = new TrueFalseAnswerGroup(context);
+		addView(mAnswer, params2);
 	}
 
 	@Override
 	public void setQuestion(Question question) {
+		mQuestion = (TrueOrFalseQuestion) question;
+		mQuestionText.setText(mQuestion.getQuestionText());
+		mAnswer.setSelectedIndex(mQuestion.getAnswer() ? ANSWER_TRUE : ANSWER_FALSE);
+	}
 
+	@Override
+	public Question getQuestion() {
+		mQuestion.setQuestionText(mQuestionText.getText().toString().trim());
+		mQuestion.setAnswer(mAnswer.getSelectedAnswerIndex() == ANSWER_TRUE);
+		return mQuestion;
+	}
+
+	@Override
+	public Answer getAnswer() {
+		return null;
 	}
 
 	/** Layout that holds the two choices for a true or false question */
@@ -79,6 +98,13 @@ public class TrueFalseCreateView extends LinearLayout implements QuestionViewer 
 		/** @return Either ANSWER_TRUE, _FALSE, or _INVALID */
 		public int getSelectedAnswerIndex() {
 			return mSelectedIndex;
+		}
+
+		public void setSelectedIndex(int index) {
+			mSelectedIndex = index;
+			for (int i = 0, sz = getChildCount(); i < sz; i++) {
+				getChildAt(i).setActivated(i == mSelectedIndex);
+			}
 		}
 
 		/** Build a {@link android.widget.TextView} that displays the answer option */

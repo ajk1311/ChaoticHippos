@@ -2,52 +2,34 @@ package com.chaotichippos.finalproject.app.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Pair;
+import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.util.Log;
-import android.widget.Button;
-import android.view.View;
-import android.view.View.OnClickListener;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.ListView;
-import android.widget.CheckBox;
-
-import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.util.SparseBooleanArray;
-import android.widget.CheckedTextView;
 
 import com.chaotichippos.finalproject.app.R;
+import com.chaotichippos.finalproject.app.model.Answer;
+import com.chaotichippos.finalproject.app.model.MultipleChoiceQuestion;
+import com.chaotichippos.finalproject.app.model.Question;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.Map;
-import java.util.Set;
-
-/**
- * Created by SebastianMartinez on 3/31/14.
- */
-public class CreateMultipleChoiceView extends RelativeLayout{
+public class CreateMultipleChoiceView extends RelativeLayout implements QuestionViewer {
     private static final String TAG = "MainActivity";
 
     EditText questionTextEditor;
@@ -63,7 +45,7 @@ public class CreateMultipleChoiceView extends RelativeLayout{
     List<String> alphabet = new ArrayList<String>();
     int alphabetIndex = 0;
 
-    MultiChoiceModeListener mMultiChoiceModeListener;
+    MultipleChoiceQuestion thisQuestion;
 
     public CreateMultipleChoiceView(Context context)  {
         this(context, null, 0);
@@ -83,9 +65,6 @@ public class CreateMultipleChoiceView extends RelativeLayout{
         /** For contextual action mode, the choice mode should be CHOICE_MODE_MULTIPLE_MODAL */
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
-        /** Setting multichoicemode listener for the listview */
-        listView.setMultiChoiceModeListener(mMultiChoiceModeListener);
-
         questionTextEditor = (EditText)findViewById(R.id.QuestionText);
         answerTextEditor = (EditText)findViewById(R.id.CurrentAnswerText);
 
@@ -102,36 +81,36 @@ public class CreateMultipleChoiceView extends RelativeLayout{
         // Setting the adapter to the listView
         listView.setAdapter(adapter);
 
-        mMultiChoiceModeListener = new AbsListView.MultiChoiceModeListener() {
+        listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
 
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                return false;
-            }
+			@Override
+			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+				return false;
+			}
 
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-            }
+			@Override
+			public void onDestroyActionMode(ActionMode mode) {
+			}
 
-            /** This will be invoked when action mode is created. In our case , it is on long clicking a menu item */
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                final Activity activity = (Activity) getContext();
-                activity.getMenuInflater().inflate(R.menu.create_multiple_choice_menu, menu);
-                return true;
-            }
+			/** This will be invoked when action mode is created. In our case , it is on long clicking a menu item */
+			@Override
+			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				final Activity activity = (Activity) getContext();
+				activity.getMenuInflater().inflate(R.menu.create_multiple_choice_menu, menu);
+				return true;
+			}
 
-            /** Invoked when an action in the action mode is clicked */
-            @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                deleteCheckedItems();
-                return false;
-            }
+			/** Invoked when an action in the action mode is clicked */
+			@Override
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				deleteCheckedItems();
+				return false;
+			}
 
-            @Override
-            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-            }
-        };
+			@Override
+			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+			}
+		});
     }
 
     /** Returning the selected answers */
@@ -282,6 +261,40 @@ public class CreateMultipleChoiceView extends RelativeLayout{
             answer.setText(pair.second);
 
             return convertView;
+        }
+    }
+
+    @Override
+    public Question getQuestion() {
+        thisQuestion.setQuestionText(questionTextEditor.getText().toString());
+
+        List<Pair<String, String>> list = adapter.getList();
+
+        for(int i = 0; i < list.size(); i++) {
+            thisQuestion.addChoice(list.get(i).second);
+        }
+
+        return thisQuestion;
+    }
+
+    @Override
+    public Answer getAnswer() {
+        return null;
+    }
+
+    @Override
+    public void setQuestion(Question question) {
+        thisQuestion = (MultipleChoiceQuestion)question;
+
+        if(thisQuestion.getQuestionText().length() > 0) {
+            questionTextEditor.setText(thisQuestion.getQuestionText());
+        }
+
+        if(thisQuestion.getChoices().size() > 0) {
+            List<String> list = thisQuestion.getChoices();
+            for(int i = 0; i < list.size(); i++) {
+                adapter.addPair(new Pair<String,String>(alphabet.get(alphabetIndex),list.get(i)));
+            }
         }
     }
 }

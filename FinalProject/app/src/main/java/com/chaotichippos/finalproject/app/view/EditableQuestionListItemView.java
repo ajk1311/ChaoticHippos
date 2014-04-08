@@ -2,6 +2,7 @@ package com.chaotichippos.finalproject.app.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,9 +27,14 @@ public class EditableQuestionListItemView extends LinearLayout {
 	public EditableQuestionListItemView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		setOrientation(HORIZONTAL);
-		setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
+		setDescendantFocusability(FOCUS_BLOCK_DESCENDANTS);
 		setMinimumHeight(context.getResources()
 				.getDimensionPixelSize(R.dimen.list_item_height));
+		TypedValue listPreferredHeight = new TypedValue();
+		context.getTheme().resolveAttribute(android.R.attr.listPreferredItemHeight,
+				listPreferredHeight, true);
+		setMinimumHeight((int) listPreferredHeight
+				.getDimension(context.getResources().getDisplayMetrics()));
 		setDividerDrawable(context.getResources().getDrawable(R.drawable.divider_vertical));
 		setShowDividers(SHOW_DIVIDER_MIDDLE);
 		setDividerPadding(context.getResources()

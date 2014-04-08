@@ -55,6 +55,7 @@ public class StudentActivity extends MainActivity {
 
 				break;
 		}
+		view.setId(0);
 		getContentContainer().removeAllViews();
 		getContentContainer().addView(view);
 	}

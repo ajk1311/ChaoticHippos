@@ -50,6 +50,7 @@ public class InstructorActivity extends MainActivity {
 				break;
 		}
 //		((QuestionViewer) view).setQuestion(question);
+		view.setId(0);
 		getContentContainer().removeAllViews();
 		getContentContainer().addView(view);
 	}

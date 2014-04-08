@@ -1,0 +1,96 @@
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context="com.example.Testing_493.app.MainActivity"
+android:layout_height="match_parent"
+android:layout_width="match_parent"
+android:orientation="vertical"
+    >
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_weight="3"
+    >
+
+
+
+    <ListView
+        android:id="@+id/createMatchingList1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_alignParentLeft="true">
+
+    </ListView>
+
+    <!--<View android:layout_width="50dp" android:layout_height="match_parent"/>-->
+<!---->
+<!---->
+    <!--<ListView-->
+        <!--android:id="@+id/matchingList2"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_alignParentRight="true">-->
+    <!--</ListView>-->
+
+
+</LinearLayout>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#939393"
+    android:layout_weight="16">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_weight=".1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight=".25"
+            >
+
+            <EditText
+                android:id="@+id/matchingText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Question"
+                android:textColorHint="#ffffff"
+                android:layout_weight="1"/>
+
+
+            <EditText
+                android:id="@+id/matchingText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Answer"
+                android:textColorHint="#ffffff"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/add_question"
+            android:text="+"
+            android:gravity="center_horizontal|center_vertical"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="?android:listPreferredItemHeight"
+            android:layout_weight="1.75"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+</LinearLayout>

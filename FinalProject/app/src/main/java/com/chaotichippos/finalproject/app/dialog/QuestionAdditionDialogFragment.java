@@ -60,6 +60,7 @@ public class QuestionAdditionDialogFragment extends DialogFragment
 		if (mListener != null) {
 			mListener.onQuestionTypeSelected((Question.Type) parent.getAdapter().getItem(position));
 		}
+		dismiss();
 	}
 
 	/** Provides views to display in the dialog's list based on the different question types */

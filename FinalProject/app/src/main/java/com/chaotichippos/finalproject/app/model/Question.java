@@ -12,7 +12,7 @@ import com.parse.ParseObject;
 public class Question extends ParseObject {
 
 	// Key names used by the internal ParseObject
-	private static final String KEY_TYPE = "type";
+	private static final String KEY_TYPE = "questionType";
 	private static final String KEY_IMAGE = "image";
 	private static final String KEY_DATA = "data";
 
@@ -61,6 +61,11 @@ public class Question extends ParseObject {
 	}
 
 	public ParseObject getData() {
-		return getParseObject(KEY_DATA);
+		ParseObject data = getParseObject(KEY_DATA);
+		if (data == null) {
+			data = new ParseObject("data");
+			put(KEY_DATA, data);
+		}
+		return data;
 	}
 }

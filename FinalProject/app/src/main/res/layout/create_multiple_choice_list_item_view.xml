@@ -3,34 +3,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+	android:gravity="center_vertical">
 
     <CheckBox
         android:id="@+id/checkBox"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="5"
-    />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_weight="1">
 
-        <EditText
+        <TextView
             android:id="@+id/AnswerID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-        />
+			android:layout_marginRight="8dp"
+			android:textStyle="bold"
+            android:textSize="16dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/Answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-        />
+            android:textSize="14dp" />
     </LinearLayout>
 
 </LinearLayout>

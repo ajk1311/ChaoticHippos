@@ -1,11 +1,11 @@
 package com.chaotichippos.finalproject.app.model;
 
+import com.parse.ParseClassName;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by SebastianMartinez on 4/7/14.
- */
+@ParseClassName("Question")
 public class MultipleChoiceQuestion extends Question {
 
     private static final String KEY_QUESTION_TEXT = "questionText";

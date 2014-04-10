@@ -1,10 +1,13 @@
 package com.chaotichippos.finalproject.app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
+import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Question;
 import com.chaotichippos.finalproject.app.view.CompleteFillInTheBlankView;
 import com.chaotichippos.finalproject.app.view.QuestionViewer;
@@ -34,7 +37,23 @@ public class StudentActivity extends MainActivity {
 
 	@Override
 	protected void setupSinglePaneMenu(MenuInflater inflater, Menu menu, boolean open) {
+		if (!open) {
+			menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE, "Switch to Instructor")
+					.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+		} else {
+			menu.clear();
+		}
+	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.menu_option_switch:
+				startActivity(new Intent(this, InstructorActivity.class)
+						.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

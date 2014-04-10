@@ -86,10 +86,8 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 	private static class TrueFalseAnswerGroup extends LinearLayout {
 
 		/** Each of the choices will have these parameters */
-		private static final LayoutParams PARAMS = new LayoutParams(
-				0, // Width
-				ViewGroup.LayoutParams.WRAP_CONTENT, // Height
-				1.0f); // Weight
+		private static final LayoutParams PARAMS = new LayoutParams(0,
+				ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
 
 		/** The currently selected answer. Should be ANSWER_TRUE, _FALSE, or _INVALID */
 		private int mSelectedIndex = ANSWER_INVALID;
@@ -141,6 +139,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 			}
 		}
 
+		/** Handles clicks on the true or false options */
 		private OnClickListener mSelectionListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {

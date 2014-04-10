@@ -41,6 +41,7 @@ public class StudentActivity extends MainActivity {
 		switch (question.getType()) {
 			case FILL_IN_THE_BLANK:
 				view = new CompleteFillInTheBlankView(this);
+                ((CompleteFillInTheBlankView) view).setQuestion(question);
 				break;
 
 			case MULTIPLE_CHOICE:

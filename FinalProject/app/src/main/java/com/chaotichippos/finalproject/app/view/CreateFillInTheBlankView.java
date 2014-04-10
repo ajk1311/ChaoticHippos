@@ -17,7 +17,11 @@ import android.widget.LinearLayout;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -26,7 +30,6 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
 
     private Question question;
     private Button insertBlankButton;
-    private EditText questionTitleEditText;
     private EditText questionTextEditText;
     private EditText blank1EditText;
     private ImageView blank1Image;
@@ -34,6 +37,7 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     private ImageView blank2Image;
     private EditText blank3EditText;
     private ImageView blank3Image;
+    private Button createButton;
     private int numBlanks = 0;
 
     public CreateFillInTheBlankView(Context context) {
@@ -43,7 +47,6 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         question.setType(Question.Type.FILL_IN_THE_BLANK);
         numBlanks = 0;
         insertBlankButton = (Button) findViewById(R.id.fitb_insertblank_button);
-        questionTitleEditText = (EditText) findViewById(R.id.fitb_title_edittext);
         questionTextEditText = (EditText) findViewById(R.id.fitb_qtext_edittext);
         blank1EditText = (EditText) findViewById(R.id.fitb_blank1_edittext);
         blank1Image = (ImageView) findViewById(R.id.fitb_blank1_img);
@@ -51,6 +54,28 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         blank2Image = (ImageView) findViewById(R.id.fitb_blank2_img);
         blank3EditText = (EditText) findViewById(R.id.fitb_blank3_edittext);
         blank3Image = (ImageView) findViewById(R.id.fitb_blank3_img);
+        createButton = (Button) findViewById(R.id.fitb_create_button);
+
+        createButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JSONObject data = new JSONObject();
+                try {
+                    data.put("questionText", questionTextEditText.getText().toString());
+                    data.put("blank1", blank1EditText.getText().toString());
+                    data.put("blank2", blank2EditText.getText().toString());
+                    data.put("blank3", blank3EditText.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                question.setData(data);
+                try {
+                    question.save();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         for(int i = 1; i <= 3; i++) {
             hideBlank(i);
@@ -66,12 +91,10 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
 
@@ -142,12 +165,21 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     }
     @Override
     public Question getQuestion() {
-        ParseObject data = new ParseObject("fillInTheBlank");
-        data.add("questionText", questionTextEditText.getText().toString());
-        data.add("blank1", blank1EditText.getText().toString());
-        data.add("blank2", blank2EditText.getText().toString());
-        data.add("blank3", blank3EditText.getText().toString());
+        JSONObject data = new JSONObject();
+        try {
+            data.put("questionText", questionTextEditText.getText().toString());
+            data.put("blank1", blank1EditText.getText().toString());
+            data.put("blank2", blank2EditText.getText().toString());
+            data.put("blank3", blank3EditText.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         question.setData(data);
+        try {
+            question.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return question;
     }
 

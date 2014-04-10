@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,12 +16,13 @@ import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
 
+import org.json.JSONException;
+
 /**
  * Created by David on 4/6/2014.
  */
 public class CompleteFillInTheBlankView extends LinearLayout implements QuestionViewer {
 
-    private TextView questionTitleTextView;
     private TextView questionTextTextView;
     private EditText blank1EditText;
     private EditText blank2EditText;
@@ -34,7 +36,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
 
     public CompleteFillInTheBlankView(Context context) {
         super(context);
-        questionTitleTextView = (TextView) findViewById(R.id.fitb_title_textview);
+        LayoutInflater.from(context).inflate(R.layout.complete_fill_in_the_blank_base_view, this, true);
         questionTextTextView = (TextView) findViewById(R.id.fitb_qtext_textview);
         blank1EditText = (EditText) findViewById(R.id.fitb_blank1_answer_edittext);
         blank2EditText = (EditText) findViewById(R.id.fitb_blank2_answer_edittext);
@@ -45,9 +47,6 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
         for(int i = 1; i <= 3; i++) {
             hideBlank(i);
         }
-
-        questionTitleTextView.setText(question.getType().getTitle());
-        setQuestionText();
     }
 
     private void hideBlank(int blank) {
@@ -84,15 +83,19 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     }
 
     private void setQuestionText() {
-        String qtext = question.getData().getString("questionType");
-        for(int i = 0; i < qtext.length(); i++) {
-            if(qtext.charAt(i) == (char) 1) {
-                insertBlank();
-                numBlanks++;
-                unhideBlank(numBlanks);
-            }
-            else {
-                questionTextTextView.append(Character.toString(qtext.charAt(i)));
+        String qtext = null;
+        try {
+            qtext = question.getData().getString("questionText");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(qtext != null) {
+            for (int i = 0; i < qtext.length(); i++) {
+                if (qtext.charAt(i) == (char) 1) {
+                    insertBlank();
+                } else {
+                    questionTextTextView.append(Character.toString(qtext.charAt(i)));
+                }
             }
         }
     }
@@ -121,6 +124,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     @Override
     public void setQuestion(Question question) {
         this.question = question;
+        setQuestionText();
     }
 
     @Override

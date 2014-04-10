@@ -5,6 +5,8 @@ import com.chaotichippos.finalproject.app.R;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+import org.json.JSONObject;
+
 /**
  * POJO for a question inside a {@link com.chaotichippos.finalproject.app.model.Test}
  */
@@ -56,16 +58,17 @@ public class Question extends ParseObject {
 		return getString(KEY_IMAGE);
 	}
 
-	public void setData(ParseObject data) {
+	public void setData(JSONObject data) {
 		put(KEY_DATA, data);
 	}
 
-	public ParseObject getData() {
-		ParseObject data = getParseObject(KEY_DATA);
+	public JSONObject getData() {
+		JSONObject data = getJSONObject(KEY_DATA);
 		if (data == null) {
-			data = new ParseObject("data");
+			data = new JSONObject();
 			put(KEY_DATA, data);
 		}
 		return data;
 	}
+
 }

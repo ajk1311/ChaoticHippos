@@ -4,14 +4,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:id="@+id/fitb_title_textview"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        />
-    <TextView
         android:id="@+id/fitb_qtext_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
         />
     <LinearLayout
         android:orientation="horizontal"

@@ -2,6 +2,8 @@ package com.chaotichippos.finalproject.app.model;
 
 import com.parse.ParseClassName;
 
+import org.json.JSONException;
+
 @ParseClassName("Question")
 public class TrueOrFalseQuestion extends Question {
 
@@ -14,18 +16,36 @@ public class TrueOrFalseQuestion extends Question {
 	}
 
 	public void setQuestionText(String questionText) {
-		getData().put(KEY_QUESTION_TEXT, questionText);
-	}
+        try {
+            getData().put(KEY_QUESTION_TEXT, questionText);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
 	public String getQuestionText() {
-		return getData().getString(KEY_QUESTION_TEXT);
-	}
+        try {
+            return getData().getString(KEY_QUESTION_TEXT);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 	public void setAnswer(boolean answer) {
-		getData().put(KEY_ANSWER, answer);
-	}
+        try {
+            getData().put(KEY_ANSWER, answer);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
 	public boolean getAnswer() {
-		return getData().getBoolean(KEY_ANSWER);
-	}
+        try {
+            return getData().getBoolean(KEY_ANSWER);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

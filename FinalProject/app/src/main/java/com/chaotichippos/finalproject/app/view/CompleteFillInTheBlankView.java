@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,6 +35,8 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
 
     public CompleteFillInTheBlankView(Context context) {
         super(context);
+		LayoutInflater.from(context)
+				.inflate(R.layout.complete_fill_in_the_blank_base_view, this, true);
         questionTitleTextView = (TextView) findViewById(R.id.fitb_title_textview);
         questionTextTextView = (TextView) findViewById(R.id.fitb_qtext_textview);
         blank1EditText = (EditText) findViewById(R.id.fitb_blank1_answer_edittext);
@@ -46,8 +49,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
             hideBlank(i);
         }
 
-        questionTitleTextView.setText(question.getType().getTitle());
-        setQuestionText();
+//        questionTitleTextView.setText(question.getType().getTitle());
     }
 
     private void hideBlank(int blank) {
@@ -84,7 +86,8 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     }
 
     private void setQuestionText() {
-        String qtext = question.getData().getString("questionType");
+        //String qtext = question.getData().getString("questionText");
+		String qtext = "My favorite teacher is " + (char) 1;
         for(int i = 0; i < qtext.length(); i++) {
             if(qtext.charAt(i) == (char) 1) {
                 insertBlank();
@@ -121,6 +124,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     @Override
     public void setQuestion(Question question) {
         this.question = question;
+		setQuestionText();
     }
 
     @Override

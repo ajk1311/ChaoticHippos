@@ -145,7 +145,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     @Override
     public Answer getAnswer() {
         String answerText = blank1EditText.getText().toString() + ";" + blank2EditText.getText().toString() + ";" + blank3EditText.getText().toString() + ";";
-        Answer answer = new Answer(question.getObjectId(), answerText);
+        Answer answer = new Answer(question.toParseObject().getObjectId(), answerText);
         return answer;
     }
 }

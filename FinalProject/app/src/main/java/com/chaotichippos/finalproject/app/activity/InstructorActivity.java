@@ -110,7 +110,7 @@ public class InstructorActivity extends MainActivity {
             qv.setQuestion(question);
             question = qv.getQuestion();
             try {
-                question.save();
+                question.toParseObject().save();
             } catch (ParseException e) {
                 e.printStackTrace();
             }

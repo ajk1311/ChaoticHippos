@@ -69,7 +69,7 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
                 }
                 question.setData(data);
                 try {
-                    question.save();
+                    question.toParseObject().save();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -202,11 +202,6 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
             e.printStackTrace();
         }
         question.setData(data);
-        try {
-            question.save();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         return question;
     }
 

@@ -18,6 +18,7 @@ import com.chaotichippos.finalproject.app.model.Test;
 import com.chaotichippos.finalproject.app.view.EditableQuestionListItemView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.List;
@@ -155,16 +156,16 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	 * @param test The current Test from the instructor
 	 */
 	public void onTestLoaded(Test test) {
-		ParseQuery<Question> questionQuery = ParseQuery.getQuery(Question.class);
+		ParseQuery questionQuery = ParseQuery.getQuery(Question.TAG);
 		questionQuery.whereEqualTo("parentExam", test.getObjectId());
-		questionQuery.findInBackground(new FindCallback<Question>() {
+		questionQuery.findInBackground(new FindCallback<ParseObject>() {
 			@Override
-			public void done(List<Question> questions, ParseException e) {
+			public void done(List<ParseObject> questions, ParseException e) {
 				if (!isAdded()) {
 					return;
 				}
 				if (e == null) {
-					mListAdapter.swapQuestions(questions);
+					mListAdapter.swapQuestions(Question.fromParseList(questions));
 				} else {
 					Toast.makeText(getActivity(), "Error loading test questions: " + e.getMessage(),
 							Toast.LENGTH_SHORT)
@@ -202,7 +203,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		private static final int INVALID_POSITION = -1;
 
 		/** The backing data for the adapter */
-		private List<Question> mList;
+		List<Question> mList;
 
 		/**
 		 * Keeps track of the selected position in the list. We aren't using
@@ -234,6 +235,11 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 				mList = list;
 				notifyDataSetChanged();
 			}
+		}
+
+		public void updateQuestionList(Question question, int index) {
+			mListAdapter.mList.set(index, question);
+			mListAdapter.notifyDataSetChanged();
 		}
 
 		/**

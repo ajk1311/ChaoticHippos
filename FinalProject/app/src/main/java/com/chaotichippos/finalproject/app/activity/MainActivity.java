@@ -111,6 +111,7 @@ public abstract class MainActivity extends Activity
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		super.onPrepareOptionsMenu(menu);
+		menu.clear();
 		if (mMainPane.isSlideable()) {
 			setupSinglePaneMenu(getMenuInflater(), menu, mMainPane.isOpen());
 		} else {

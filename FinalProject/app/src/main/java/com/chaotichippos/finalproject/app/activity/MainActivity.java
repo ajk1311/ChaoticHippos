@@ -200,7 +200,7 @@ public abstract class MainActivity extends Activity
 			showViewForQuestion(question);
 		}
 	}
-	
+
 	protected void savePreviousQuestion() {
 		if (mContentContainer.getChildCount() == 0) {
 			return;

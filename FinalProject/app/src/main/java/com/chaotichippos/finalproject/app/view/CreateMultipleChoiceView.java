@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -25,17 +23,12 @@ import android.widget.TextView;
 
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
-import com.chaotichippos.finalproject.app.model.MultipleChoiceQuestion;
 import com.chaotichippos.finalproject.app.model.Question;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Parcelable;
-import android.os.Bundle;
-
 import com.parse.ParseException;
-import com.parse.ParseObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -292,11 +285,6 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
             e.printStackTrace();
         }
         question.setData(data);
-        try {
-            question.save();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         return question;
     }
 

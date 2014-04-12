@@ -1,10 +1,7 @@
 package com.chaotichippos.finalproject.app.model;
 
-import com.parse.ParseClassName;
-
 import org.json.JSONException;
 
-@ParseClassName("Question")
 public class TrueOrFalseQuestion extends Question {
 
 	private static final String KEY_QUESTION_TEXT = "questionText";

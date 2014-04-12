@@ -88,27 +88,7 @@ public class InstructorActivity extends MainActivity {
 
     public void createExam() {
         List<Question> qList = getQuestionListFragment().getQuestionList();
-        QuestionViewer qv = null;
         for(Question question: qList) {
-            switch (question.getType()) {
-                case FILL_IN_THE_BLANK:
-                    qv = new CreateFillInTheBlankView(this);
-                    break;
-
-                case MULTIPLE_CHOICE:
-                    qv = new CreateMultipleChoiceView(this);
-                    break;
-
-                case MATCHING:
-                    qv = new CreateMatchingView(this);
-                    break;
-
-                case TRUE_OR_FALSE:
-                    qv = new TrueFalseCreateView(this);
-                    break;
-            }
-            qv.setQuestion(question);
-            question = qv.getQuestion();
             try {
                 question.toParseObject().save();
             } catch (ParseException e) {

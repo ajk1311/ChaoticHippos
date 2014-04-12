@@ -61,7 +61,6 @@ public class StudentActivity extends MainActivity {
 		switch (question.getType()) {
 			case FILL_IN_THE_BLANK:
 				view = new CompleteFillInTheBlankView(this);
-                ((CompleteFillInTheBlankView) view).setQuestion(question);
 				break;
 
 			case MULTIPLE_CHOICE:
@@ -70,7 +69,6 @@ public class StudentActivity extends MainActivity {
 
 			case MATCHING:
 				view = new StudentMatchingView(this);
-                ((StudentMatchingView) view).setQuestion(question);
 				break;
 
 			case TRUE_OR_FALSE:
@@ -79,5 +77,6 @@ public class StudentActivity extends MainActivity {
 		}
 		getContentContainer().removeAllViews();
 		getContentContainer().addView(view);
+		((CompleteFillInTheBlankView) view).setQuestion(question);
 	}
 }

@@ -127,6 +127,19 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		return mIsEditable;
 	}
 
+	public void updateQuestion(Question question) {
+		Question old = null;
+		final List<Question> questions = mListAdapter.mList;
+		for (int i = 0, sz = questions.size(); i < sz; i++) {
+			old = questions.get(i);
+			if (question.getObjectId().equals(old.getObjectId())) {
+				questions.set(i, question);
+				break;
+			}
+		}
+		mListAdapter.notifyDataSetChanged();
+	}
+
 	/**
 	 * Sets whether the user is allowed to add or remove questions
 	 * from the list. This is {@code true} by default.
@@ -239,11 +252,6 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 				mList = list;
 				notifyDataSetChanged();
 			}
-		}
-
-		public void updateQuestionList(Question question, int index) {
-			mListAdapter.mList.set(index, question);
-			mListAdapter.notifyDataSetChanged();
 		}
 
 		/**

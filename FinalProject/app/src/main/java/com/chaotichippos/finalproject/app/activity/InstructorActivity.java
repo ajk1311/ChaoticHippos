@@ -74,16 +74,16 @@ public class InstructorActivity extends MainActivity {
 
 			case MATCHING:
 				view = new CreateMatchingView(this);
+                ((CreateMatchingView) view).setQuestion(question);
 				break;
 
 			case TRUE_OR_FALSE:
 				view = new TrueFalseCreateView(this);
 				break;
 		}
-//		((QuestionViewer) view).setQuestion(question);
-		view.setId(0);
 		getContentContainer().removeAllViews();
 		getContentContainer().addView(view);
+		((QuestionViewer) view).setQuestion(question);
 	}
 
     public void createExam() {

@@ -2,7 +2,9 @@ package com.chaotichippos.finalproject.app.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.Pair;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
@@ -32,6 +34,13 @@ import java.util.List;
 import android.os.Parcelable;
 import android.os.Bundle;
 
+import com.parse.ParseException;
+import com.parse.ParseObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class CreateMultipleChoiceView extends RelativeLayout implements QuestionViewer {
     private static final String TAG = "MainActivity";
 
@@ -48,8 +57,6 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
     List<String> alphabet = new ArrayList<String>();
     int alphabetIndex = 0;
 
-    MultipleChoiceQuestion thisQuestion;
-
     public CreateMultipleChoiceView(Context context)  {
         this(context, null, 0);
     }
@@ -60,7 +67,7 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 
     public CreateMultipleChoiceView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
+        Log.v(TAG,"-------------started it--------------");
         LayoutInflater.from(context).inflate(R.layout.create_multiple_choice_base_view, this, true);
 
         listView = ( ListView ) findViewById(R.id.listview);
@@ -112,7 +119,8 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 
 			@Override
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-			}
+                adapter.notifyDataSetChanged();
+            }
 		});
     }
 
@@ -245,16 +253,12 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.create_multiple_choice_list_item_view, null);
             }
 
-            // Check box state
-            CheckBox box = (CheckBox) convertView.findViewById(R.id.checkBox);
-            box.setOnCheckedChangeListener(null);
-            box.setChecked(listView.isItemChecked(position));
-            box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    listView.setItemChecked(position, isChecked);
-                }
-            });
+            if(listView.isItemChecked(position)) {
+                convertView.setBackgroundColor(Color.parseColor("#3399ff"));
+            }
+            else {
+                convertView.setBackgroundDrawable(null);
+            }
 
             // TextViews
             Pair<String, String> pair = mList.get(position);
@@ -269,15 +273,31 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 
     @Override
     public Question getQuestion() {
-        thisQuestion.setQuestionText(questionTextEditor.getText().toString());
+        List<Pair<String, String>> currentList = adapter.getList();
+        List<String> answers = new ArrayList<String>();
 
-        List<Pair<String, String>> list = adapter.getList();
-
-        for(int i = 0; i < list.size(); i++) {
-            thisQuestion.addChoice(list.get(i).second);
+        for(int i = 0; i < currentList.size(); i++) {
+            answers.add(currentList.get(i).second);
         }
 
-        return thisQuestion;
+        Question question = new Question();
+        question.setType(Question.Type.FILL_IN_THE_BLANK);
+
+        JSONObject data = new JSONObject();
+        try {
+            data.put("questionText", questionTextEditor.getText().toString());
+            data.put("answers", answers);
+            data.put("correctAnswer", "A");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        question.setData(data);
+        try {
+            question.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return question;
     }
 
     @Override
@@ -287,74 +307,79 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 
     @Override
     public void setQuestion(Question question) {
-        thisQuestion = (MultipleChoiceQuestion)question;
-
-        if(thisQuestion.getQuestionText().length() > 0) {
-            questionTextEditor.setText(thisQuestion.getQuestionText());
+        String qtext = null;
+        try {
+            qtext = question.getData().getString("questionText");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-        if(thisQuestion.getChoices().size() > 0) {
-            List<String> list = thisQuestion.getChoices();
-            for(int i = 0; i < list.size(); i++) {
-                adapter.addPair(new Pair<String,String>(alphabet.get(alphabetIndex),list.get(i)));
+        if(qtext != null) {
+            questionTextEditor.setText(qtext);
+        }
+
+        JSONArray answers = new JSONArray();
+        List<Pair<String, String>> answersList = new ArrayList<Pair<String, String>>();
+
+        try {
+            if(answers.length() > 0) {
+                for(int i = 0; i < answers.length(); i++){
+                    answersList.add(new Pair<String,String>(alphabet.get(i),answers.get(i).toString()));
+                }
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+        adapter.setList(answersList);
     }
 //-------------------------------------------------------
-    @Override
-    public Parcelable onSaveInstanceState() {
-        Bundle bundle = new Bundle();
-        // The vars you want to save - in this instance a string and a boolean
-
-        String questionString = questionTextEditor.getText().toString();
-        String answerString = answerTextEditor.getText().toString();
-        List<Pair<String, String>> list = adapter.getList();
-
-        State state = new State(super.onSaveInstanceState(), questionString, answerString, list);
-        bundle.putParcelable(State.STATE, state);
-        return bundle;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Parcelable state) {
-        if (state instanceof Bundle) {
-            Bundle bundle = (Bundle) state;
-            State customViewState = (State) bundle.getParcelable(State.STATE);
-            // The vars you saved - do whatever you want with them
-            questionTextEditor.setText(customViewState.getQuestionText());
-            answerTextEditor.setText(customViewState.getAnswerText());
-            adapter.setList(customViewState.getList());
-
-            super.onRestoreInstanceState(customViewState.getSuperState());
-            return;
-        }
-        super.onRestoreInstanceState(BaseSavedState.EMPTY_STATE); // Stops a bug with the wrong state being passed to the super
-    }
-
-    protected static class State extends BaseSavedState {
-        protected static final String STATE = "YourCustomView.STATE";
-
-        private final String questionText;
-        private final String answerText;
-        private final List<Pair<String, String>> list;
-
-        public State(Parcelable superState, String questionText, String answerText, List<Pair<String, String>> list) {
-            super(superState);
-            this.questionText = questionText;
-            this.answerText = answerText;
-            this.list = list;
-        }
-
-        public String getAnswerText() {
-            return this.answerText;
-        }
-
-        public String getQuestionText() {
-            return this.questionText;
-        }
-
-        public List<Pair<String, String>> getList(){
-            return this.list;
-        }
-    }
+//    @Override
+//    public Parcelable onSaveInstanceState() {
+//        Bundle bundle = new Bundle();
+//        // The vars you want to save - in this instance a string and a boolean
+//
+//        String questionString = questionTextEditor.getText().toString();
+//        String answerString = answerTextEditor.getText().toString();
+//        List<Pair<String, String>> list = adapter.getList();
+//
+//        State state = new State(super.onSaveInstanceState(), questionString, answerString, list);
+//        bundle.putParcelable(State.STATE, state);
+//        return bundle;
+//    }
+//
+//    @Override
+//    public void onRestoreInstanceState(Parcelable state) {
+//        if (state instanceof Bundle) {
+//            Bundle bundle = (Bundle) state;
+//            State customViewState = (State) bundle.getParcelable(State.STATE);
+//            // The vars you saved - do whatever you want with them
+//            questionTextEditor.setText(customViewState.getQuestionText());
+//            answerTextEditor.setText(customViewState.getAnswerText());
+//            adapter.setList(customViewState.getList());
+//
+//            super.onRestoreInstanceState(customViewState.getSuperState());
+//            return;
+//        }
+//        super.onRestoreInstanceState(BaseSavedState.EMPTY_STATE); // Stops a bug with the wrong state being passed to the super
+//    }
+//
+//    protected static class State extends BaseSavedState {
+//        protected static final String STATE = "YourCustomView.STATE";
+//
+//        private final String questionText;
+//        private final String answerText;
+//        private final List<Pair<String, String>> list;
+//
+//        public State(Parcelable superState, String questionText, String answerText, List<Pair<String, String>> list) {
+//            super(superState);
+//            this.questionText = questionText;
+//            this.answerText = answerText;
+//            this.list = list;
+//        }
+//
+//        public List<Pair<String, String>> getList() {
+//            return this.list;
+//        }
+//    }
 }

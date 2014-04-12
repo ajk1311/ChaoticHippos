@@ -15,19 +15,26 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.chaotichippos.finalproject.app.R;
+import com.chaotichippos.finalproject.app.model.Answer;
+import com.chaotichippos.finalproject.app.model.Question;
+import com.parse.ParseException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class CreateMatchingView extends LinearLayout {
+public class CreateMatchingView extends LinearLayout implements QuestionViewer{
 
     private TextView addChoice;
     private ListView list1;
@@ -45,14 +52,16 @@ public class CreateMatchingView extends LinearLayout {
     private int curSelectedPair;
     private MultiChoiceModeListener mMultiChoiceModeListener;
     private Set<Integer> selectedIndexes;
-
+    private Question question;
+    private TextView createButton;
 
 
     public CreateMatchingView(Context context) {
         super(context);
 
         //((Activity)getContext()).startActionMode();
-
+        question = new Question();
+        question.setType(Question.Type.MATCHING);
         myColors = new ArrayList<String>();
         myColors.add("#5F9F9F");
         myColors.add("#00FFFF");
@@ -65,6 +74,34 @@ public class CreateMatchingView extends LinearLayout {
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
+
+        createButton = (TextView) findViewById(R.id.submit_answer);
+
+        createButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JSONObject data = new JSONObject();
+                List<String> leftSide = new ArrayList<String>();
+                List<String> rightSide = new ArrayList<String>();
+                for(TeacherMatchingPair pair: matchItems)
+                {
+                    leftSide.add(pair.getQuestion());
+                    rightSide.add(pair.getAnswer());
+                }
+                try {
+                    data.put("leftSide", leftSide);
+                    data.put("rightSide", rightSide);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                question.setData(data);
+                try {
+                    question.save();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         selectedIndexes = new HashSet<Integer>();
         matchItems = new ArrayList<TeacherMatchingPair>();
@@ -256,4 +293,38 @@ public class CreateMatchingView extends LinearLayout {
         }
     }
 
+    @Override
+    public Question getQuestion() {
+        JSONObject data = new JSONObject();
+        List<String> leftSide = new ArrayList<String>();
+        List<String> rightSide = new ArrayList<String>();
+        for(TeacherMatchingPair pair: matchItems)
+        {
+            leftSide.add(pair.getQuestion());
+            rightSide.add(pair.getAnswer());
+        }
+        try {
+            data.put("leftSide", leftSide);
+            data.put("rightSide", rightSide);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        question.setData(data);
+        try {
+            question.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return question;
+    }
+
+    @Override
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    @Override
+    public Answer getAnswer() {
+        return null;
+    }
 }

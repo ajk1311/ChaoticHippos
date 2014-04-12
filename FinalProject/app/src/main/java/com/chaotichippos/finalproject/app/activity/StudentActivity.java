@@ -10,6 +10,7 @@ import android.view.View;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Question;
 import com.chaotichippos.finalproject.app.view.CompleteFillInTheBlankView;
+import com.chaotichippos.finalproject.app.view.MultipleChoiceAnswerView;
 import com.chaotichippos.finalproject.app.view.StudentMatchingView;
 
 public class StudentActivity extends MainActivity {
@@ -64,11 +65,12 @@ public class StudentActivity extends MainActivity {
 				break;
 
 			case MULTIPLE_CHOICE:
-
+                view = new MultipleChoiceAnswerView(this);
 				break;
 
 			case MATCHING:
 				view = new StudentMatchingView(this);
+                ((StudentMatchingView) view).setQuestion(question);
 				break;
 
 			case TRUE_OR_FALSE:

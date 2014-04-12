@@ -99,7 +99,7 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
                 }
                 question.setData(data);
                 try {
-                    question.save();
+                    question.toParseObject().save();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -331,11 +331,6 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
             e.printStackTrace();
         }
         question.setData(data);
-        try {
-            question.save();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         return question;
     }
 

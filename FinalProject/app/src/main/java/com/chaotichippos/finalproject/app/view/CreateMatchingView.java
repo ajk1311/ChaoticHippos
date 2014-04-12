@@ -26,12 +26,15 @@ import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
 import com.parse.ParseException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public class CreateMatchingView extends LinearLayout implements QuestionViewer{
@@ -293,6 +296,24 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
         }
     }
 
+    private void setMyQuestion() {
+        JSONArray left = new JSONArray();
+        JSONArray right = new JSONArray();
+        try {
+            left = question.getData().getJSONArray("leftSide");
+            right = question.getData().getJSONArray("rightSide");
+            if(left != null) {
+                for(int i = 0; i < left.length(); i++)
+                {
+                    listAdapter.add(new TeacherMatchingPair((String)left.get(i),(String)right.get(i),false));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public Question getQuestion() {
         JSONObject data = new JSONObject();
@@ -321,6 +342,7 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
     @Override
     public void setQuestion(Question question) {
         this.question = question;
+        setMyQuestion();
     }
 
     @Override

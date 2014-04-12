@@ -14,6 +14,7 @@ import com.chaotichippos.finalproject.app.dialog.QuestionAdditionDialogFragment;
 import com.chaotichippos.finalproject.app.fragment.QuestionListFragment;
 import com.chaotichippos.finalproject.app.model.Question;
 import com.chaotichippos.finalproject.app.model.Test;
+import com.chaotichippos.finalproject.app.view.QuestionViewer;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -157,8 +158,7 @@ public abstract class MainActivity extends Activity
 	public void onQuestionTypeSelected(Question.Type type) {
 		Question question = new Question();
 		question.setType(type);
-		((QuestionListFragment) getFragmentManager()
-				.findFragmentById(R.id.list_fragment_container)).addQuestion(question);
+		getQuestionListFragment().addQuestion(question);
 		showViewWhenAppropriate(question);
 	}
 
@@ -190,12 +190,25 @@ public abstract class MainActivity extends Activity
 			sPendingOperation = new Runnable() {
 				@Override
 				public void run() {
+					savePreviousQuestion();
 					showViewForQuestion(question);
 				}
 			};
 			mMainPane.closePane();
 		} else {
+			savePreviousQuestion();
 			showViewForQuestion(question);
+		}
+	}
+	
+	protected void savePreviousQuestion() {
+		if (mContentContainer.getChildCount() == 0) {
+			return;
+		}
+		final View current = mContentContainer.getChildAt(0);
+		if (current instanceof QuestionViewer) {
+			final Question question = ((QuestionViewer) current).getQuestion();
+			getQuestionListFragment().updateQuestion(question);
 		}
 	}
 

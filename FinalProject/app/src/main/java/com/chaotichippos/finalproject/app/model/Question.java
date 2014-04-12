@@ -45,6 +45,7 @@ public class Question implements Parcelable {
 		}
 	}
 
+	private String mId;
 	private Type mType;
 	private String mImageUrl;
 	private JSONObject mData;
@@ -62,6 +63,7 @@ public class Question implements Parcelable {
 	}
 
 	public Question(ParseObject parseQuestion) {
+		mId = parseQuestion.getObjectId();
 		mType = Type.values()[parseQuestion.getInt(KEY_TYPE)];
 		mImageUrl = parseQuestion.getString(KEY_IMAGE);
 		mData = parseQuestion.getJSONObject(KEY_DATA);
@@ -72,6 +74,7 @@ public class Question implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(mId);
 		dest.writeInt(mType.ordinal());
 		dest.writeString(mImageUrl);
 		dest.writeString(mData.toString());
@@ -83,6 +86,7 @@ public class Question implements Parcelable {
 				public Question createFromParcel(Parcel source) {
 					try {
 						final Question q = new Question();
+						q.mId = source.readString();
 						q.mType = Type.values()[source.readInt()];
 						q.mImageUrl = source.readString();
 						q.mData = new JSONObject(source.readString());
@@ -99,6 +103,10 @@ public class Question implements Parcelable {
 					return new Question[size];
 				}
 			};
+
+	public String getObjectId() {
+		return mId;
+	}
 
 	public void setType(Type type) {
 		mType = type;
@@ -126,6 +134,7 @@ public class Question implements Parcelable {
 
 	public ParseObject toParseObject() {
 		final ParseObject parseObject = new ParseObject(TAG);
+		parseObject.setObjectId(mId);
 		parseObject.put(KEY_TYPE, mType.ordinal());
 		parseObject.put(KEY_IMAGE, mImageUrl);
 		parseObject.put(KEY_DATA, mData);

@@ -25,14 +25,12 @@ import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.parse.ParseException;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateMultipleChoiceView extends RelativeLayout implements QuestionViewer {
     private static final String TAG = "MainActivity";

@@ -210,6 +210,10 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		}
 	}
 
+    public List<Question> getQuestionList() {
+        return mListAdapter.mList;
+    }
+
 	/** Adapter that provides Question objects for our list to display */
 	private class QuestionListAdapter extends BaseAdapter {
 

@@ -18,7 +18,6 @@ import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,7 +69,7 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
                 }
                 question.setData(data);
                 try {
-                    question.save();
+                    question.toParseObject().save();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -163,6 +162,34 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         questionTextEditText.setSelection(cPos + 1);
         unhideBlank(numBlanks);
     }
+
+    private void setQuestionText() {
+        String qtext = null;
+        String blank1 = null;
+        String blank2 = null;
+        String blank3 = null;
+        try {
+            qtext = question.getData().getString("questionText");
+            blank1 = question.getData().getString("blank1");
+            blank2 = question.getData().getString("blank2");
+            blank3 = question.getData().getString("blank3");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(qtext != null) {
+            for (int i = 0; i < qtext.length(); i++) {
+                if (qtext.charAt(i) == (char) 1) {
+                    insertBlank();
+                } else {
+                    questionTextEditText.append(Character.toString(qtext.charAt(i)));
+                }
+            }
+        }
+        blank1EditText.setText(blank1);
+        blank2EditText.setText(blank2);
+        blank3EditText.setText(blank3);
+    }
+
     @Override
     public Question getQuestion() {
         JSONObject data = new JSONObject();
@@ -175,17 +202,13 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
             e.printStackTrace();
         }
         question.setData(data);
-        try {
-            question.save();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         return question;
     }
 
     @Override
     public void setQuestion(Question question) {
         this.question = question;
+        setQuestionText();
     }
 
     @Override

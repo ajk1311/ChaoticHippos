@@ -18,15 +18,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.chaotichippos.finalproject.app.R;
+import com.chaotichippos.finalproject.app.model.Answer;
+import com.chaotichippos.finalproject.app.model.Question;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 
 /**
  * Created by Nick on 4/3/14.
  */
 
-public class StudentMatchingView extends LinearLayout{
+public class StudentMatchingView extends LinearLayout implements QuestionViewer{
 
     private ListView list1;
     private ListView list2;
@@ -38,6 +46,8 @@ public class StudentMatchingView extends LinearLayout{
     private  ArrayList<MatchingQuestion> m_questions;
     private ArrayList<MatchingAnswer> m_answers;
     private static final String TAG = "OUTPUT";
+    private Question question;
+
 
 
     class questData {
@@ -128,11 +138,11 @@ public class StudentMatchingView extends LinearLayout{
         list1.setAdapter(listAdapter1);
         list2.setAdapter(listAdapter2);
 
-        for(int i = 0; i < 20; i++)
+        /*for(int i = 0; i < 20; i++)
         {
             listAdapter1.add(new MatchingQuestion("Question " + i,myColors.get(i),false,i,-1));
             listAdapter2.add(new MatchingAnswer("Answer " + i,-1));
-        }
+        }*/
 
 
         //testing
@@ -435,6 +445,57 @@ public class StudentMatchingView extends LinearLayout{
         @Override public String toString() {
             return question;
         }
+    }
+
+    private void setMyQuestion() {
+        JSONArray left = new JSONArray();
+        JSONArray right = new JSONArray();
+        List<String> rightSide = new ArrayList<String>();
+
+        try {
+            left = question.getData().getJSONArray("leftSide");
+            right = question.getData().getJSONArray("rightSide");
+            if(left != null) {
+                for(int i = 0; i < left.length(); i++)
+                {
+                    listAdapter1.add(new MatchingQuestion((String)left.get(i) ,myColors.get(i),false,i,-1));
+                }
+            }
+            if(right != null)
+            {
+                for(int i = 0; i < right.length(); i++)
+                {
+                    rightSide.add((String)right.get(i));
+                }
+                Collections.shuffle(rightSide, new Random(32));
+                for(int i = 0; i < rightSide.size(); i++)
+                {
+                    listAdapter2.add(new MatchingAnswer(rightSide.get(i),-1));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void setQuestion(Question question) {
+        this.question = question;
+        setMyQuestion();
+    }
+
+    @Override
+    public Question getQuestion() {
+        return question;
+    }
+
+    @Override
+    public Answer getAnswer() {
+//        String answerText = blank1EditText.getText().toString() + ";" + blank2EditText.getText().toString() + ";" + blank3EditText.getText().toString() + ";";
+//        Answer answer = new Answer(question.getObjectId(), answerText);
+//        return answer;
+        return null;
     }
 
 

@@ -7,6 +7,7 @@ import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
+import com.parse.ParseException;
 
 import org.json.JSONException;
 
@@ -30,6 +32,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     private ImageView blank1Image;
     private ImageView blank2Image;
     private ImageView blank3Image;
+    private Button submitButton;
 
     private Question question;
     private int numBlanks = 0;
@@ -43,10 +46,17 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
         blank3EditText = (EditText) findViewById(R.id.fitb_blank3_answer_edittext);
         blank1Image = (ImageView) findViewById(R.id.fitb_blank1_answer_img);
         blank2Image = (ImageView) findViewById(R.id.fitb_blank2_answer_img);
-        blank3Image = (ImageView) findViewById(R.id.fitb_blank3_answer_img);
+        submitButton = (Button) findViewById(R.id.fitb_submit_button);
         for(int i = 1; i <= 3; i++) {
             hideBlank(i);
         }
+
+        submitButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Answer answer = getAnswer();
+            }
+        });
     }
 
     private void hideBlank(int blank) {

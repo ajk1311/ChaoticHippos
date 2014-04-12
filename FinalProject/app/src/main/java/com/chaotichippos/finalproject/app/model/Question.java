@@ -1,17 +1,25 @@
 package com.chaotichippos.finalproject.app.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.chaotichippos.finalproject.app.App;
 import com.chaotichippos.finalproject.app.R;
-import com.parse.ParseClassName;
+import com.chaotichippos.finalproject.app.util.DebugLog;
 import com.parse.ParseObject;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * POJO for a question inside a {@link com.chaotichippos.finalproject.app.model.Test}
  */
-@ParseClassName("Question")
-public class Question extends ParseObject {
+public class Question implements Parcelable {
+
+	public static final String TAG = "Question";
 
 	// Key names used by the internal ParseObject
 	private static final String KEY_TYPE = "questionType";
@@ -37,38 +45,95 @@ public class Question extends ParseObject {
 		}
 	}
 
+	private Type mType;
+	private String mImageUrl;
+	private JSONObject mData;
 
-	// Getters/setters
-	// ====================================================================
+	public static List<Question> fromParseList(List<ParseObject> fromParse) {
+		final ArrayList<Question> questions = new ArrayList<Question>();
+		for (int i = 0, sz = fromParse.size(); i < sz; i++) {
+			questions.add(new Question(fromParse.get(i)));
+		}
+		return questions;
+	}
+
+	public Question() {
+		mData = new JSONObject();
+	}
+
+	public Question(ParseObject parseQuestion) {
+		mType = Type.values()[parseQuestion.getInt(KEY_TYPE)];
+		mImageUrl = parseQuestion.getString(KEY_IMAGE);
+		mData = parseQuestion.getJSONObject(KEY_DATA);
+		if (mData == null) {
+			mData = new JSONObject();
+		}
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(mType.ordinal());
+		dest.writeString(mImageUrl);
+		dest.writeString(mData.toString());
+	}
+
+	public static final Parcelable.Creator<Question> CREATOR =
+			new Parcelable.Creator<Question>() {
+				@Override
+				public Question createFromParcel(Parcel source) {
+					try {
+						final Question q = new Question();
+						q.mType = Type.values()[source.readInt()];
+						q.mImageUrl = source.readString();
+						q.mData = new JSONObject(source.readString());
+						return q;
+					} catch (JSONException je) {
+						je.printStackTrace();
+						DebugLog.w(TAG, "Shit got fucked up creating from parcel");
+						return null;
+					}
+				}
+
+				@Override
+				public Question[] newArray(int size) {
+					return new Question[size];
+				}
+			};
 
 	public void setType(Type type) {
-		put(KEY_TYPE, type.ordinal());
+		mType = type;
 	}
 
 	public Type getType() {
-		int value = getInt(KEY_TYPE);
-		return Type.values()[value];
+		return mType;
 	}
 
 	public void setImageUrl(String imageUrl) {
-		put(KEY_IMAGE, imageUrl);
+		mImageUrl = imageUrl;
 	}
 
 	public String getImageUrl() {
-		return getString(KEY_IMAGE);
+		return mImageUrl;
 	}
 
 	public void setData(JSONObject data) {
-		put(KEY_DATA, data);
+		mData = data;
 	}
 
 	public JSONObject getData() {
-		JSONObject data = getJSONObject(KEY_DATA);
-		if (data == null) {
-			data = new JSONObject();
-			put(KEY_DATA, data);
-		}
-		return data;
+		return mData;
 	}
 
+	public ParseObject toParseObject() {
+		final ParseObject parseObject = new ParseObject(TAG);
+		parseObject.put(KEY_TYPE, mType.ordinal());
+		parseObject.put(KEY_IMAGE, mImageUrl);
+		parseObject.put(KEY_DATA, mData);
+		return parseObject;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
 }

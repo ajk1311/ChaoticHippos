@@ -328,7 +328,12 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
         try {
             data.put("questionText", questionTextEditor.getText().toString());
             data.put("answers", answers);
-            data.put("correctAnswer", "A");
+            if(currentlySelectedAnswerString == null) {
+                data.put("correctAnswer", blank);
+            }
+            else {
+                data.put("correctAnswer", currentlySelectedAnswerString);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -347,7 +352,16 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
         try {
 			questionTextEditor.setText(this.question.getData().getString("questionText"));
 			JSONArray answers = this.question.getData().getJSONArray("answers");
-			List<Pair<String, String>> answersList = new ArrayList<Pair<String, String>>();
+
+            currentlySelectedAnswerString = this.question.getData().getString("correctAnswer");
+            if(currentlySelectedAnswerString != blank) {
+                selectedAnswerText.setText("Selected: " + currentlySelectedAnswerString);
+            }
+            else {
+                selectedAnswerText.setText("Selected: " + blank);
+            }
+
+            List<Pair<String, String>> answersList = new ArrayList<Pair<String, String>>();
             if(answers.length() > 0) {
                 for(int i = 0; i < answers.length(); i++){
                     answersList.add(new Pair<String,String>(alphabet.get(i),answers.get(i).toString()));

@@ -318,10 +318,10 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
     @Override
     public Question getQuestion() {
         List<Pair<String, String>> currentList = adapter.getList();
-        List<String> answers = new ArrayList<String>();
+        JSONArray answers =  new JSONArray();
 
         for(int i = 0; i < currentList.size(); i++) {
-            answers.add(currentList.get(i).second);
+            answers.put(currentList.get(i).second);
         }
 
         JSONObject data = new JSONObject();

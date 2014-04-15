@@ -17,7 +17,9 @@ import com.chaotichippos.finalproject.app.model.Test;
 import com.chaotichippos.finalproject.app.view.QuestionViewer;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
 /**
  * Base class for out application's two main {@link android.app.Activity}s.
@@ -155,11 +157,22 @@ public abstract class MainActivity extends Activity
 	}
 
 	@Override
-	public void onQuestionTypeSelected(Question.Type type) {
-		Question question = new Question();
-		question.setType(type);
-		getQuestionListFragment().addQuestion(question);
-		showViewWhenAppropriate(question);
+	public void onQuestionTypeSelected(final Question.Type type) {
+		final ParseObject newQuestion = new ParseObject(Question.TAG);
+		newQuestion.put(Question.KEY_TYPE, type.ordinal());
+		newQuestion.put(Question.KEY_PARENT_TEST, mCurrentTest.getObjectId());
+		newQuestion.saveInBackground(new SaveCallback() {
+			@Override
+			public void done(ParseException e) {
+				if (e == null) {
+					Question question = new Question(newQuestion);
+					getQuestionListFragment().addQuestion(question);
+					showViewWhenAppropriate(question);
+				} else {
+					// TODO handle error
+				}
+			}
+		});
 	}
 
 	private void loadTestFromServer() {

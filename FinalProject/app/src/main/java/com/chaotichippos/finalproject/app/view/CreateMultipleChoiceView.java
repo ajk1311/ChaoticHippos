@@ -48,6 +48,8 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
     List<String> alphabet = new ArrayList<String>();
     int alphabetIndex = 0;
 
+	private Question question;
+
     public CreateMultipleChoiceView(Context context)  {
         this(context, null, 0);
     }
@@ -271,9 +273,6 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
             answers.add(currentList.get(i).second);
         }
 
-        Question question = new Question();
-        question.setType(Question.Type.FILL_IN_THE_BLANK);
-
         JSONObject data = new JSONObject();
         try {
             data.put("questionText", questionTextEditor.getText().toString());
@@ -293,31 +292,20 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 
     @Override
     public void setQuestion(Question question) {
-        String qtext = null;
+		this.question = question;
         try {
-            qtext = question.getData().getString("questionText");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        if(qtext != null) {
-            questionTextEditor.setText(qtext);
-        }
-
-        JSONArray answers = new JSONArray();
-        List<Pair<String, String>> answersList = new ArrayList<Pair<String, String>>();
-
-        try {
+			questionTextEditor.setText(this.question.getData().getString("questionText"));
+			JSONArray answers = this.question.getData().getJSONArray("answers");
+			List<Pair<String, String>> answersList = new ArrayList<Pair<String, String>>();
             if(answers.length() > 0) {
                 for(int i = 0; i < answers.length(); i++){
                     answersList.add(new Pair<String,String>(alphabet.get(i),answers.get(i).toString()));
                 }
             }
+			adapter.setList(answersList);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        adapter.setList(answersList);
     }
 //-------------------------------------------------------
 //    @Override

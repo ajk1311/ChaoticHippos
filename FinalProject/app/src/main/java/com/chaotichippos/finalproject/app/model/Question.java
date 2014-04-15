@@ -22,9 +22,10 @@ public class Question implements Parcelable {
 	public static final String TAG = "Question";
 
 	// Key names used by the internal ParseObject
-	private static final String KEY_TYPE = "questionType";
-	private static final String KEY_IMAGE = "image";
-	private static final String KEY_DATA = "data";
+	public static final String KEY_TYPE = "questionType";
+	public static final String KEY_PARENT_TEST = "parentExam";
+	public static final String KEY_IMAGE = "image";
+	public static final String KEY_DATA = "data";
 
 	/** Represents the different types of Questions someone can make or answer */
 	public static enum Type {

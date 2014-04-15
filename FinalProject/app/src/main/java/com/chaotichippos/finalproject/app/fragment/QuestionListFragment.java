@@ -128,7 +128,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	}
 
 	public void updateQuestion(Question question) {
-		Question old = null;
+		Question old;
 		final List<Question> questions = mListAdapter.mList;
 		for (int i = 0, sz = questions.size(); i < sz; i++) {
 			old = questions.get(i);

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
-import com.chaotichippos.finalproject.app.model.TrueOrFalseQuestion;
+import com.chaotichippos.finalproject.app.model.TrueOrFalseQuestionWrapper;
 import com.chaotichippos.finalproject.app.util.ScreenUtil;
 
 /**
@@ -33,8 +33,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 	private TextView mQuestionText;
 	private TrueFalseAnswerGroup mAnswer;
 
-	private TrueOrFalseQuestion mQuestion;
-
+	private TrueOrFalseQuestionWrapper mQuestionWrapper;
 
 	public TrueFalseView(Context context) {
 		super(context);
@@ -64,21 +63,21 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 
 	@Override
 	public void setQuestion(Question question) {
-		mQuestion = (TrueOrFalseQuestion) question;
-		mQuestionText.setText(mQuestion.getQuestionText());
-		mAnswer.setSelectedIndex(mQuestion.getAnswer() ? ANSWER_TRUE : ANSWER_FALSE);
+		mQuestionWrapper = new TrueOrFalseQuestionWrapper(question);
+		mQuestionText.setText(mQuestionWrapper.getQuestionText());
+		mAnswer.setSelectedIndex(mQuestionWrapper.getAnswer() ? ANSWER_TRUE : ANSWER_FALSE);
 	}
 
 	@Override
 	public Question getQuestion() {
-		mQuestion.setQuestionText(mQuestionText.getText().toString().trim());
-		mQuestion.setAnswer(mAnswer.getSelectedAnswerIndex() == ANSWER_TRUE);
-		return mQuestion;
+		mQuestionWrapper.setQuestionText(mQuestionText.getText().toString().trim());
+		mQuestionWrapper.setAnswer(mAnswer.getSelectedAnswerIndex() == ANSWER_TRUE);
+		return mQuestionWrapper.get();
 	}
 
 	@Override
 	public Answer getAnswer() {
-		return new Answer(mQuestion.getObjectId(),
+		return new Answer(mQuestionWrapper.get().getObjectId(),
 				String.valueOf(mAnswer.getSelectedAnswerIndex() == ANSWER_TRUE));
 	}
 

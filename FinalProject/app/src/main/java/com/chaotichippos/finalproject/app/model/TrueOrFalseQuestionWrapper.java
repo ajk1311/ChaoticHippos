@@ -1,23 +1,23 @@
 package com.chaotichippos.finalproject.app.model;
 
-import com.parse.ParseClassName;
-
 import org.json.JSONException;
 
-@ParseClassName("Question")
-public class TrueOrFalseQuestion extends Question {
+public class TrueOrFalseQuestionWrapper {
 
 	private static final String KEY_QUESTION_TEXT = "questionText";
 
 	private static final String KEY_ANSWER = "answer";
 
-	public TrueOrFalseQuestion() {
-		setType(Type.TRUE_OR_FALSE);
+	private Question mWrapped;
+
+	public TrueOrFalseQuestionWrapper(Question wrapped) {
+		mWrapped = wrapped;
+		mWrapped.setType(Question.Type.TRUE_OR_FALSE);
 	}
 
 	public void setQuestionText(String questionText) {
         try {
-            getData().put(KEY_QUESTION_TEXT, questionText);
+            mWrapped.getData().put(KEY_QUESTION_TEXT, questionText);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -25,7 +25,7 @@ public class TrueOrFalseQuestion extends Question {
 
 	public String getQuestionText() {
         try {
-            return getData().getString(KEY_QUESTION_TEXT);
+            return mWrapped.getData().getString(KEY_QUESTION_TEXT);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -34,7 +34,7 @@ public class TrueOrFalseQuestion extends Question {
 
 	public void setAnswer(boolean answer) {
         try {
-            getData().put(KEY_ANSWER, answer);
+			mWrapped.getData().put(KEY_ANSWER, answer);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -42,10 +42,14 @@ public class TrueOrFalseQuestion extends Question {
 
 	public boolean getAnswer() {
         try {
-            return getData().getBoolean(KEY_ANSWER);
+            return mWrapped.getData().getBoolean(KEY_ANSWER);
         } catch (JSONException e) {
             e.printStackTrace();
             return false;
         }
     }
+
+	public Question get() {
+		return mWrapped;
+	}
 }

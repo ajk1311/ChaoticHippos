@@ -1,6 +1,9 @@
 package com.chaotichippos.finalproject.app.model;
 
+import com.chaotichippos.finalproject.app.view.TrueFalseView;
+
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class TrueOrFalseQuestionWrapper {
 
@@ -24,29 +27,23 @@ public class TrueOrFalseQuestionWrapper {
     }
 
 	public String getQuestionText() {
-        try {
-            return mWrapped.getData().getString(KEY_QUESTION_TEXT);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
+		final JSONObject data = mWrapped.getData();
+		return data.has(KEY_QUESTION_TEXT) ?
+				data.optString(KEY_QUESTION_TEXT) : null;
     }
 
-	public void setAnswer(boolean answer) {
-        try {
+	public void setAnswer(int answer) {
+		try {
 			mWrapped.getData().put(KEY_ANSWER, answer);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-	public boolean getAnswer() {
-        try {
-            return mWrapped.getData().getBoolean(KEY_ANSWER);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return false;
-        }
+	public int getAnswer() {
+		final JSONObject data = mWrapped.getData();
+		return data.has(KEY_ANSWER) ?
+				data.optInt(KEY_ANSWER) : TrueFalseView.ANSWER_INVALID;
     }
 
 	public Question get() {

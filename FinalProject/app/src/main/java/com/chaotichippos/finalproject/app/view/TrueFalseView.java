@@ -23,11 +23,11 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 
 	protected abstract TextView getTextDisplayView(Context context);
 
-	private static final int ANSWER_INVALID = -1;
+	public static final int ANSWER_INVALID = -1;
 
-	private static final int ANSWER_TRUE = 0;
+	public static final int ANSWER_TRUE = 0;
 
-	private static final int ANSWER_FALSE = 1;
+	public static final int ANSWER_FALSE = 1;
 
 
 	private TextView mQuestionText;
@@ -65,13 +65,13 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 	public void setQuestion(Question question) {
 		mQuestionWrapper = new TrueOrFalseQuestionWrapper(question);
 		mQuestionText.setText(mQuestionWrapper.getQuestionText());
-		mAnswer.setSelectedIndex(mQuestionWrapper.getAnswer() ? ANSWER_TRUE : ANSWER_FALSE);
+		mAnswer.setSelectedIndex(mQuestionWrapper.getAnswer());
 	}
 
 	@Override
 	public Question getQuestion() {
 		mQuestionWrapper.setQuestionText(mQuestionText.getText().toString().trim());
-		mQuestionWrapper.setAnswer(mAnswer.getSelectedAnswerIndex() == ANSWER_TRUE);
+		mQuestionWrapper.setAnswer(mAnswer.getSelectedAnswerIndex());
 		return mQuestionWrapper.get();
 	}
 

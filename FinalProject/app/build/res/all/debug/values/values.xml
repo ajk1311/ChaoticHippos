@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/C:/Users/Nick/Documents/GitHub/ChaoticHippos/FinalProject/app/src/main/res/values/colors.xml -->
+    <eat-comment />
+
+    <color name="gray_lighter">#ddd</color>
+    <!-- From: file:/C:/Users/Nick/Documents/GitHub/ChaoticHippos/FinalProject/app/src/main/res/values/dimens.xml -->
+    <eat-comment />
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="list_item_height">48dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="question_list_parallax">32dp</dimen>
+    <!-- From: file:/C:/Users/Nick/Documents/GitHub/ChaoticHippos/FinalProject/app/src/main/res/values/ids.xml -->
+    <eat-comment />
+
+    <item name="menu_option_create_exam" type="id"/>
+    <item name="menu_option_switch" type="id"/>
+    <!-- From: file:/C:/Users/Nick/Documents/GitHub/ChaoticHippos/FinalProject/app/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="app_name">FinalProject</string>
+    <string name="btn_instructor">Instructor</string>
+    <string name="btn_student">Student</string>
+    <string name="question_list_btn_add">Add Question</string>
+    <string name="question_prefix">Question </string>
+    <string name="question_type_dialog_title">Select Question Type</string>
+    <string name="question_type_fill_in_the_blank">Fill in the Blank</string>
+    <string name="question_type_matching">Matching</string>
+    <string name="question_type_multiple_choice">Multiple Choice</string>
+    <string name="question_type_true_or_false">True or False</string>
+    <!-- From: file:/C:/Users/Nick/Documents/GitHub/ChaoticHippos/FinalProject/app/src/main/res/values/styles.xml -->
+    <eat-comment />
+
+    <style name="AppTheme" parent="android:Theme.Holo.Light"></style>
+
+    <style name="AppTheme.Fullscreen" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AppTheme.Main" parent="AppTheme"></style>
+
+</resources>

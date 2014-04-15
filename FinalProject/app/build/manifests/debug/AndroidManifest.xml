@@ -1,0 +1,25 @@
+<!-- From: file:/C:/Users/Nick/Documents/GitHub/ChaoticHippos/FinalProject/app/src/main/AndroidManifest.xml --><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.chaotichippos.finalproject.app">
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="19"/>
+
+	<uses-permission android:name="android.permission.INTERNET"/>
+
+    <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name="com.chaotichippos.finalproject.app.App" android:theme="@style/AppTheme">
+
+		<activity android:label="@string/app_name" android:name="com.chaotichippos.finalproject.app.activity.LaunchActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme">
+
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+
+		</activity>
+
+        <activity android:label="@string/app_name" android:name="com.chaotichippos.finalproject.app.activity.StartActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.Fullscreen"/>
+
+		<activity android:label="@string/app_name" android:name="com.chaotichippos.finalproject.app.activity.StudentActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.Main" android:windowSoftInputMode="adjustPan"/>
+
+		<activity android:label="@string/app_name" android:name="com.chaotichippos.finalproject.app.activity.InstructorActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.Main" android:windowSoftInputMode="adjustPan"/>
+
+    </application>
+
+</manifest>

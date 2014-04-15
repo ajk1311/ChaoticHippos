@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res" >
+            <file
+                name="blank1"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable\blank1.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="blank2"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable\blank2.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="blank3"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable\blank3.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="divider_vertical"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable\divider_vertical.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="list_item_bg"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable\list_item_bg.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="list_selector_gray"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable\list_selector_gray.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="true_false_answer_text_color"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable\true_false_answer_text_color.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable-hdpi\ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable-mdpi\ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_content_new"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable-xhdpi\ic_content_new.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_item_remove"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable-xhdpi\ic_item_remove.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable-xhdpi\ic_launcher.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="list_item_bg_activated"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable-xhdpi\list_item_bg_activated.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="list_item_bg_default"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable-xhdpi\list_item_bg_default.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="list_item_bg_pressed"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable-xhdpi\list_item_bg_pressed.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="pane_shadow"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable-xhdpi\pane_shadow.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="activity_main"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\activity_main.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_start"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\activity_start.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="complete_fill_in_the_blank_base_view"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\complete_fill_in_the_blank_base_view.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="create_fill_in_the_blank_base_view"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\create_fill_in_the_blank_base_view.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="create_matching_list"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\create_matching_list.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="create_matching_list_item"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\create_matching_list_item.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="create_multiple_choice_base_view"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\create_multiple_choice_base_view.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="create_multiple_choice_list_item_view"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\create_multiple_choice_list_item_view.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_question_list"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\fragment_question_list.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="question_list_add"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\question_list_add.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="question_list_item_editable"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\question_list_item_editable.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="question_list_item_textview"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\question_list_item_textview.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="student_matching_list"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\layout\student_matching_list.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="create_multiple_choice_menu"
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\menu\create_multiple_choice_menu.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\values\colors.xml"
+                qualifiers="" >
+                <color name="gray_lighter" >#ddd
+                </color>
+            </file>
+            <file
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\values\dimens.xml"
+                qualifiers="" >
+                <dimen name="activity_horizontal_margin" >16dp
+                </dimen>
+                <dimen name="list_item_height" >48dp
+                </dimen>
+                <dimen name="activity_vertical_margin" >16dp
+                </dimen>
+                <dimen name="question_list_parallax" >32dp
+                </dimen>
+                <dimen name="margin_small" >8dp
+                </dimen>
+            </file>
+            <file
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\values\strings.xml"
+                qualifiers="" >
+                <string name="question_type_true_or_false" >True or False
+                </string>
+                <string name="question_type_matching" >Matching
+                </string>
+                <string name="question_type_fill_in_the_blank" >Fill in the Blank
+                </string>
+                <string name="app_name" >FinalProject
+                </string>
+                <string name="btn_instructor" >Instructor
+                </string>
+                <string name="question_prefix" >Question 
+                </string>
+                <string name="btn_student" >Student
+                </string>
+                <string name="question_type_dialog_title" >Select Question Type
+                </string>
+                <string name="question_type_multiple_choice" >Multiple Choice
+                </string>
+                <string name="question_list_btn_add" >Add Question
+                </string>
+            </file>
+            <file
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\values\styles.xml"
+                qualifiers="" >
+
+                <style
+                    name="AppTheme.Main"
+                    parent="AppTheme" >
+                </style>
+
+                <style
+                    name="AppTheme.Fullscreen"
+                    parent="AppTheme" >
+                    <item name="android:windowFullscreen">
+true
+                    </item>
+                    <item name="android:windowContentOverlay">
+@null
+                    </item>
+                </style>
+
+                <style
+                    name="AppTheme"
+                    parent="android:Theme.Holo.Light" >
+                </style>
+            </file>
+            <file
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\values-w820dp\dimens.xml"
+                qualifiers="w820dp" >
+                <dimen name="activity_horizontal_margin" >64dp
+                </dimen>
+            </file>
+            <file
+                path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\main\res\values\ids.xml"
+                qualifiers="" >
+                <item
+                    name="menu_option_create_exam"
+                    type="id"/>
+                <item
+                    name="menu_option_switch"
+                    type="id"/>
+            </file>
+        </source>
+        <source path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\build\res\rs\debug" />
+        <source path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\build\res\generated\debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="C:\Users\Nick\Documents\GitHub\ChaoticHippos\FinalProject\app\src\debug\res" />
+    </dataSet>
+
+</merger>

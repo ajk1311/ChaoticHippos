@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<TextView
+		android:id="@+id/text"
+		android:focusable="false"
+		android:text="@string/question_prefix"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_margin="8dp"
+		android:gravity="center_vertical"
+		android:layout_weight="1"/>
+
+	<ImageButton
+		android:id="@+id/btn_remove"
+		android:focusable="false"
+		android:background="@drawable/list_selector_gray"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:padding="8dp"
+		android:src="@drawable/ic_item_remove"/>
+
+</merge><!-- From: file:/C:/Users/Nick/Documents/GitHub/ChaoticHippos/FinalProject/app/src/main/res/layout/question_list_item_editable.xml -->

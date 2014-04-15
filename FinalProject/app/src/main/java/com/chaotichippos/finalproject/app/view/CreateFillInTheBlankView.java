@@ -42,8 +42,6 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     public CreateFillInTheBlankView(Context context) {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.create_fill_in_the_blank_base_view, this, true);
-        question = new Question();
-        question.setType(Question.Type.FILL_IN_THE_BLANK);
         numBlanks = 0;
         insertBlankButton = (Button) findViewById(R.id.fitb_insertblank_button);
         questionTextEditText = (EditText) findViewById(R.id.fitb_qtext_edittext);

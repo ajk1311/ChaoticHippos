@@ -87,6 +87,7 @@ public class InstructorActivity extends MainActivity {
 	}
 
     public void createExam() {
+        savePreviousQuestion();
         List<Question> qList = getQuestionListFragment().getQuestionList();
         for(Question question: qList) {
             try {

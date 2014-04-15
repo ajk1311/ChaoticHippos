@@ -292,11 +292,6 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
             e.printStackTrace();
         }
         question.setData(data);
-        try {
-            question.save();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         return question;
     }
 

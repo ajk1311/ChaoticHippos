@@ -13,20 +13,20 @@ public class MultipleChoiceQuestion extends Question {
 
     public MultipleChoiceQuestion() {
         setType(Type.MULTIPLE_CHOICE);
-        if (containsKey("choices")) {
-            choices = getList("choices");
+        if (toParseObject().containsKey("choices")) {
+            choices = toParseObject().getList("choices");
         } else {
             choices = new ArrayList<String>();
-            put("choices", choices);
+            toParseObject().put("choices", choices);
         }
     }
 
     public void setQuestionText(String questionText) {
-        put(KEY_QUESTION_TEXT, questionText);
+        toParseObject().put(KEY_QUESTION_TEXT, questionText);
     }
 
     public String getQuestionText() {
-        return getString(KEY_QUESTION_TEXT);
+        return toParseObject().getString(KEY_QUESTION_TEXT);
     }
 
     public void addChoice(String answerText) {

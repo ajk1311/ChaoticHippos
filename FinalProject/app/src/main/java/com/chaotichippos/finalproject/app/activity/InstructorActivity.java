@@ -74,7 +74,6 @@ public class InstructorActivity extends MainActivity {
 
 			case MATCHING:
 				view = new CreateMatchingView(this);
-                ((CreateMatchingView) view).setQuestion(question);
 				break;
 
 			case TRUE_OR_FALSE:

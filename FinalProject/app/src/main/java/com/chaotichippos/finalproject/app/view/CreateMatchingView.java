@@ -297,12 +297,13 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
     }
 
     private void setMyQuestion() {
-        JSONArray left = new JSONArray();
-        JSONArray right = new JSONArray();
         try {
-            left = question.getData().getJSONArray("leftSide");
-            right = question.getData().getJSONArray("rightSide");
+            Log.v(TAG, "inside try");
+
+            JSONArray left = this.question.getData().getJSONArray("leftSide");
+            JSONArray right = this.question.getData().getJSONArray("rightSide");
             if(left != null) {
+                Log.v(TAG, "not null list");
                 for(int i = 0; i < left.length(); i++)
                 {
                     listAdapter.add(new TeacherMatchingPair((String)left.get(i),(String)right.get(i),false));
@@ -317,12 +318,12 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
     @Override
     public Question getQuestion() {
         JSONObject data = new JSONObject();
-        List<String> leftSide = new ArrayList<String>();
-        List<String> rightSide = new ArrayList<String>();
+        JSONArray leftSide =  new JSONArray();
+        JSONArray rightSide =  new JSONArray();
         for(TeacherMatchingPair pair: matchItems)
         {
-            leftSide.add(pair.getQuestion());
-            rightSide.add(pair.getAnswer());
+            leftSide.put(pair.getQuestion());
+            rightSide.put(pair.getAnswer());
         }
         try {
             data.put("leftSide", leftSide);

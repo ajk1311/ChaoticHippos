@@ -137,7 +137,9 @@ public class Question implements Parcelable {
 		final ParseObject parseObject = new ParseObject(TAG);
 		parseObject.setObjectId(mId);
 		parseObject.put(KEY_TYPE, mType.ordinal());
-		parseObject.put(KEY_IMAGE, mImageUrl);
+        if(mImageUrl != null){
+            parseObject.put(KEY_IMAGE, mImageUrl);
+        }
 		parseObject.put(KEY_DATA, mData);
 		return parseObject;
 	}

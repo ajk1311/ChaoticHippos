@@ -36,7 +36,6 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     private ImageView blank2Image;
     private EditText blank3EditText;
     private ImageView blank3Image;
-    private Button createButton;
     private int numBlanks = 0;
 
     public CreateFillInTheBlankView(Context context) {
@@ -51,28 +50,6 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         blank2Image = (ImageView) findViewById(R.id.fitb_blank2_img);
         blank3EditText = (EditText) findViewById(R.id.fitb_blank3_edittext);
         blank3Image = (ImageView) findViewById(R.id.fitb_blank3_img);
-        createButton = (Button) findViewById(R.id.fitb_create_button);
-
-        createButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                JSONObject data = new JSONObject();
-                try {
-                    data.put("questionText", questionTextEditText.getText().toString());
-                    data.put("blank1", blank1EditText.getText().toString());
-                    data.put("blank2", blank2EditText.getText().toString());
-                    data.put("blank3", blank3EditText.getText().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                question.setData(data);
-                try {
-                    question.toParseObject().save();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
         for(int i = 1; i <= 3; i++) {
             hideBlank(i);

@@ -65,7 +65,6 @@ public class InstructorActivity extends MainActivity {
 		switch (question.getType()) {
 			case FILL_IN_THE_BLANK:
 				view = new CreateFillInTheBlankView(this);
-                ((CreateFillInTheBlankView) view).setQuestion(question);
 				break;
 
 			case MULTIPLE_CHOICE:

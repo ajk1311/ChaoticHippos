@@ -11,7 +11,9 @@ import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Question;
 import com.chaotichippos.finalproject.app.view.CompleteFillInTheBlankView;
 import com.chaotichippos.finalproject.app.view.MultipleChoiceAnswerView;
+import com.chaotichippos.finalproject.app.view.QuestionViewer;
 import com.chaotichippos.finalproject.app.view.StudentMatchingView;
+import com.chaotichippos.finalproject.app.view.TrueFalseCreateView;
 
 public class StudentActivity extends MainActivity {
 
@@ -72,11 +74,11 @@ public class StudentActivity extends MainActivity {
 				break;
 
 			case TRUE_OR_FALSE:
-
+                view = new TrueFalseCreateView(this);
 				break;
 		}
 		getContentContainer().removeAllViews();
 		getContentContainer().addView(view);
-		((CompleteFillInTheBlankView) view).setQuestion(question);
+		((QuestionViewer) view).setQuestion(question);
 	}
 }

@@ -53,7 +53,6 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
     private MultiChoiceModeListener mMultiChoiceModeListener;
     private Set<Integer> selectedIndexes;
     private Question question;
-    private TextView createButton;
 
 
     public CreateMatchingView(Context context) {
@@ -75,33 +74,7 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
 
-        createButton = (TextView) findViewById(R.id.submit_answer);
 
-        createButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                JSONObject data = new JSONObject();
-                List<String> leftSide = new ArrayList<String>();
-                List<String> rightSide = new ArrayList<String>();
-                for(TeacherMatchingPair pair: matchItems)
-                {
-                    leftSide.add(pair.getQuestion());
-                    rightSide.add(pair.getAnswer());
-                }
-                try {
-                    data.put("leftSide", leftSide);
-                    data.put("rightSide", rightSide);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                question.setData(data);
-                try {
-                    question.toParseObject().save();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
         selectedIndexes = new HashSet<Integer>();
         matchItems = new ArrayList<TeacherMatchingPair>();
@@ -126,7 +99,7 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
 
             @Override
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-                ((Activity)getContext()).getMenuInflater().inflate(R.menu.create_multiple_choice_menu, menu);
+                ((Activity)getContext()).getMenuInflater().inflate(R.menu.create_matching_menu, menu);
                 return true;
                 //return false;
             }

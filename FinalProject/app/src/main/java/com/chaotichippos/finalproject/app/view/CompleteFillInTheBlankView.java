@@ -46,6 +46,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
         blank3EditText = (EditText) findViewById(R.id.fitb_blank3_answer_edittext);
         blank1Image = (ImageView) findViewById(R.id.fitb_blank1_answer_img);
         blank2Image = (ImageView) findViewById(R.id.fitb_blank2_answer_img);
+        blank3Image = (ImageView) findViewById(R.id.fitb_blank3_answer_img);
         submitButton = (Button) findViewById(R.id.fitb_submit_button);
         for(int i = 1; i <= 3; i++) {
             hideBlank(i);

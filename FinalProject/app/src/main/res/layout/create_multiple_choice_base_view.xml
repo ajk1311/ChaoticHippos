@@ -32,6 +32,14 @@
         </RelativeLayout>
     </ScrollView>
 
+    <TextView
+        android:id="@+id/SelectedAnswerText"
+        android:text="Answer: _____"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20.0sp"
+        />
+
     <!--List of Answers-->
     <ListView
         android:id="@+id/listview"

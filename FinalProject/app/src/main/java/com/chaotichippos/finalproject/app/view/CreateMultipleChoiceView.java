@@ -37,11 +37,15 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 
     EditText questionTextEditor;
     EditText answerTextEditor;
+    TextView selectedAnswerText;
 
     Button addAnswerButton;
 
     MyAdapter adapter;
     ListView listView;
+
+    String blank = "_____";
+    String currentlySelectedAnswerString;
 
     List<String> answerIDs = new ArrayList<String>();
     List<String> answers = new ArrayList<String>();
@@ -60,7 +64,6 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 
     public CreateMultipleChoiceView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        Log.v(TAG,"-------------started it--------------");
         LayoutInflater.from(context).inflate(R.layout.create_multiple_choice_base_view, this, true);
 
         listView = ( ListView ) findViewById(R.id.listview);
@@ -70,6 +73,7 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 
         questionTextEditor = (EditText)findViewById(R.id.QuestionText);
         answerTextEditor = (EditText)findViewById(R.id.CurrentAnswerText);
+        selectedAnswerText = (TextView)findViewById(R.id.SelectedAnswerText);
 
         addListenerOnAnswerButton();
 
@@ -88,7 +92,20 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 
 			@Override
 			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-				return false;
+                int checkedCount =  listView.getCheckedItemCount();
+                MenuItem deleteItem = menu.findItem(R.id.Delete);
+                MenuItem answerItem = menu.findItem(R.id.Answer);
+
+                if(checkedCount > 1) {
+                    deleteItem.setVisible(true);
+                    answerItem.setVisible(false);
+                }
+                else if(checkedCount == 1) {
+                    deleteItem.setVisible(false);
+                    answerItem.setVisible(true);
+                }
+
+                return true;
 			}
 
 			@Override
@@ -106,13 +123,20 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 			/** Invoked when an action in the action mode is clicked */
 			@Override
 			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-				deleteCheckedItems();
+				if(item.getItemId() == R.id.Delete) {
+                    deleteCheckedItems();
+                }
+                if(item.getItemId() == R.id.Answer) {
+                    setAnswer();
+                }
+
 				return false;
 			}
 
 			@Override
 			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                 adapter.notifyDataSetChanged();
+                mode.invalidate();
             }
 		});
     }
@@ -120,6 +144,12 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
     /** Returning the selected answers */
     public void deleteCheckedItems() {
         adapter.deleteSelectedItems();
+    }
+
+    public void setAnswer() {
+        Pair<String,String> answer = adapter.getSelectedAnswer();
+        currentlySelectedAnswerString = answer.first;
+        selectedAnswerText.setText("Selected: " + answer.first);
     }
 
     public void addListenerOnAnswerButton() {
@@ -200,6 +230,10 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
             for(int i = 0; i < mList.size(); i++) {
                 if(checkedItemIndexes.get(i) == true) {
                     deleteItems.add(mList.get(i));
+                    if(mList.get(i).first == currentlySelectedAnswerString) {
+                        selectedAnswerText.setText("Selected: " + blank);
+                        currentlySelectedAnswerString = null;
+                    }
                 }
             }
 
@@ -222,6 +256,23 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
             alphabetIndex = mList.size();
 
             notifyDataSetChanged();
+        }
+
+        public Pair<String,String> getSelectedAnswer() {
+            SparseBooleanArray checkedItemIndexes =  listView.getCheckedItemPositions();
+            String answerChar = null;
+            String answer = null;
+            for (int i = 0; i < mList.size(); i++) {
+                if (listView.isItemChecked(i)) {
+                    answerChar = mList.get(i).first;
+                    answer = mList.get(i).second;
+                }
+            }
+
+            if(answerChar.length() > 0 && answer.length() > 0) {
+                return new Pair<String, String>(answerChar, answer);
+            }
+            return null;
         }
 
         @Override
@@ -267,17 +318,22 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
     @Override
     public Question getQuestion() {
         List<Pair<String, String>> currentList = adapter.getList();
-        List<String> answers = new ArrayList<String>();
+        JSONArray answers =  new JSONArray();
 
         for(int i = 0; i < currentList.size(); i++) {
-            answers.add(currentList.get(i).second);
+            answers.put(currentList.get(i).second);
         }
 
         JSONObject data = new JSONObject();
         try {
             data.put("questionText", questionTextEditor.getText().toString());
             data.put("answers", answers);
-            data.put("correctAnswer", "A");
+            if(currentlySelectedAnswerString == null) {
+                data.put("correctAnswer", blank);
+            }
+            else {
+                data.put("correctAnswer", currentlySelectedAnswerString);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -296,7 +352,16 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
         try {
 			questionTextEditor.setText(this.question.getData().getString("questionText"));
 			JSONArray answers = this.question.getData().getJSONArray("answers");
-			List<Pair<String, String>> answersList = new ArrayList<Pair<String, String>>();
+
+            currentlySelectedAnswerString = this.question.getData().getString("correctAnswer");
+            if(currentlySelectedAnswerString != blank) {
+                selectedAnswerText.setText("Selected: " + currentlySelectedAnswerString);
+            }
+            else {
+                selectedAnswerText.setText("Selected: " + blank);
+            }
+
+            List<Pair<String, String>> answersList = new ArrayList<Pair<String, String>>();
             if(answers.length() > 0) {
                 for(int i = 0; i < answers.length(); i++){
                     answersList.add(new Pair<String,String>(alphabet.get(i),answers.get(i).toString()));

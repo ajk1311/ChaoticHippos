@@ -51,7 +51,7 @@ public class Question implements Parcelable {
 	private String mImageUrl;
 	private JSONObject mData;
 
-	public static List<Question> fromParseList(List<ParseObject> fromParse) {
+	public static ArrayList<Question> fromParseList(List<ParseObject> fromParse) {
 		final ArrayList<Question> questions = new ArrayList<Question>();
 		for (int i = 0, sz = fromParse.size(); i < sz; i++) {
 			questions.add(new Question(fromParse.get(i)));
@@ -137,8 +137,8 @@ public class Question implements Parcelable {
 		final ParseObject parseObject = new ParseObject(TAG);
 		parseObject.setObjectId(mId);
 		parseObject.put(KEY_TYPE, mType.ordinal());
-		parseObject.put(KEY_IMAGE, mImageUrl);
-		parseObject.put(KEY_DATA, mData);
+		if (mImageUrl != null) parseObject.put(KEY_IMAGE, mImageUrl);
+		if (mData != null) parseObject.put(KEY_DATA, mData);
 		return parseObject;
 	}
 

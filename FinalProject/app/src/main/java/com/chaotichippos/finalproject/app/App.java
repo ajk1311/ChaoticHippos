@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 
 import com.chaotichippos.finalproject.app.model.Submission;
-import com.chaotichippos.finalproject.app.model.Test;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -23,7 +22,6 @@ public class App extends Application {
 	}
 
 	private void setupParse() {
-		ParseObject.registerSubclass(Test.class);
 		ParseObject.registerSubclass(Submission.class);
 		Parse.initialize(sAppContext, PARSE_APP_ID, PARSE_CLIENT_KEY);
 	}

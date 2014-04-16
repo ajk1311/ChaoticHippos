@@ -11,16 +11,19 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Question;
 import com.chaotichippos.finalproject.app.model.Test;
 import com.chaotichippos.finalproject.app.view.EditableQuestionListItemView;
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,8 +36,10 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	/** Used for constants and logging */
 	private static final String TAG = QuestionListFragment.class.getSimpleName();
 
-	/** Key for saving and retrieving the editable property of the list */
+	/** Key for saving and retrieving the state of the list */
 	private static final String KEY_IS_EDITABLE = TAG + ".isEditable";
+	private static final String KEY_QUESTION_LIST = TAG + ".questionList";
+	private static final String KEY_SELECTED_QUESTION = TAG + ".selectedQuestion";
 
 	/**
 	 * Interface providing methods for the controlling {@link android.app.Activity}
@@ -55,6 +60,8 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 
 	private ListView mListView;
 	private QuestionListAdapter mListAdapter;
+
+	private ViewSwitcher mViewSwitcher;
 
 	/** {@code true} if the user can add or remove questions from the list */
 	private boolean mIsEditable = true;
@@ -89,6 +96,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		if (savedInstanceState != null) {
 			mIsEditable = savedInstanceState.getBoolean(KEY_IS_EDITABLE);
 		}
+		mViewSwitcher = (ViewSwitcher) view.findViewById(R.id.switcher);
 		mListView = (ListView) view.findViewById(android.R.id.list);
 		mAddQuestionListFooterView = LayoutInflater.from(getActivity())
 				.inflate(R.layout.question_list_add, mListView, false);
@@ -97,6 +105,17 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		}
 		mListAdapter = new QuestionListAdapter();
 		mListView.setAdapter(mListAdapter);
+		if (savedInstanceState != null) {
+			mViewSwitcher.setDisplayedChild(1);
+			ArrayList<Question> questions =
+					savedInstanceState.getParcelableArrayList(KEY_QUESTION_LIST);
+			mListAdapter.swapQuestions(questions);
+			final int savedSelectedPosition = savedInstanceState.getInt(KEY_SELECTED_QUESTION);
+			mListAdapter.setQuestionSelected(savedSelectedPosition);
+			if (savedSelectedPosition >= 0) {
+				mListener.onQuestionSelected(questions.get(savedSelectedPosition));
+			}
+		}
 	}
 
 	@Override
@@ -109,6 +128,8 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putBoolean(KEY_IS_EDITABLE, mIsEditable);
+		outState.putParcelableArrayList(KEY_QUESTION_LIST, mListAdapter.mList);
+		outState.putInt(KEY_SELECTED_QUESTION, mListAdapter.mSelectedPosition);
 	}
 
 	@Override
@@ -171,6 +192,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	public void onTestLoaded(Test test) {
 		ParseQuery questionQuery = ParseQuery.getQuery(Question.TAG);
 		questionQuery.whereEqualTo("parentExam", test.getObjectId());
+		questionQuery.orderByAscending("createdAt");
 		questionQuery.findInBackground(new FindCallback<ParseObject>() {
 			@Override
 			public void done(List<ParseObject> questions, ParseException e) {
@@ -178,6 +200,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 					return;
 				}
 				if (e == null) {
+					mViewSwitcher.setDisplayedChild(1);
 					mListAdapter.swapQuestions(Question.fromParseList(questions));
 				} else {
 					Toast.makeText(getActivity(), "Error loading test questions: " + e.getMessage(),
@@ -220,7 +243,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		private static final int INVALID_POSITION = -1;
 
 		/** The backing data for the adapter */
-		List<Question> mList;
+		ArrayList<Question> mList;
 
 		/**
 		 * Keeps track of the selected position in the list. We aren't using
@@ -247,7 +270,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		 *
 		 * @param list The new list to be displayed
 		 */
-		public void swapQuestions(List<Question> list) {
+		public void swapQuestions(ArrayList<Question> list) {
 			if (list != mList) {
 				mList = list;
 				notifyDataSetChanged();
@@ -284,7 +307,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView, ViewGroup parent) {
 			if (convertView == null) {
 				convertView = mIsEditable ? new EditableQuestionListItemView(getActivity()) :
 						LayoutInflater.from(getActivity())
@@ -299,7 +322,23 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 				view.getRemoveButton().setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						// TODO remove question
+						mViewSwitcher.setDisplayedChild(0);
+						mList.get(position).toParseObject().deleteInBackground(
+								new DeleteCallback() {
+									@Override
+									public void done(ParseException e) {
+										mList.remove(position);
+										if (position == mSelectedPosition && getCount() > 1) {
+											int newPosition = position == mList.size() - 1 ?
+													position - 1 : position + 1;
+											setQuestionSelected(newPosition);
+											mListener.onQuestionSelected(mList.get(newPosition));
+										} else {
+											notifyDataSetChanged();
+										}
+										mViewSwitcher.setDisplayedChild(1);
+									}
+								});
 					}
 				});
 			} else {

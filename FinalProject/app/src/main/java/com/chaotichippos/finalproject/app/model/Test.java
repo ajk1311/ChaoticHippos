@@ -1,55 +1,113 @@
 package com.chaotichippos.finalproject.app.model;
 
-import com.parse.ParseClassName;
-import com.parse.ParseObject;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import java.util.List;
+import com.parse.ParseObject;
 
 /**
  * POJO model for a test from the server
  */
-@ParseClassName("Test")
-public class Test extends ParseObject {
+public class Test implements Parcelable {
+
+	public static final String TAG = "Test";
 
 	// Key names used by the internal ParseObject
 	private static final String KEY_DURATION = "duration";
 	private static final String KEY_EXPIRATION = "expiration";
 	private static final String KEY_NAME = "name";
-	private static final String KEY_QUESTIONS = "questions";
 
+	private String mId;
+	private long mDuration;
+	private long mExpiration;
+	private String mName;
+	private boolean mIsReady;
 
-	// Getters/setters
-	// ====================================================================
+	public Test(ParseObject test) {
+		mId = test.getObjectId();
+		mDuration = test.getLong(KEY_DURATION);
+		mExpiration = test.getLong(KEY_EXPIRATION);
+		mName = test.getString(KEY_NAME);
+//		mIsReady = test.getBoolean(KEY_READY);
+	}
+
+	private Test(Parcel source) {
+		mId = source.readString();
+		mDuration = source.readLong();
+		mExpiration = source.readLong();
+		mName = source.readString();
+//		mIsReady = source.readInt() == 1;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(mId);
+		dest.writeLong(mDuration);
+		dest.writeLong(mExpiration);
+		dest.writeString(mName);
+//		dest.writeInt(mIsReady ? 1 : 0);
+	}
+
+	public static final Parcelable.Creator<Test> CREATOR = new Parcelable.Creator<Test>() {
+		@Override
+		public Test createFromParcel(Parcel source) {
+			return new Test(source);
+		}
+
+		@Override
+		public Test[] newArray(int size) {
+			return new Test[size];
+		}
+	};
+
+	public String getObjectId() {
+		return mId;
+	}
 
 	public long getDuration() {
-		return getLong(KEY_DURATION);
+		return mDuration;
 	}
 
 	public void setDuration(long duration) {
-		put(KEY_DURATION, duration);
+		mDuration = duration;
 	}
 
 	public long getExpiration() {
-		return getLong(KEY_EXPIRATION);
+		return mExpiration;
 	}
 
 	public void setExpiration(long expiration) {
-		put(KEY_EXPIRATION, expiration);
+		mExpiration = expiration;
 	}
 
 	public String getName() {
-		return getString(KEY_NAME);
+		return mName;
 	}
 
 	public void setName(String name) {
-		put(KEY_NAME, name);
+		mName = name;
 	}
 
-	public List<Question> getQuestions() {
-		return getList(KEY_QUESTIONS);
+	public boolean isReady() {
+		return mIsReady;
 	}
 
-	public void setQuestions(List<Question> questions) {
-		put(KEY_QUESTIONS, questions);
+	public void setReady(boolean isReady) {
+		mIsReady = isReady;
+	}
+
+	public ParseObject toParseObject() {
+		final ParseObject test = new ParseObject(TAG);
+		test.setObjectId(mId);
+		test.put(KEY_DURATION, mDuration);
+		test.put(KEY_EXPIRATION, mExpiration);
+		test.put(KEY_NAME, mName);
+//		test.put(KEY_READY, mIsReady);
+		return test;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
 	}
 }

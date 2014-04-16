@@ -28,6 +28,7 @@ public class EditableQuestionListItemView extends LinearLayout {
 		super(context, attrs, defStyle);
 		setOrientation(HORIZONTAL);
 		setDescendantFocusability(FOCUS_BLOCK_DESCENDANTS);
+		setBackgroundResource(R.drawable.list_item_bg);
 		setMinimumHeight(context.getResources()
 				.getDimensionPixelSize(R.dimen.list_item_height));
 		TypedValue listPreferredHeight = new TypedValue();

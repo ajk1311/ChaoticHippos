@@ -37,6 +37,8 @@ public abstract class MainActivity extends Activity
 	/** Key for retrieving a visible dialog, if there is one */
 	private static final String KEY_DIALOG_ADD_QUESTION = TAG + ".DialogAddQuestion";
 
+	private static final String KEY_SAVE_TEST = TAG + ".Test";
+
 	// Abstract methods
 	//================================================================
 
@@ -98,6 +100,8 @@ public abstract class MainActivity extends Activity
 			getFragmentManager().beginTransaction()
 					.replace(R.id.list_fragment_container, new QuestionListFragment()).commit();
 			loadTestFromServer();
+		} else {
+			mCurrentTest = savedInstanceState.getParcelable(KEY_SAVE_TEST);
 		}
 	}
 
@@ -109,6 +113,12 @@ public abstract class MainActivity extends Activity
 		if (dialog != null) {
 			dialog.setOnQuestionTypeSelectedListener(this);
 		}
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putParcelable(KEY_SAVE_TEST, mCurrentTest);
 	}
 
 	@Override
@@ -176,13 +186,13 @@ public abstract class MainActivity extends Activity
 	}
 
 	private void loadTestFromServer() {
-		ParseQuery<Test> testQuery = ParseQuery.getQuery(Test.class);
+		ParseQuery<ParseObject> testQuery = ParseQuery.getQuery(Test.TAG);
 		testQuery.orderByDescending("createdAt");
-		testQuery.getFirstInBackground(new GetCallback<Test>() {
+		testQuery.getFirstInBackground(new GetCallback<ParseObject>() {
 			@Override
-			public void done(Test test, ParseException e) {
+			public void done(ParseObject test, ParseException e) {
 				if (e == null) {
-					mCurrentTest = test;
+					mCurrentTest = new Test(test);
 					getQuestionListFragment().onTestLoaded(mCurrentTest);
 				} else {
 					Toast.makeText(MainActivity.this, "Error loading test: " + e.getMessage(),

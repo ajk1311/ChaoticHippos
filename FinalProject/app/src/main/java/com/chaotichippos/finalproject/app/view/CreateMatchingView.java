@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -31,10 +30,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 public class CreateMatchingView extends LinearLayout implements QuestionViewer{
@@ -345,4 +342,14 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
     public Answer getAnswer() {
         return null;
     }
+
+	@Override
+	public void setAnswer(String answerText) {
+
+	}
+
+	@Override
+	public boolean isQuestionComplete() {
+		return false;
+	}
 }

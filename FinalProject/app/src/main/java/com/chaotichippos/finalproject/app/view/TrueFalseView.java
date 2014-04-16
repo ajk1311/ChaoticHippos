@@ -81,6 +81,16 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 				String.valueOf(mAnswer.getSelectedAnswerIndex() == ANSWER_TRUE));
 	}
 
+	@Override
+	public void setAnswer(String answerText) {
+
+	}
+
+	@Override
+	public boolean isQuestionComplete() {
+		return false;
+	}
+
 	/** Layout that holds the two choices for a true or false question */
 	private static class TrueFalseAnswerGroup extends LinearLayout {
 

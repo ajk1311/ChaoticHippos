@@ -128,7 +128,17 @@ public class MultipleChoiceAnswerView extends RelativeLayout implements Question
         return new Answer(question.getObjectId(),currentlySelectedAnswerString);
     }
 
-    public void setQuestion(Question question) {
+	@Override
+	public void setAnswer(String answerText) {
+
+	}
+
+	@Override
+	public boolean isQuestionComplete() {
+		return false;
+	}
+
+	public void setQuestion(Question question) {
         this.question = question;
         try {
             questionText.setText(this.question.getData().getString("questionText"));

@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
-import com.parse.ParseException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -190,4 +189,14 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     public Answer getAnswer() {
         return null;
     }
+
+	@Override
+	public void setAnswer(String answerText) {
+
+	}
+
+	@Override
+	public boolean isQuestionComplete() {
+		return false;
+	}
 }

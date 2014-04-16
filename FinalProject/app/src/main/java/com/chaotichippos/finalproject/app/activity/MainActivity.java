@@ -194,6 +194,7 @@ public abstract class MainActivity extends Activity
 				if (e == null) {
 					mCurrentTest = new Test(test);
 					getQuestionListFragment().onTestLoaded(mCurrentTest);
+					onTestLoaded(mCurrentTest);
 				} else {
 					Toast.makeText(MainActivity.this, "Error loading test: " + e.getMessage(),
 							Toast.LENGTH_SHORT)
@@ -201,6 +202,10 @@ public abstract class MainActivity extends Activity
 				}
 			}
 		});
+	}
+
+	protected void onTestLoaded(Test currentTest) {
+		/* STUB */
 	}
 
 	/** Either shows a view for the given question immediately,

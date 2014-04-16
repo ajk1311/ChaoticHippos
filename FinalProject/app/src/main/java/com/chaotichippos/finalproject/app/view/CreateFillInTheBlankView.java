@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
-import com.parse.ParseException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,6 +25,8 @@ import org.json.JSONObject;
  *
  */
 public class CreateFillInTheBlankView extends LinearLayout implements QuestionViewer {
+
+    private static char BLANK_CHAR = (char) 1;
 
     private Question question;
     private Button insertBlankButton;
@@ -37,6 +38,8 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     private EditText blank3EditText;
     private ImageView blank3Image;
     private int numBlanks = 0;
+
+    private ImageSpan[] blanks;
 
     public CreateFillInTheBlankView(Context context) {
         super(context);
@@ -50,25 +53,36 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         blank2Image = (ImageView) findViewById(R.id.fitb_blank2_img);
         blank3EditText = (EditText) findViewById(R.id.fitb_blank3_edittext);
         blank3Image = (ImageView) findViewById(R.id.fitb_blank3_img);
+        loadBlanks();
 
         for(int i = 1; i <= 3; i++) {
             hideBlank(i);
         }
 
         questionTextEditText.addTextChangedListener(new TextWatcher() {
+            boolean reset = false;
+            boolean disable = false;
+            int pos = 0;
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-                if (after == (count - 1) && charSequence.charAt(start) == (char) 1) {
-                    hideBlank(numBlanks--);
+                if (after == (count - 1) && charSequence.charAt(start) == BLANK_CHAR) {
+                    reset = true;
+                    pos = start;
                 }
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            public void onTextChanged(CharSequence charSequence, int start, int count, int after) {
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                if(reset && !disable) {
+                    disable = true;
+                    resetQuestionText(editable, pos);
+                    disable = false;
+                    reset = false;
+                }
             }
         });
 
@@ -114,25 +128,33 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         }
     }
 
+    private void loadBlanks() {
+        blanks = new ImageSpan[3];
+        Drawable d;
+        ImageSpan span;
+        d = getResources().getDrawable(R.drawable.blank1);
+        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+        span = new ImageSpan(d);
+        blanks[0] = span;
+
+        d = getResources().getDrawable(R.drawable.blank2);
+        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+        span = new ImageSpan(d);
+        blanks[1] = span;
+
+        d = getResources().getDrawable(R.drawable.blank3);
+        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+        span = new ImageSpan(d);
+        blanks[2] = span;
+    }
+
     private void insertBlank() {
         ++numBlanks;
         String temp = "";
-        temp += (char) 1;
+        temp += BLANK_CHAR;
         SpannableString s = new SpannableString(temp);
-        Drawable d = null;
-        if(numBlanks == 1) {
-            d = getResources().getDrawable(R.drawable.blank1);
-        }
-        else if(numBlanks == 2) {
-            d = getResources().getDrawable(R.drawable.blank2);
-        }
-        else if(numBlanks == 3) {
-            d = getResources().getDrawable(R.drawable.blank3);
-        }
-        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
         int cPos = questionTextEditText.getSelectionStart();
-        ImageSpan span = new ImageSpan(d);
-        s.setSpan(span, 0, 1, Spannable.SPAN_INCLUSIVE_EXCLUSIVE );
+        s.setSpan(blanks[numBlanks-1], 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
         questionTextEditText.append(s);
         questionTextEditText.setSelection(cPos + 1);
         unhideBlank(numBlanks);
@@ -153,7 +175,7 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         }
         if(qtext != null) {
             for (int i = 0; i < qtext.length(); i++) {
-                if (qtext.charAt(i) == (char) 1) {
+                if (qtext.charAt(i) == BLANK_CHAR) {
                     insertBlank();
                 } else {
                     questionTextEditText.append(Character.toString(qtext.charAt(i)));
@@ -163,6 +185,24 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         blank1EditText.setText(blank1);
         blank2EditText.setText(blank2);
         blank3EditText.setText(blank3);
+    }
+
+    private void resetQuestionText(CharSequence qtext, int cursorPos) {
+        for(int i = 1; i <= 3; i++) {
+            hideBlank(i);
+        }
+        numBlanks = 0;
+        questionTextEditText.setText(null);
+        if(qtext != null) {
+            for (int i = 0; i < qtext.length(); i++) {
+                if (qtext.charAt(i) == BLANK_CHAR) {
+                    insertBlank();
+                } else {
+                    questionTextEditText.append(Character.toString(qtext.charAt(i)));
+                }
+            }
+        }
+        questionTextEditText.setSelection(cursorPos);
     }
 
     @Override

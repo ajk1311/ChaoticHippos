@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.fragment.QuestionListFragment;
+import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
 import com.chaotichippos.finalproject.app.view.CompleteFillInTheBlankView;
 import com.chaotichippos.finalproject.app.view.CreateFillInTheBlankView;
@@ -25,7 +26,6 @@ public class InstructorActivity extends MainActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 	}
 
 	@Override

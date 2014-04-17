@@ -125,10 +125,18 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     }
 
     private void fillBlanks() {
-        String blanks[] = answerText.split(";");
-        blank1EditText.setText(blanks[0]);
-        blank2EditText.setText(blanks[1]);
-        blank3EditText.setText(blanks[2]);
+        if(answerText != null) {
+            String blanks[] = answerText.split(";");
+            for(int i = 0; i < blanks.length; i++) {
+                if(i == 0) {
+                    blank1EditText.setText(blanks[i]);
+                } else if(i == 1) {
+                    blank2EditText.setText(blanks[i]);
+                } else if(i == 2) {
+                    blank3EditText.setText(blanks[i]);
+                }
+            }
+        }
     }
 
     @Override

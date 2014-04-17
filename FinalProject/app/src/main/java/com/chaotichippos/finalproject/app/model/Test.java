@@ -16,6 +16,7 @@ public class Test implements Parcelable {
 	private static final String KEY_DURATION = "duration";
 	private static final String KEY_EXPIRATION = "expiration";
 	private static final String KEY_NAME = "name";
+	private static final String KEY_READY = "ready";
 
 	private String mId;
 	private long mDuration;
@@ -28,7 +29,7 @@ public class Test implements Parcelable {
 		mDuration = test.getLong(KEY_DURATION);
 		mExpiration = test.getLong(KEY_EXPIRATION);
 		mName = test.getString(KEY_NAME);
-//		mIsReady = test.getBoolean(KEY_READY);
+		mIsReady = test.getBoolean(KEY_READY);
 	}
 
 	private Test(Parcel source) {
@@ -36,7 +37,7 @@ public class Test implements Parcelable {
 		mDuration = source.readLong();
 		mExpiration = source.readLong();
 		mName = source.readString();
-//		mIsReady = source.readInt() == 1;
+		mIsReady = source.readInt() == 1;
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public class Test implements Parcelable {
 		dest.writeLong(mDuration);
 		dest.writeLong(mExpiration);
 		dest.writeString(mName);
-//		dest.writeInt(mIsReady ? 1 : 0);
+		dest.writeInt(mIsReady ? 1 : 0);
 	}
 
 	public static final Parcelable.Creator<Test> CREATOR = new Parcelable.Creator<Test>() {
@@ -102,7 +103,7 @@ public class Test implements Parcelable {
 		test.put(KEY_DURATION, mDuration);
 		test.put(KEY_EXPIRATION, mExpiration);
 		test.put(KEY_NAME, mName);
-//		test.put(KEY_READY, mIsReady);
+		test.put(KEY_READY, mIsReady);
 		return test;
 	}
 

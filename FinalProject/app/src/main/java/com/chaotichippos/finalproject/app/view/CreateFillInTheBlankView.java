@@ -230,4 +230,14 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     public Answer getAnswer() {
         return null;
     }
+
+	@Override
+	public void setAnswer(String answerText) {
+
+	}
+
+	@Override
+	public boolean isQuestionComplete() {
+		return false;
+	}
 }

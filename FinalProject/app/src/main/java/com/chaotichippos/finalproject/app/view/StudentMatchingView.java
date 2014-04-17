@@ -498,7 +498,13 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
         return null;
     }
 
+	@Override
+	public void setAnswer(String answerText) {
 
+	}
 
-
+	@Override
+	public boolean isQuestionComplete() {
+		return false;
+	}
 }

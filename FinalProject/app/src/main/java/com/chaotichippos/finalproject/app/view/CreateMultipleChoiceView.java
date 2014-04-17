@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.Pair;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
@@ -346,7 +345,17 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
         return null;
     }
 
-    @Override
+	@Override
+	public void setAnswer(String answerText) {
+
+	}
+
+	@Override
+	public boolean isQuestionComplete() {
+		return false;
+	}
+
+	@Override
     public void setQuestion(Question question) {
 		this.question = question;
         try {

@@ -25,8 +25,6 @@ import org.json.JSONException;
  */
 public class CompleteFillInTheBlankView extends LinearLayout implements QuestionViewer {
 
-    private static char BLANK_CHAR = (char) 1;
-
     private TextView questionTextTextView;
     private EditText blank1EditText;
     private EditText blank2EditText;
@@ -34,9 +32,9 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     private ImageView blank1Image;
     private ImageView blank2Image;
     private ImageView blank3Image;
+    private Button submitButton;
 
     private Question question;
-    private Answer answer;
     private int numBlanks = 0;
 
     public CompleteFillInTheBlankView(Context context) {
@@ -49,9 +47,17 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
         blank1Image = (ImageView) findViewById(R.id.fitb_blank1_answer_img);
         blank2Image = (ImageView) findViewById(R.id.fitb_blank2_answer_img);
         blank3Image = (ImageView) findViewById(R.id.fitb_blank3_answer_img);
+        submitButton = (Button) findViewById(R.id.fitb_submit_button);
         for(int i = 1; i <= 3; i++) {
             hideBlank(i);
         }
+
+        submitButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Answer answer = getAnswer();
+            }
+        });
     }
 
     private void hideBlank(int blank) {
@@ -96,7 +102,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
         }
         if(qtext != null) {
             for (int i = 0; i < qtext.length(); i++) {
-                if (qtext.charAt(i) == BLANK_CHAR) {
+                if (qtext.charAt(i) == (char) 1) {
                     insertBlank();
                 } else {
                     questionTextTextView.append(Character.toString(qtext.charAt(i)));
@@ -107,7 +113,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     private void insertBlank() {
         ++numBlanks;
         String temp = "";
-        temp += BLANK_CHAR;
+        temp += (char) 1;
         SpannableString s = new SpannableString(temp);
         Drawable d = null;
         if(numBlanks == 1) {
@@ -126,13 +132,6 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
         unhideBlank(numBlanks);
     }
 
-    public void fillBlanks() {
-        String[] blanksText = answer.getAnswerText().split(";");
-        blank1EditText.setText(blanksText[0]);
-        blank2EditText.setText(blanksText[1]);
-        blank3EditText.setText(blanksText[2]);
-    }
-
     @Override
     public void setQuestion(Question question) {
         this.question = question;
@@ -147,13 +146,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     @Override
     public Answer getAnswer() {
         String answerText = blank1EditText.getText().toString() + ";" + blank2EditText.getText().toString() + ";" + blank3EditText.getText().toString() + ";";
-        answer.setAnswerText(answerText);
+        Answer answer = new Answer(question.toParseObject().getObjectId(), answerText);
         return answer;
-    }
-
-
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
-        fillBlanks();
     }
 }

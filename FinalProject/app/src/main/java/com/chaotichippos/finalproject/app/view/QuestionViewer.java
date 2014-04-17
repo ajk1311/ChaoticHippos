@@ -17,16 +17,28 @@ public interface QuestionViewer {
 	public Question getQuestion();
 
 	/**
-	 * @return An array of {@link com.chaotichippos.finalproject.app.model.Answer} objects to be
-	 * added to a {@link com.chaotichippos.finalproject.app.model.Submission}
-	 */
-	public Answer getAnswer();
-
-	/**
 	 * Tells the {@link android.view.View} to display this {@link com.chaotichippos.finalproject.app.model.Question}.
 	 * Allows for View recycling instead of constant instantiation.
 	 *
 	 * @param question The Question to display
 	 */
 	public void setQuestion(Question question);
+
+	/**
+	 * @return An array of {@link com.chaotichippos.finalproject.app.model.Answer} objects to be
+	 * added to a {@link com.chaotichippos.finalproject.app.model.Submission}
+	 */
+	public Answer getAnswer();
+
+	/**
+	 * Tells the {@link android.view.View} to display the {@link com.chaotichippos.finalproject.app.model.Answer}.
+	 *
+	 * @param answerText The Answer to display
+	 */
+	public void setAnswer(String answerText);
+
+	/**
+	 * @return {@code true} if the question creation or answering is complete
+	 */
+	public boolean isQuestionComplete();
 }

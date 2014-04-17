@@ -19,4 +19,6 @@ public class TrueFalseCompleteView extends TrueFalseView {
 		questionText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 		return questionText;
 	}
+
+
 }

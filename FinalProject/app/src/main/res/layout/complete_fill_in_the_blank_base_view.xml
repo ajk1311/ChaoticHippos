@@ -2,64 +2,80 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
+    <TextView
+        android:text="Fill in the Blank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25.0sp"
+        android:layout_weight="0"
+        />
     <TextView
         android:id="@+id/fitb_qtext_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:textSize="20sp"
         />
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/fitb_blank1_answer_img"
-            android:src="@drawable/blank1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-        <EditText
-            android:id="@+id/fitb_blank1_answer_edittext"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="bottom">
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/fitb_blank2_answer_img"
-            android:src="@drawable/blank2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <EditText
-            android:id="@+id/fitb_blank2_answer_edittext"
+            <ImageView
+                android:id="@+id/fitb_blank1_answer_img"
+                android:src="@drawable/blank1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <EditText
+                android:id="@+id/fitb_blank1_answer_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/fitb_blank3_answer_img"
-            android:src="@drawable/blank3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-        <EditText
-            android:id="@+id/fitb_blank3_answer_edittext"
+            <ImageView
+                android:id="@+id/fitb_blank2_answer_img"
+                android:src="@drawable/blank2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <EditText
+                android:id="@+id/fitb_blank2_answer_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/fitb_blank3_answer_img"
+                android:src="@drawable/blank3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <EditText
+                android:id="@+id/fitb_blank3_answer_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -120,38 +120,40 @@ public class MultipleChoiceAnswerView extends RelativeLayout implements Question
         });
     }
 
+    @Override
     public Question getQuestion() {
         return question;
     }
 
+    @Override
     public Answer getAnswer() {
         return new Answer(question.getObjectId(),currentlySelectedAnswerString);
     }
 
 	@Override
 	public void setAnswer(String answerText) {
-
+        if(answerText != null) {
+            selectedAnswerText.setText("Selected: " + answerText);
+            currentlySelectedAnswerString = answerText;
+        }
 	}
 
 	@Override
 	public boolean isQuestionComplete() {
-		return false;
+		if(currentlySelectedAnswerString == null) {
+            return false;
+        } else {
+            return true;
+        }
 	}
 
+    @Override
 	public void setQuestion(Question question) {
         this.question = question;
         try {
             questionText.setText(this.question.getData().getString("questionText"));
             JSONArray answers = this.question.getData().getJSONArray("answers");
-
-            currentlySelectedAnswerString = this.question.getData().getString("correctAnswer");
-            if(currentlySelectedAnswerString != blank) {
-                selectedAnswerText.setText("Selected: " + currentlySelectedAnswerString);
-            }
-            else {
-                selectedAnswerText.setText("Selected: " + blank);
-            }
-
+            selectedAnswerText.setText("Selected: " + blank);
             List<Pair<String, String>> answersList = new ArrayList<Pair<String, String>>();
             if(answers.length() > 0) {
                 for(int i = 0; i < answers.length(); i++){

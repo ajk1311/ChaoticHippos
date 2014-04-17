@@ -21,6 +21,9 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
+
+import java.util.List;
 
 public class StudentActivity extends MainActivity {
 
@@ -39,7 +42,7 @@ public class StudentActivity extends MainActivity {
 	}
 
 	@Override
-	protected void onTestLoaded(Test currentTest) {
+	protected void onTestLoaded(final Test currentTest) {
 		ParseQuery<ParseObject> submissionQuery = ParseQuery.getQuery(Submission.TAG);
 		submissionQuery.orderByDescending("createdAt");
 		submissionQuery.whereEqualTo("ready", false);
@@ -51,11 +54,23 @@ public class StudentActivity extends MainActivity {
 				if (e == null) {
 					mCurrentSubmission = new Submission(submission);
 					if (mCurrentSubmission == null || mCurrentSubmission.isReady()) {
-						// TODO make new one
+						startNewSubmission(currentTest);
 					}
 				} else {
 					// TODO handle error
 				}
+			}
+		});
+	}
+
+	private void startNewSubmission(Test currentTest) {
+		final ParseObject submission = new ParseObject(Submission.TAG);
+		submission.put(Submission.KEY_READY, false);
+		submission.put(Submission.KEY_PARENT_EXAM, currentTest.getObjectId());
+		submission.saveInBackground(new SaveCallback() {
+			@Override
+			public void done(ParseException e) {
+				mCurrentSubmission = new Submission(submission);
 			}
 		});
 	}
@@ -75,6 +90,10 @@ public class StudentActivity extends MainActivity {
 	protected void onPause() {
 		super.onPause();
 		// TODO save submission as not ready
+		List<Question> questions = getQuestionListFragment().getQuestionList();
+		for (Question question : questions) {
+
+		}
 	}
 
 	@Override
@@ -87,6 +106,8 @@ public class StudentActivity extends MainActivity {
 		if (!open) {
 			menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE, "Switch to Instructor")
 					.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+			menu.add(Menu.NONE, R.id.menu_option_submit_answers, Menu.NONE, "Submit answers")
+					.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		} else {
 			menu.clear();
 		}
@@ -98,6 +119,10 @@ public class StudentActivity extends MainActivity {
 			case R.id.menu_option_switch:
 				startActivity(new Intent(this, InstructorActivity.class)
 						.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+				return true;
+
+			case R.id.menu_option_submit_answers:
+				
 				return true;
 		}
 		return super.onOptionsItemSelected(item);

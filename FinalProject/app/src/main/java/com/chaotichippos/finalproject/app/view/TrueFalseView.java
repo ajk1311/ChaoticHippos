@@ -5,6 +5,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -82,13 +83,18 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 	}
 
 	@Override
-	public void setAnswer(String answerText) {
-
+	public boolean isQuestionComplete() {
+		boolean complete = true;
+		if (mQuestionText instanceof EditText) {
+			complete = ((EditText) mQuestionText).getText().length() > 0;
+		}
+		return mAnswer.getSelectedAnswerIndex() == ANSWER_INVALID && complete;
 	}
 
 	@Override
-	public boolean isQuestionComplete() {
-		return false;
+	public void setAnswer(String answerText) {
+		final int selectedAnswer = Integer.parseInt(answerText);
+		mAnswer.setSelectedIndex(selectedAnswer);
 	}
 
 	/** Layout that holds the two choices for a true or false question */

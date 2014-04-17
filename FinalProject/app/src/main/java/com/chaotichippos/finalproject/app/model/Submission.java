@@ -17,10 +17,10 @@ public class Submission implements Parcelable {
 	public static final String TAG = "Submission";
 
 	// Key names used by the internal ParseObject
-	private static final String KEY_ANSWERS = "answers";
-	private static final String KEY_PARENT_EXAM = "parentExam";
-	private static final String KEY_READY = "ready";
-	private static final String KEY_GRADE = "grade";
+	public static final String KEY_ANSWERS = "answers";
+	public static final String KEY_PARENT_EXAM = "parentExam";
+	public static final String KEY_READY = "ready";
+	public static final String KEY_GRADE = "grade";
 
 	private String mId;
 	private JSONObject mAnswers;
@@ -31,6 +31,9 @@ public class Submission implements Parcelable {
 	public Submission(ParseObject submission) {
 		mId = submission.getObjectId();
 		mAnswers = submission.getJSONObject(KEY_ANSWERS);
+		if (mAnswers == null) {
+			mAnswers = new JSONObject();
+		}
 		mParentExam = submission.getString(KEY_PARENT_EXAM);
 		mIsReady = submission.getBoolean(KEY_READY);
 		mGrade = submission.getDouble(KEY_GRADE);

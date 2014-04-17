@@ -88,7 +88,7 @@ public class Answer {
                 correct++;
             }
         }
-        if(correct1 != null) {
+        if(correct3 != null) {
             if(correct3.compareTo(provided[2]) == 0) {
                 correct++;
             }
@@ -100,7 +100,20 @@ public class Answer {
 	}
 
 	private static Results checkMultipleChoiceAnswer(Question question, String answerText) {
-		return null;
+		String correct = null;
+        try {
+            correct = question.getData().getString("correctAnswer");
+        } catch(JSONException e) {
+            e.printStackTrace();
+        }
+        int score = 0;
+        if(correct.compareTo(answerText) == 0) {
+            score = 1;
+        }
+        final Results results = new Results();
+        results.score = (double) score;
+        results.data = String.valueOf(score);
+        return results;
 	}
 
 	private static Results checkMatchingAnswer(Question question, String answerText) {

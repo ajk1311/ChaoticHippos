@@ -8,7 +8,6 @@ import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,9 +26,6 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     private EditText blank1EditText;
     private EditText blank2EditText;
     private EditText blank3EditText;
-    private ImageView blank1Image;
-    private ImageView blank2Image;
-    private ImageView blank3Image;
 
     private Question question;
     private String answerText;
@@ -42,9 +38,6 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
         blank1EditText = (EditText) findViewById(R.id.fitb_blank1_answer_edittext);
         blank2EditText = (EditText) findViewById(R.id.fitb_blank2_answer_edittext);
         blank3EditText = (EditText) findViewById(R.id.fitb_blank3_answer_edittext);
-        blank1Image = (ImageView) findViewById(R.id.fitb_blank1_answer_img);
-        blank2Image = (ImageView) findViewById(R.id.fitb_blank2_answer_img);
-        blank3Image = (ImageView) findViewById(R.id.fitb_blank3_answer_img);
         for(int i = 1; i <= 3; i++) {
             hideBlank(i);
         }
@@ -53,16 +46,13 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     private void hideBlank(int blank) {
         if(blank == 1) {
             blank1EditText.setVisibility(View.GONE);
-            blank1Image.setVisibility(View.GONE);
             blank1EditText.setText(null);
         }
         else if(blank == 2) {
-            blank2Image.setVisibility(View.GONE);
             blank2EditText.setVisibility(View.GONE);
             blank2EditText.setText(null);
         }
         else if(blank == 3) {
-            blank3Image.setVisibility(View.GONE);
             blank3EditText.setVisibility(View.GONE);
             blank3EditText.setText(null);
         }
@@ -71,15 +61,12 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     private void unhideBlank(int blank) {
         if(blank == 1) {
             blank1EditText.setVisibility(View.VISIBLE);
-            blank1Image.setVisibility(View.VISIBLE);
         }
         else if(blank == 2) {
             blank2EditText.setVisibility(View.VISIBLE);
-            blank2Image.setVisibility(View.VISIBLE);
         }
         else if(blank == 3) {
             blank3EditText.setVisibility(View.VISIBLE);
-            blank3Image.setVisibility(View.VISIBLE);
         }
     }
 

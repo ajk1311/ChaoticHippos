@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.chaotichippos.finalproject.app.R;
@@ -32,11 +31,8 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     private Button insertBlankButton;
     private EditText questionTextEditText;
     private EditText blank1EditText;
-    private ImageView blank1Image;
     private EditText blank2EditText;
-    private ImageView blank2Image;
     private EditText blank3EditText;
-    private ImageView blank3Image;
     private int numBlanks = 0;
 
     private ImageSpan[] blanks;
@@ -48,11 +44,8 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         insertBlankButton = (Button) findViewById(R.id.fitb_insertblank_button);
         questionTextEditText = (EditText) findViewById(R.id.fitb_qtext_edittext);
         blank1EditText = (EditText) findViewById(R.id.fitb_blank1_edittext);
-        blank1Image = (ImageView) findViewById(R.id.fitb_blank1_img);
         blank2EditText = (EditText) findViewById(R.id.fitb_blank2_edittext);
-        blank2Image = (ImageView) findViewById(R.id.fitb_blank2_img);
         blank3EditText = (EditText) findViewById(R.id.fitb_blank3_edittext);
-        blank3Image = (ImageView) findViewById(R.id.fitb_blank3_img);
         loadBlanks();
 
         for(int i = 1; i <= 3; i++) {
@@ -96,14 +89,11 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     private void hideBlank(int blank) {
         if(blank == 1) {
             blank1EditText.setVisibility(View.GONE);
-            blank1Image.setVisibility(View.GONE);
         }
         else if(blank == 2) {
-            blank2Image.setVisibility(View.GONE);
             blank2EditText.setVisibility(View.GONE);
         }
         else if(blank == 3) {
-            blank3Image.setVisibility(View.GONE);
             blank3EditText.setVisibility(View.GONE);
             insertBlankButton.setEnabled(true);
         }
@@ -112,15 +102,12 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     private void unhideBlank(int blank) {
         if(blank == 1) {
             blank1EditText.setVisibility(View.VISIBLE);
-            blank1Image.setVisibility(View.VISIBLE);
         }
         else if(blank == 2) {
             blank2EditText.setVisibility(View.VISIBLE);
-            blank2Image.setVisibility(View.VISIBLE);
         }
         else if(blank == 3) {
             blank3EditText.setVisibility(View.VISIBLE);
-            blank3Image.setVisibility(View.VISIBLE);
             insertBlankButton.setEnabled(false);
         }
     }

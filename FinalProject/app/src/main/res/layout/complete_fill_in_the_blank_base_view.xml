@@ -36,7 +36,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 		<EditText
-				android:id="@+id/fitb_blank1_edittext"
+				android:id="@+id/fitb_blank1_answer_edittext"
 				android:clickable="false"
 				android:hint="First blank answers"
 				android:layout_width="match_parent"
@@ -46,7 +46,7 @@
 				android:drawablePadding="8dp"/>
 
 		<EditText
-				android:id="@+id/fitb_blank2_edittext"
+				android:id="@+id/fitb_blank2_answer_edittext"
 				android:clickable="false"
 				android:hint="Second blank answers"
 				android:layout_width="match_parent"
@@ -56,7 +56,7 @@
 				android:drawablePadding="8dp"/>
 
 		<EditText
-				android:id="@+id/fitb_blank3_edittext"
+				android:id="@+id/fitb_blank3_answer_edittext"
 				android:clickable="false"
 				android:hint="Thrid blank answers"
 				android:layout_width="match_parent"

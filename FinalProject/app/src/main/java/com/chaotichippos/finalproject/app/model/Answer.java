@@ -1,5 +1,6 @@
 package com.chaotichippos.finalproject.app.model;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 
 public class Answer {
@@ -117,6 +118,28 @@ public class Answer {
 	}
 
 	private static Results checkMatchingAnswer(Question question, String answerText) {
-		return null;
+        JSONArray right;
+        int numPairs = 0, correct = 0;
+        try {
+            right = question.getData().getJSONArray("rightSide");
+            numPairs = right.length();
+            String[] strArray;
+            String delimiter = ";";
+            strArray = answerText.split(delimiter);
+            for(int i = 0; i <  right.length(); i++)
+            {
+                if(strArray[i].equals(right.get(i)))
+                {
+                    correct++;
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        final Results results = new Results();
+        results.score = (double) correct / numPairs;
+        results.data = String.valueOf(correct) + "/" + String.valueOf(numPairs);
+        return results;
 	}
 }

@@ -36,6 +36,7 @@ android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Question"
+                    android:textColorHint="#B8B8B8"
                     android:textColor="#FFFFFF"
                     />
 
@@ -45,6 +46,7 @@ android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Answer"
+                    android:textColorHint="#B8B8B8"
                     android:textColor="#FFFFFF"
                     />
 

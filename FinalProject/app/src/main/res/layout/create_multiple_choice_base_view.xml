@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:text="Multiple Choice Question"
+        android:text="Multiple Choice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25.0sp"
@@ -44,6 +44,7 @@
     <!--List of Answers-->
     <ListView
         android:id="@+id/listview"
+        android:listSelector="@drawable/list_selector_custom"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:focusableInTouchMode="true"

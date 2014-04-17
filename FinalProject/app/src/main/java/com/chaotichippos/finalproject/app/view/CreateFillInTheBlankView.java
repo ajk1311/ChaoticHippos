@@ -97,17 +97,14 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         if(blank == 1) {
             blank1EditText.setVisibility(View.GONE);
             blank1Image.setVisibility(View.GONE);
-            blank1EditText.setText(null);
         }
         else if(blank == 2) {
             blank2Image.setVisibility(View.GONE);
             blank2EditText.setVisibility(View.GONE);
-            blank2EditText.setText(null);
         }
         else if(blank == 3) {
             blank3Image.setVisibility(View.GONE);
             blank3EditText.setVisibility(View.GONE);
-            blank3EditText.setText(null);
             insertBlankButton.setEnabled(true);
         }
     }
@@ -209,10 +206,19 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     public Question getQuestion() {
         JSONObject data = new JSONObject();
         try {
+            data.put("blank1", "");
+            data.put("blank2", "");
+            data.put("blank3", "");
             data.put("questionText", questionTextEditText.getText().toString());
-            data.put("blank1", blank1EditText.getText().toString());
-            data.put("blank2", blank2EditText.getText().toString());
-            data.put("blank3", blank3EditText.getText().toString());
+            if(blank1EditText.getVisibility() == View.VISIBLE) {
+                data.put("blank1", blank1EditText.getText().toString());
+            }
+            if(blank2EditText.getVisibility() == View.VISIBLE) {
+                data.put("blank2", blank2EditText.getText().toString());
+            }
+            if(blank3EditText.getVisibility() == View.VISIBLE) {
+                data.put("blank3", blank3EditText.getText().toString());
+            }
             data.put("numBlanks", numBlanks);
         } catch (JSONException e) {
             e.printStackTrace();

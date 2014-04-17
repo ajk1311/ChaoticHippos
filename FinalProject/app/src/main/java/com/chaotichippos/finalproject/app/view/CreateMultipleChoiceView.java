@@ -352,7 +352,10 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 
 	@Override
 	public boolean isQuestionComplete() {
-		return false;
+        if(adapter.getCount() < 2 || selectedAnswerText == null) {
+            return false;
+        }
+        return true;
 	}
 
 	@Override
@@ -375,6 +378,7 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
                 for(int i = 0; i < answers.length(); i++){
                     answersList.add(new Pair<String,String>(alphabet.get(i),answers.get(i).toString()));
                 }
+                alphabetIndex = answers.length();
             }
 			adapter.setList(answersList);
         } catch (JSONException e) {

@@ -4,81 +4,78 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <EditText
-        android:id="@+id/fitb_qtext_edittext"
-        android:clickable="false"
-        android:hint="Insert question text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-    <Button
-        android:id="@+id/fitb_insertblank_button"
-        android:layout_gravity="center"
-        android:text="Insert Blank"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/fitb_blank1_img"
-            android:src="@drawable/blank_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1">
 
-        <EditText
-            android:id="@+id/fitb_blank1_edittext"
-            android:clickable="false"
-            android:hint="First blank answers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </LinearLayout>
+		<TextView
+				android:text="Fill in the Blank"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="25.0sp"
+				/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+		<EditText
+				android:id="@+id/fitb_qtext_edittext"
+				android:clickable="false"
+				android:layout_weight="0"
+				android:hint="Insert question text"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="16dp"
+				android:layout_marginBottom="16dp"
+				/>
 
-        <ImageView
-            android:id="@+id/fitb_blank2_img"
-            android:src="@drawable/blank_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+		<Button
+				android:id="@+id/fitb_insertblank_button"
+				android:layout_gravity="center"
+				android:layout_weight="0"
+				android:text="Insert Blank"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="8dp"
+				/>
 
-        <EditText
-            android:id="@+id/fitb_blank2_edittext"
-            android:clickable="false"
-            android:hint="Second blank answers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </LinearLayout>
+	</LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom">
 
-        <ImageView
-            android:id="@+id/fitb_blank3_img"
-            android:src="@drawable/blank_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+		<EditText
+				android:id="@+id/fitb_blank1_edittext"
+				android:clickable="false"
+				android:hint="First blank answers"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:drawableLeft="@drawable/blank_1"
+				android:layout_marginTop="8dp"
+				android:drawablePadding="8dp"/>
 
-        <EditText
-            android:id="@+id/fitb_blank3_edittext"
-            android:clickable="false"
-            android:hint="Third blank answers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </LinearLayout>
+		<EditText
+				android:id="@+id/fitb_blank2_edittext"
+				android:clickable="false"
+				android:hint="Second blank answers"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:drawableLeft="@drawable/blank_2"
+				android:layout_marginTop="8dp"
+				android:drawablePadding="8dp"/>
+
+		<EditText
+				android:id="@+id/fitb_blank3_edittext"
+				android:clickable="false"
+				android:hint="Thrid blank answers"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:drawableLeft="@drawable/blank_3"
+				android:layout_marginTop="8dp"
+				android:drawablePadding="8dp"/>
+	</LinearLayout>
 
 </LinearLayout>

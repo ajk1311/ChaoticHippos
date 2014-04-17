@@ -265,7 +265,7 @@ public class MultipleChoiceAnswerView extends RelativeLayout implements Question
             }
 
             if(listView.isItemChecked(position)) {
-                convertView.setBackgroundColor(Color.parseColor("#3399ff"));
+                convertView.setBackgroundColor(Color.parseColor("#aa66cc"));
             }
             else {
                 convertView.setBackgroundDrawable(null);

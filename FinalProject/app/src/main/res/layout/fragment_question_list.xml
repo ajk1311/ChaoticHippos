@@ -15,6 +15,8 @@
 		android:id="@android:id/list"
 		android:listSelector="@drawable/list_selector_gray"
 		android:dividerHeight="0dp"
+		android:footerDividersEnabled="false"
+		android:divider="@null"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent" />
 

@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.chaotichippos.finalproject.app.R;
+import com.chaotichippos.finalproject.app.dialog.YesNoDialogFragment;
 import com.chaotichippos.finalproject.app.model.Question;
 import com.chaotichippos.finalproject.app.view.CreateFillInTheBlankView;
 import com.chaotichippos.finalproject.app.view.CreateMatchingView;
@@ -58,15 +59,37 @@ public class InstructorActivity extends MainActivity {
 
 	private void ensureCompleteQuestions() {
 		int position = 0;
-		boolean complete = true;
+		boolean incomplete = false;
 		final List<Question> questions = getQuestionListFragment().getQuestionList();
 		for (int i = 0, sz = questions.size(); i < sz; i++) {
-			/*
-
-			if (!question.is
-			
-			*/
+			if (!questions.get(i).isComplete()) {
+				incomplete = true;
+				position = i;
+				break;
+			}
 		}
+		if (incomplete) {
+			final int incompletePosition = position;
+			final YesNoDialogFragment dialog = YesNoDialogFragment.create(
+					"You have some incomplete questions.\nDo you wish to continue publishing?");
+			dialog.setListener(new YesNoDialogFragment.YesNoListener() {
+				@Override
+				public void onYes() {
+					publishTest();
+				}
+				@Override
+				public void onNo() {
+					getMainPane().openPane();
+					getQuestionListFragment().scrollToQuestion(incompletePosition);
+				}
+			});
+		} else {
+			publishTest();
+		}
+	}
+
+	private void publishTest() {
+		// TODO save test
 	}
 
 	@Override

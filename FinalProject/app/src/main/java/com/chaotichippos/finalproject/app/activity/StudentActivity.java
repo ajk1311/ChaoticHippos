@@ -56,9 +56,11 @@ public class StudentActivity extends MainActivity {
 			public void done(ParseObject submission, ParseException e) {
 				if (e == null) {
 					mCurrentSubmission = new Submission(submission);
-					if (mCurrentSubmission == null || mCurrentSubmission.isReady()) {
+					if (mCurrentSubmission.isReady()) {
 						startNewSubmission(currentTest);
 					}
+				} else if (e.getCode() == ParseException.OBJECT_NOT_FOUND) {
+					startNewSubmission(currentTest);
 				} else {
 					// TODO handle error
 				}
@@ -135,15 +137,11 @@ public class StudentActivity extends MainActivity {
 		boolean incomplete = false;
 		final List<Question> questions = getQuestionListFragment().getQuestionList();
 		for (int i = 0, sz = questions.size(); i < sz; i++) {
-			/*
-
-			if (!question.isComplete()) {
+			if (!questions.get(i).isComplete()) {
 				incomplete = true;
 				position = i;
 				break;
 			}
-
-			*/
 		}
 		if (incomplete) {
 			final int incompletePosition = position;

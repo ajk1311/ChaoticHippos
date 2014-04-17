@@ -134,11 +134,11 @@ public class Question implements Parcelable {
 		return mData;
 	}
 
-    public boolean getIsComplete() {
+    public boolean isComplete() {
         return isComplete;
     }
 
-    public void setIsComplete(boolean isComplete) {
+    public void setComplete(boolean isComplete) {
         this.isComplete = isComplete;
     }
 

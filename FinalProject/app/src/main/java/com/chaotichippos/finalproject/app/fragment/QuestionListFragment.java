@@ -323,7 +323,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 
 			if (mIsEditable) {
 				final EditableQuestionListItemView view = (EditableQuestionListItemView) convertView;
-                if(!mList.get(position).getIsComplete()) {
+                if(!mList.get(position).isComplete()) {
                     view.getTextView().setTextColor(Color.RED);
                 } else {
                     view.getTextView().setTextColor(Color.BLACK);
@@ -352,7 +352,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 					}
 				});
 			} else {
-                if(!mList.get(position).getIsComplete()) {
+                if(!mList.get(position).isComplete()) {
                     ((TextView) convertView).setTextColor(Color.RED);
                 } else {
                     ((TextView) convertView).setTextColor(Color.BLACK);

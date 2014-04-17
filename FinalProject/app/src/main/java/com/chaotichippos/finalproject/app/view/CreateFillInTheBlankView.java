@@ -213,6 +213,7 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
             data.put("blank1", blank1EditText.getText().toString());
             data.put("blank2", blank2EditText.getText().toString());
             data.put("blank3", blank3EditText.getText().toString());
+            data.put("numBlanks", numBlanks);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -238,6 +239,18 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
 
 	@Override
 	public boolean isQuestionComplete() {
-		return false;
+        if(questionTextEditText.getText().length() == 0 || numBlanks == 0) {
+            return false;
+        }
+		if(numBlanks >=1 && blank1EditText.getText().length() == 0) {
+            return false;
+        }
+        if(numBlanks >=2 && blank2EditText.getText().length() == 0) {
+            return false;
+        }
+        if(numBlanks >=3 && blank3EditText.getText().length() == 0) {
+            return false;
+        }
+        return true;
 	}
 }

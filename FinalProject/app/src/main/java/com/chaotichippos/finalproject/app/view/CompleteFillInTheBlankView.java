@@ -32,9 +32,9 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     private ImageView blank1Image;
     private ImageView blank2Image;
     private ImageView blank3Image;
-    private Button submitButton;
 
     private Question question;
+    private String answerText;
     private int numBlanks = 0;
 
     public CompleteFillInTheBlankView(Context context) {
@@ -47,17 +47,9 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
         blank1Image = (ImageView) findViewById(R.id.fitb_blank1_answer_img);
         blank2Image = (ImageView) findViewById(R.id.fitb_blank2_answer_img);
         blank3Image = (ImageView) findViewById(R.id.fitb_blank3_answer_img);
-        submitButton = (Button) findViewById(R.id.fitb_submit_button);
         for(int i = 1; i <= 3; i++) {
             hideBlank(i);
         }
-
-        submitButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Answer answer = getAnswer();
-            }
-        });
     }
 
     private void hideBlank(int blank) {
@@ -132,6 +124,13 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
         unhideBlank(numBlanks);
     }
 
+    private void fillBlanks() {
+        String blanks[] = answerText.split(";");
+        blank1EditText.setText(blanks[0]);
+        blank2EditText.setText(blanks[1]);
+        blank3EditText.setText(blanks[2]);
+    }
+
     @Override
     public void setQuestion(Question question) {
         this.question = question;
@@ -148,5 +147,25 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
         String answerText = blank1EditText.getText().toString() + ";" + blank2EditText.getText().toString() + ";" + blank3EditText.getText().toString() + ";";
         Answer answer = new Answer(question.toParseObject().getObjectId(), answerText);
         return answer;
+    }
+
+    @Override
+    public void setAnswer(String answerText) {
+        this.answerText = answerText;
+        fillBlanks();
+    }
+
+    @Override
+    public boolean isQuestionComplete() {
+        if(numBlanks >= 1 && blank1EditText.getText().length() == 0) {
+            return false;
+        }
+        if(numBlanks >= 2 && blank2EditText.getText().length() == 0) {
+            return false;
+        }
+        if(numBlanks >= 3 && blank3EditText.getText().length() == 0) {
+            return false;
+        }
+        return true;
     }
 }

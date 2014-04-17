@@ -9,6 +9,7 @@ android:orientation="vertical"
 
     <ListView
         android:id="@+id/createMatchingList1"
+        android:listSelector="@drawable/list_selector_custom"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +20,7 @@ android:orientation="vertical"
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#939393"
+            android:background="#A805B7"
             android:orientation="horizontal"
             android:layout_gravity="bottom">
 
@@ -35,7 +36,7 @@ android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Question"
-                    android:textColorHint="#ffffff"
+                    android:textColor="#FFFFFF"
                     />
 
 
@@ -44,7 +45,7 @@ android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Answer"
-                    android:textColorHint="#ffffff"
+                    android:textColor="#FFFFFF"
                     />
 
             </LinearLayout>
@@ -52,6 +53,7 @@ android:orientation="vertical"
             <TextView
                 android:id="@+id/add_question"
                 android:text="+"
+                android:textColor="#FFFFFF"
                 android:gravity="center_horizontal|center_vertical"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:layout_width="match_parent"

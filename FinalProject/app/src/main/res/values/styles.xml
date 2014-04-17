@@ -21,7 +21,13 @@
     <style name="CustomActionBarTheme"
         parent="@android:style/Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:actionModeBackground">@color/dark_pink</item>
     </style>
+
+    <style name="CustomActionModeTheme">
+        <item name="android:background">@drawable/list_selector_custom</item>
+    </style>
+a
 
     <!-- ActionBar styles -->
     <style name="MyActionBar"

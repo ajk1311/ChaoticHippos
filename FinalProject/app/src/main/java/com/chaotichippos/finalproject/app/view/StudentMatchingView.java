@@ -553,6 +553,13 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
 
 	@Override
 	public boolean isQuestionComplete() {
-		return false;
+        for(MatchingQuestion question: m_questions)
+        {
+            if(question.getAnswerId() == -1)
+            {
+                return false;
+            }
+        }
+		return true;
 	}
 }

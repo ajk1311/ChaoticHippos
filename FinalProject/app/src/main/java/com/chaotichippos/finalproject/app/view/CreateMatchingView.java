@@ -220,7 +220,7 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
 
                 if(myPair.getSelected())
                 {
-                    v.setBackgroundColor(Color.parseColor("#3399FF"));
+                    v.setBackgroundColor(Color.parseColor("#aa66cc"));
                 } else {
                     v.setBackground(null);
                 }
@@ -323,6 +323,10 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
 
 	@Override
 	public boolean isQuestionComplete() {
+        if(list1.getCount() >= 2)
+        {
+            return true;
+        }
 		return false;
 	}
 }

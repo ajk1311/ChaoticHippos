@@ -2,5 +2,6 @@
 <resources>
 
 	<color name="gray_lighter">#ddd</color>
+    <color name="purple_lighter">#aa66cc</color>
 
 </resources>

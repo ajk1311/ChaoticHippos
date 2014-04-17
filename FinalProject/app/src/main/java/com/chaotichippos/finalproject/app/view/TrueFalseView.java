@@ -93,7 +93,8 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 
 	@Override
 	public void setAnswer(String answerText) {
-		final int selectedAnswer = Integer.parseInt(answerText);
+		final int selectedAnswer = answerText == null ?
+				ANSWER_INVALID : Integer.parseInt(answerText);
 		mAnswer.setSelectedIndex(selectedAnswer);
 	}
 

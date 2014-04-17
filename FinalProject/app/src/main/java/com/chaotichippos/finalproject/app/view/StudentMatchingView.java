@@ -447,6 +447,35 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
         }
     }
 
+    private void parseAnswers(String answerText) {
+        String[] strArray;
+        Integer[] intas;
+        String delimiter = ";";
+        strArray = answerText.split(delimiter);
+        for(int i = 0; i <  strArray.length; i++)
+        {
+            if(!strArray[i].equals("*") || !strArray[i].isEmpty())
+            {
+                for(int j = 0; j < m_answers.size(); j++)
+                {
+                    if(m_answers.get(j).getAnswer().equals(strArray[i]))
+                    {
+                        if(!m_questions.get(i).getIsSelected())
+                        {
+                            m_questions.get(i).setSelected(true);
+                            m_questions.get(i).setAnswerId(j);
+                            m_answers.get(j).setQuestionID(i);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        listAdapter1.notifyDataSetChanged();
+        listAdapter2.notifyDataSetChanged();
+    }
+
+
     private void setMyQuestion() {
         JSONArray left = new JSONArray();
         JSONArray right = new JSONArray();
@@ -483,6 +512,9 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
     public void setQuestion(Question question) {
         this.question = question;
         setMyQuestion();
+        //String test = "";
+        //test += "everyone else;doony;";
+        //parseAnswers(test);
     }
 
     @Override
@@ -492,15 +524,31 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
 
     @Override
     public Answer getAnswer() {
+        //mine
+        String answerText = "";
+        for(MatchingQuestion question: m_questions)
+        {
+            if(question.getAnswerId() != -1)
+            {
+                answerText += m_answers.get(question.getAnswerId()).getAnswer() + ";";
+            } else {
+                answerText += "*;";
+            }
+        }
+       Answer answer = new Answer(question.getObjectId(), answerText);
+       return answer;
+
 //        String answerText = blank1EditText.getText().toString() + ";" + blank2EditText.getText().toString() + ";" + blank3EditText.getText().toString() + ";";
 //        Answer answer = new Answer(question.getObjectId(), answerText);
 //        return answer;
-        return null;
     }
 
 	@Override
 	public void setAnswer(String answerText) {
-
+        if(answerText != null)
+        {
+            parseAnswers(answerText);
+        }
 	}
 
 	@Override

@@ -7,7 +7,6 @@ import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
-import com.parse.ParseException;
 
 import org.json.JSONException;
 
@@ -109,13 +107,13 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
         SpannableString s = new SpannableString(temp);
         Drawable d = null;
         if(numBlanks == 1) {
-            d = getResources().getDrawable(R.drawable.blank1);
+            d = getResources().getDrawable(R.drawable.blank_1);
         }
         else if(numBlanks == 2) {
-            d = getResources().getDrawable(R.drawable.blank2);
+            d = getResources().getDrawable(R.drawable.blank_2);
         }
         else if(numBlanks == 3) {
-            d = getResources().getDrawable(R.drawable.blank3);
+            d = getResources().getDrawable(R.drawable.blank_3);
         }
         d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
         ImageSpan span = new ImageSpan(d);

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.parse.Parse;
+import com.squareup.otto.Bus;
 
 public class App extends Application {
 
@@ -11,11 +12,13 @@ public class App extends Application {
 	private static final String PARSE_CLIENT_KEY = "QEcM6ovzHkPbIK1GF0ugUy2LXeMb8IwQmNSTt1JV";
 
 	private static Context sAppContext;
+	private static Bus sEventBus;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		sAppContext = getApplicationContext();
+		sEventBus = new Bus();
 		setupParse();
 	}
 
@@ -25,5 +28,9 @@ public class App extends Application {
 
 	public static Context getContext() {
 		return sAppContext;
+	}
+
+	public static Bus getEventBus() {
+		return sEventBus;
 	}
 }

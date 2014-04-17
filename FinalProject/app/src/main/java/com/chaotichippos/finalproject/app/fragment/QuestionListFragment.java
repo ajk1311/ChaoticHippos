@@ -191,6 +191,10 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	 * @param test The current Test from the instructor
 	 */
 	public void onTestLoaded(Test test) {
+		if (test == null) {
+			// Ignore a null test, the activity will take care of it
+			return;
+		}
 		ParseQuery questionQuery = ParseQuery.getQuery(Question.TAG);
 		questionQuery.whereEqualTo("parentExam", test.getObjectId());
 		questionQuery.orderByAscending("createdAt");
@@ -337,6 +341,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 								new DeleteCallback() {
 									@Override
 									public void done(ParseException e) {
+										// TODO off-by-one error
 										mList.remove(position);
 										if (position == mSelectedPosition && getCount() > 1) {
 											int newPosition = position == mList.size() - 1 ?

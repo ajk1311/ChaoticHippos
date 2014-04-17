@@ -25,7 +25,7 @@
 
         <ImageView
             android:id="@+id/fitb_blank1_img"
-            android:src="@drawable/blank1"
+            android:src="@drawable/blank_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
@@ -46,7 +46,7 @@
 
         <ImageView
             android:id="@+id/fitb_blank2_img"
-            android:src="@drawable/blank2"
+            android:src="@drawable/blank_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
@@ -67,7 +67,7 @@
 
         <ImageView
             android:id="@+id/fitb_blank3_img"
-            android:src="@drawable/blank3"
+            android:src="@drawable/blank_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />

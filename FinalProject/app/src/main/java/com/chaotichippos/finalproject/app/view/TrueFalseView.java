@@ -45,19 +45,29 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 		final int marginSmall = ScreenUtil.getDimensionPixelSize(8);
 		final int marginMedium = ScreenUtil.getDimensionPixelSize(16);
 
-		final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+		final LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
 				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		params.setMargins(marginMedium, marginMedium, marginMedium, marginSmall);
+		titleParams.setMargins(0, marginMedium, 0, marginSmall);
 
-		final LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
-				ViewGroup.LayoutParams.MATCH_PARENT, 0, 1.0f);
-		params2.setMargins(marginMedium, marginSmall, marginMedium, marginMedium);
+		final TextView title = new TextView(context);
+		title.setText("True or False");
+		title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+		title.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+		container.addView(title, titleParams);
+
+		final LinearLayout.LayoutParams questionParams = new LinearLayout.LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		questionParams.setMargins(0, marginSmall, 0, marginSmall);
 
 		mQuestionText = getTextDisplayView(context);
-		container.addView(mQuestionText, params);
+		container.addView(mQuestionText, questionParams);
+
+		final LinearLayout.LayoutParams answerParams = new LinearLayout.LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT, 0, 1.0f);
+		answerParams.setMargins(0, marginSmall, 0, marginMedium);
 
 		mAnswer = new TrueFalseAnswerGroup(context);
-		container.addView(mAnswer, params2);
+		container.addView(mAnswer, answerParams);
 
 		addView(container);
 	}
@@ -79,7 +89,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 	@Override
 	public Answer getAnswer() {
 		return new Answer(mQuestionWrapper.get().getObjectId(),
-				String.valueOf(mAnswer.getSelectedAnswerIndex() == ANSWER_TRUE));
+				String.valueOf(mAnswer.getSelectedAnswerIndex()));
 	}
 
 	@Override

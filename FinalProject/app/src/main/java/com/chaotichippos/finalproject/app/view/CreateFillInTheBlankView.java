@@ -132,17 +132,17 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         blanks = new ImageSpan[3];
         Drawable d;
         ImageSpan span;
-        d = getResources().getDrawable(R.drawable.blank1);
+        d = getResources().getDrawable(R.drawable.blank_1);
         d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
         span = new ImageSpan(d);
         blanks[0] = span;
 
-        d = getResources().getDrawable(R.drawable.blank2);
+        d = getResources().getDrawable(R.drawable.blank_2);
         d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
         span = new ImageSpan(d);
         blanks[1] = span;
 
-        d = getResources().getDrawable(R.drawable.blank3);
+        d = getResources().getDrawable(R.drawable.blank_3);
         d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
         span = new ImageSpan(d);
         blanks[2] = span;

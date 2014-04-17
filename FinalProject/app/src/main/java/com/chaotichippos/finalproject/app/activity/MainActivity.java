@@ -3,12 +3,11 @@ package com.chaotichippos.finalproject.app.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.chaotichippos.finalproject.app.App;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.dialog.QuestionAdditionDialogFragment;
 import com.chaotichippos.finalproject.app.fragment.QuestionListFragment;
@@ -38,33 +37,6 @@ public abstract class MainActivity extends Activity
 	private static final String KEY_DIALOG_ADD_QUESTION = TAG + ".DialogAddQuestion";
 
 	private static final String KEY_SAVE_TEST = TAG + ".Test";
-
-	// Abstract methods
-	//================================================================
-
-	/**
-	 * Called when both the list and content are visible to the user
-	 *
-	 * @param inflater The {@link android.view.MenuInflater} to inflate the desired menu
-	 * @param menu The {@link android.view.Menu} to hold the menu options
-	 */
-	protected abstract void setupDualPaneMenu(MenuInflater inflater, Menu menu);
-
-	/**
-	 * Called when only either the list or content is visible to the user
-	 *
-	 * @param inflater The {@link android.view.MenuInflater} to inflate the desired menu
-	 * @param menu The {@link android.view.Menu} to hold the menu options
-	 * @param open {@code true} if the list is visible, {@code false} if the content is visible
-	 */
-	protected abstract void setupSinglePaneMenu(MenuInflater inflater, Menu menu, boolean open);
-
-	/**
-	 * Called when the user selects or adds a new question
-	 *
-	 * @param question The selected or added question
-	 */
-	protected abstract void showViewForQuestion(Question question);
 
 
 	// Fields
@@ -100,6 +72,7 @@ public abstract class MainActivity extends Activity
 			getFragmentManager().beginTransaction()
 					.replace(R.id.list_fragment_container, new QuestionListFragment()).commit();
 			loadTestFromServer();
+			mMainPane.openPane();
 		} else {
 			mCurrentTest = savedInstanceState.getParcelable(KEY_SAVE_TEST);
 		}
@@ -121,16 +94,12 @@ public abstract class MainActivity extends Activity
 		outState.putParcelable(KEY_SAVE_TEST, mCurrentTest);
 	}
 
-	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		super.onPrepareOptionsMenu(menu);
-		menu.clear();
-		if (mMainPane.isSlideable()) {
-			setupSinglePaneMenu(getMenuInflater(), menu, mMainPane.isOpen());
-		} else {
-			setupDualPaneMenu(getMenuInflater(), menu);
-		}
-		return true;
+	public Test getCurrentTest() {
+		return mCurrentTest;
+	}
+
+	protected void setCurrentTest(Test test) {
+		mCurrentTest = test;
 	}
 
 	/**
@@ -195,6 +164,10 @@ public abstract class MainActivity extends Activity
 					mCurrentTest = new Test(test);
 					getQuestionListFragment().onTestLoaded(mCurrentTest);
 					onTestLoaded(mCurrentTest);
+				} else if (e.getCode() == ParseException.OBJECT_NOT_FOUND) {
+					mCurrentTest = null;
+					getQuestionListFragment().onTestLoaded(mCurrentTest);
+					onTestLoaded(mCurrentTest);
 				} else {
 					Toast.makeText(MainActivity.this, "Error loading test: " + e.getMessage(),
 							Toast.LENGTH_SHORT)
@@ -219,17 +192,17 @@ public abstract class MainActivity extends Activity
 				@Override
 				public void run() {
 					savePreviousQuestion();
-					showViewForQuestion(question);
+					App.getEventBus().post(question);
 				}
 			};
 			mMainPane.closePane();
 		} else {
 			savePreviousQuestion();
-			showViewForQuestion(question);
+			App.getEventBus().post(question);
 		}
 	}
 
-	protected void savePreviousQuestion() {
+	public void savePreviousQuestion() {
 		if (mContentContainer.getChildCount() == 0) {
 			return;
 		}
@@ -245,12 +218,10 @@ public abstract class MainActivity extends Activity
 	private class MainPanelSlideListener extends SlidingPaneLayout.SimplePanelSlideListener {
 		@Override
 		public void onPanelOpened(View panel) {
-			invalidateOptionsMenu();
 		}
 
 		@Override
 		public void onPanelClosed(View panel) {
-			invalidateOptionsMenu();
 			if (sPendingOperation != null) {
 				mMainPane.post(sPendingOperation);
 				sPendingOperation = null;

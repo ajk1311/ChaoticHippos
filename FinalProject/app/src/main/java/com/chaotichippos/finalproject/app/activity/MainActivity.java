@@ -236,6 +236,7 @@ public abstract class MainActivity extends Activity
 		final View current = mContentContainer.getChildAt(0);
 		if (current instanceof QuestionViewer) {
 			final Question question = ((QuestionViewer) current).getQuestion();
+            question.setIsComplete(((QuestionViewer) current).isQuestionComplete());
 			getQuestionListFragment().updateQuestion(question);
 		}
 	}

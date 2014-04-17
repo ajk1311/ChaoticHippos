@@ -1,5 +1,7 @@
 package com.chaotichippos.finalproject.app.model;
 
+import org.json.JSONException;
+
 public class Answer {
 
 	/**
@@ -65,7 +67,36 @@ public class Answer {
 	}
 
 	private static Results checkFillInTheBlankAnswer(Question question, String answerText) {
-		return null;
+		String provided[] = answerText.split(";");
+        String correct1 = null, correct2 = null, correct3 = null;
+        int numBlanks = 0, correct = 0;
+        try {
+            correct1 = question.getData().getString("blank1");
+            correct2 = question.getData().getString("blank2");
+            correct3 = question.getData().getString("blank3");
+            numBlanks = question.getData().getInt("numBlanks");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(correct1 != null) {
+            if(correct1.compareTo(provided[0]) == 0) {
+                correct++;
+            }
+        }
+        if(correct2 != null) {
+            if(correct2.compareTo(provided[1]) == 0) {
+                correct++;
+            }
+        }
+        if(correct1 != null) {
+            if(correct3.compareTo(provided[2]) == 0) {
+                correct++;
+            }
+        }
+		final Results results = new Results();
+		results.score = (double) correct / numBlanks;
+		results.data = String.valueOf(correct) + "/" + String.valueOf(numBlanks);
+        return results;
 	}
 
 	private static Results checkMultipleChoiceAnswer(Question question, String answerText) {

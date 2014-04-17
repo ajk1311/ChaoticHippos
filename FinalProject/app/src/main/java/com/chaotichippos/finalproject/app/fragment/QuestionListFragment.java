@@ -2,6 +2,7 @@ package com.chaotichippos.finalproject.app.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -322,7 +323,12 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 
 			if (mIsEditable) {
 				final EditableQuestionListItemView view = (EditableQuestionListItemView) convertView;
-				view.getTextView().setText(text);
+                if(!mList.get(position).getIsComplete()) {
+                    view.getTextView().setTextColor(Color.RED);
+                } else {
+                    view.getTextView().setTextColor(Color.BLACK);
+                }
+                view.getTextView().setText(text);
 				view.getRemoveButton().setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -346,9 +352,13 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 					}
 				});
 			} else {
+                if(!mList.get(position).getIsComplete()) {
+                    ((TextView) convertView).setTextColor(Color.RED);
+                } else {
+                    ((TextView) convertView).setTextColor(Color.BLACK);
+                }
 				((TextView) convertView).setText(text);
 			}
-
 			convertView.setActivated(position == mSelectedPosition);
 
 			return convertView;

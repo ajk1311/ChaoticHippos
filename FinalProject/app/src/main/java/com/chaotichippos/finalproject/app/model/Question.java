@@ -50,6 +50,7 @@ public class Question implements Parcelable {
 	private Type mType;
 	private String mImageUrl;
 	private JSONObject mData;
+    private boolean isComplete = true;
 
 	public static ArrayList<Question> fromParseList(List<ParseObject> fromParse) {
 		final ArrayList<Question> questions = new ArrayList<Question>();
@@ -132,6 +133,14 @@ public class Question implements Parcelable {
 	public JSONObject getData() {
 		return mData;
 	}
+
+    public boolean getIsComplete() {
+        return isComplete;
+    }
+
+    public void setIsComplete(boolean isComplete) {
+        this.isComplete = isComplete;
+    }
 
 	public ParseObject toParseObject() {
 		final ParseObject parseObject = new ParseObject(TAG);

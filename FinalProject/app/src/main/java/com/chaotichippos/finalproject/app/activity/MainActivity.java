@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chaotichippos.finalproject.app.App;
@@ -48,9 +48,6 @@ public abstract class MainActivity extends Activity
 	/** The main layout for the content of the Activity */
 	private SlidingPaneLayout mMainPane;
 
-	/** The container layout where the content for each question goes */
-	private FrameLayout mContentContainer;
-
 	/** A task to be run when the pane is done sliding, if it is indeed slidable */
 	private static Runnable sPendingOperation = null;
 
@@ -67,7 +64,6 @@ public abstract class MainActivity extends Activity
 		mMainPane.setShadowResource(R.drawable.pane_shadow);
 		mMainPane.setParallaxDistance(getResources()
 				.getDimensionPixelSize(R.dimen.question_list_parallax));
-		mContentContainer = (FrameLayout) findViewById(R.id.content_container);
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.replace(R.id.list_fragment_container, new QuestionListFragment()).commit();
@@ -100,6 +96,7 @@ public abstract class MainActivity extends Activity
 
 	protected void setCurrentTest(Test test) {
 		mCurrentTest = test;
+		getQuestionListFragment().onTestLoaded(mCurrentTest);
 	}
 
 	/**
@@ -108,11 +105,6 @@ public abstract class MainActivity extends Activity
 	 */
 	public SlidingPaneLayout getMainPane() {
 		return mMainPane;
-	}
-
-	/** @return the {@link android.widget.FrameLayout} that holds question contents */
-	public FrameLayout getContentContainer() {
-		return mContentContainer;
 	}
 
 	/** @return The {@link com.chaotichippos.finalproject.app.fragment.QuestionListFragment}
@@ -191,22 +183,20 @@ public abstract class MainActivity extends Activity
 			sPendingOperation = new Runnable() {
 				@Override
 				public void run() {
-					savePreviousQuestion();
 					App.getEventBus().post(question);
 				}
 			};
 			mMainPane.closePane();
 		} else {
-			savePreviousQuestion();
 			App.getEventBus().post(question);
 		}
 	}
 
-	public void savePreviousQuestion() {
-		if (mContentContainer.getChildCount() == 0) {
+	public void savePreviousQuestion(ViewGroup container) {
+		if (container.getChildCount() == 0) {
 			return;
 		}
-		final View current = mContentContainer.getChildAt(0);
+		final View current = container.getChildAt(0);
 		if (current instanceof QuestionViewer) {
 			final Question question = ((QuestionViewer) current).getQuestion();
             question.setComplete(((QuestionViewer) current).isQuestionComplete());

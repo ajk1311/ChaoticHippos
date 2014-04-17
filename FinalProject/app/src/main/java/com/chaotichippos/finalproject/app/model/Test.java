@@ -13,10 +13,10 @@ public class Test implements Parcelable {
 	public static final String TAG = "Test";
 
 	// Key names used by the internal ParseObject
-	private static final String KEY_DURATION = "duration";
-	private static final String KEY_EXPIRATION = "expiration";
-	private static final String KEY_NAME = "name";
-	private static final String KEY_READY = "ready";
+	public static final String KEY_DURATION = "duration";
+	public static final String KEY_EXPIRATION = "expiration";
+	public static final String KEY_NAME = "name";
+	public static final String KEY_READY = "ready";
 
 	private String mId;
 	private long mDuration;
@@ -102,8 +102,8 @@ public class Test implements Parcelable {
 		test.setObjectId(mId);
 		test.put(KEY_DURATION, mDuration);
 		test.put(KEY_EXPIRATION, mExpiration);
-		test.put(KEY_NAME, mName);
 		test.put(KEY_READY, mIsReady);
+		if (mName != null) test.put(KEY_NAME, mName);
 		return test;
 	}
 

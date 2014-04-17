@@ -70,7 +70,7 @@ public class InstructorEditorFragment extends Fragment {
 		super.onDestroyView();
 		App.getEventBus().unregister(this);
 		if (!mMainActivity.getCurrentTest().isReady()) {
-			mMainActivity.savePreviousQuestion();
+			mMainActivity.savePreviousQuestion(mContainer);
 			for(Question question: mMainActivity.getQuestionListFragment().getQuestionList()) {
 				question.toParseObject().saveInBackground();
 			}
@@ -126,6 +126,7 @@ public class InstructorEditorFragment extends Fragment {
 					mMainActivity.getQuestionListFragment().scrollToQuestion(incompletePosition);
 				}
 			});
+			dialog.show(getFragmentManager(), "yesNo");
 		} else {
 			publishTest();
 		}
@@ -134,9 +135,13 @@ public class InstructorEditorFragment extends Fragment {
 	private void publishTest() {
 		// TODO dialog for duration, etc.
 		ProgressDialogFragment.create("Publishing test...").show(getFragmentManager(), null);
-		mMainActivity.savePreviousQuestion();
+		mMainActivity.savePreviousQuestion(mContainer);
 		for(Question question: mMainActivity.getQuestionListFragment().getQuestionList()) {
-			question.toParseObject().saveInBackground();
+			if (question.isComplete()) {
+				question.toParseObject().saveInBackground();
+			} else {
+				question.toParseObject().deleteInBackground();
+			}
 		}
 		final Test test = mMainActivity.getCurrentTest();
 		test.setReady(true);
@@ -149,6 +154,7 @@ public class InstructorEditorFragment extends Fragment {
 				Toast.makeText(getActivity(),
 						"Thank you! Your test has been published", Toast.LENGTH_LONG).show();
 				// TODO restart activity with graphs showing
+				mMainActivity.finish();
 			}
 		});
 	}
@@ -173,6 +179,7 @@ public class InstructorEditorFragment extends Fragment {
 				view = new TrueFalseCreateView(getActivity());
 				break;
 		}
+		mMainActivity.savePreviousQuestion(mContainer);
 		mContainer.removeAllViews();
 		mContainer.addView(view);
 		((QuestionViewer) view).setQuestion(question);

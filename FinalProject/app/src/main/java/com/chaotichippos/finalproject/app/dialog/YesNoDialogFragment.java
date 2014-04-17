@@ -42,11 +42,6 @@ public class YesNoDialogFragment extends DialogFragment {
 					public void onClick(DialogInterface dialog, int which) {
 						if (mListener != null) mListener.onYes();
 					}
-				}).setOnCancelListener(new DialogInterface.OnCancelListener() {
-					@Override
-					public void onCancel(DialogInterface dialog) {
-						if (mListener != null) mListener.onNo();
-					}
 				})
 				.setCancelable(true)
 				.create();

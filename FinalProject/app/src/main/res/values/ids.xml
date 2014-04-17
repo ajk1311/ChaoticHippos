@@ -3,4 +3,5 @@
 	<item name="menu_option_switch" type="id" />
     <item name="menu_option_create_exam" type ="id"/>
 	<item name="menu_option_submit_answers" type="id"/>
+	<item name="menu_option_new_exam" type="id"/>
 </resources>

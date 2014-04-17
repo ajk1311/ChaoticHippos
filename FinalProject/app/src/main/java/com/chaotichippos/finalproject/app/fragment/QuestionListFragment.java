@@ -211,6 +211,10 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		});
 	}
 
+	public void scrollToQuestion(int question) {
+		mListView.setSelection(question);
+	}
+
 	/**
 	 * Adds a question to display in the list
 	 *

@@ -88,7 +88,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 		if (mQuestionText instanceof EditText) {
 			complete = ((EditText) mQuestionText).getText().length() > 0;
 		}
-		return mAnswer.getSelectedAnswerIndex() == ANSWER_INVALID && complete;
+		return mAnswer.getSelectedAnswerIndex() != ANSWER_INVALID && complete;
 	}
 
 	@Override

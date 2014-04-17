@@ -8,9 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.chaotichippos.finalproject.app.R;
-import com.chaotichippos.finalproject.app.fragment.QuestionListFragment;
 import com.chaotichippos.finalproject.app.model.Question;
-import com.chaotichippos.finalproject.app.view.CompleteFillInTheBlankView;
 import com.chaotichippos.finalproject.app.view.CreateFillInTheBlankView;
 import com.chaotichippos.finalproject.app.view.CreateMatchingView;
 import com.chaotichippos.finalproject.app.view.CreateMultipleChoiceView;
@@ -38,7 +36,7 @@ public class InstructorActivity extends MainActivity {
 		if (!open) {
 			menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE, "Switch to Student")
 					.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-            menu.add(Menu.NONE, R.id.menu_option_create_exam, Menu.NONE, "Create Exam")
+            menu.add(Menu.NONE, R.id.menu_option_create_exam, Menu.NONE, "Publish Exam")
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		} else {
 			menu.clear();
@@ -57,6 +55,19 @@ public class InstructorActivity extends MainActivity {
                 return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void ensureCompleteQuestions() {
+		int position = 0;
+		boolean complete = true;
+		final List<Question> questions = getQuestionListFragment().getQuestionList();
+		for (int i = 0, sz = questions.size(); i < sz; i++) {
+			/*
+
+			if (!question.is
+			
+			*/
+		}
 	}
 
 	@Override

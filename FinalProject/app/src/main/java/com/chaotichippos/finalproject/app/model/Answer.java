@@ -2,6 +2,15 @@ package com.chaotichippos.finalproject.app.model;
 
 public class Answer {
 
+	/**
+	 * Represents the score the question received, along with
+	 * how the data should be represented in the graph view
+	 */
+	public static class Results {
+		public double score;
+		public String data;
+	}
+
 	private String mQuestionId;
 
 	private String mAnswerText;
@@ -27,40 +36,43 @@ public class Answer {
 		mAnswerText = answerText;
 	}
 
-	public static float checkAnswer(Question question, Answer answer) {
+	public static Results checkAnswer(Question question, String answerText) {
 		switch (question.getType()) {
 			case TRUE_OR_FALSE:
-				return checkTrueFalseAnswer(question, answer);
+				return checkTrueFalseAnswer(question, answerText);
 
 			case FILL_IN_THE_BLANK:
-				return checkFillInTheBlankAnswer(question, answer);
+				return checkFillInTheBlankAnswer(question, answerText);
 
 			case MULTIPLE_CHOICE:
-				return checkMultipleChoiceAnswer(question, answer);
+				return checkMultipleChoiceAnswer(question, answerText);
 
 			case MATCHING:
-				return checkMatchingAnswer(question, answer);
+				return checkMatchingAnswer(question, answerText);
 
 			default:
 				throw new IllegalArgumentException("Trying to check question of unknown type");
 		}
 	}
 
-	private static float checkTrueFalseAnswer(Question question, Answer answer) {
-		int provided = Integer.parseInt(answer.getAnswerText());
+	private static Results checkTrueFalseAnswer(Question question, String answerText) {
+		int provided = Integer.parseInt(answerText);
 		int correct = new TrueOrFalseQuestionWrapper(question).getAnswer();
-		return provided == correct ? 1 : 0;
+		final Results results = new Results();
+		results.score = provided == correct ? 1 : 0;
+		results.data = String.valueOf(results.score);
+		return results;
 	}
 
-	private static float checkFillInTheBlankAnswer(Question question, Answer answer) {
-		return 0.0f;
+	private static Results checkFillInTheBlankAnswer(Question question, String answerText) {
+		return null;
 	}
 
-	private static float checkMultipleChoiceAnswer(Question question, Answer answer) {
-		return 0.0f;
+	private static Results checkMultipleChoiceAnswer(Question question, String answerText) {
+		return null;
 	}
 
-	private static float checkMatchingAnswer(Question question, Answer answer) {
-		return 0.0f;
+	private static Results checkMatchingAnswer(Question question, String answerText) {
+		return null;
 	}
 }

@@ -86,6 +86,15 @@ public class Submission implements Parcelable {
 		return mAnswers;
 	}
 
+	public void setAnswer(String questionId, String answerText) {
+		try {
+			mAnswers.put(questionId, answerText);
+		} catch (JSONException e) {
+			e.printStackTrace();
+			DebugLog.w(TAG, "Error adding answer " + answerText + " for question " + questionId);
+		}
+	}
+
 	public void putAnswer(Answer answer) {
 		try {
 			mAnswers.put(answer.getQuestionId(), answer.getAnswerText());

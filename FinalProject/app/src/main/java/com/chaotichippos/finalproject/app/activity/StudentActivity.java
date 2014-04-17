@@ -6,8 +6,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.chaotichippos.finalproject.app.R;
+import com.chaotichippos.finalproject.app.dialog.ProgressDialogFragment;
+import com.chaotichippos.finalproject.app.dialog.YesNoDialogFragment;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
 import com.chaotichippos.finalproject.app.model.Submission;
@@ -89,10 +92,9 @@ public class StudentActivity extends MainActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		// TODO save submission as not ready
-		List<Question> questions = getQuestionListFragment().getQuestionList();
-		for (Question question : questions) {
-
+		if (!mCurrentSubmission.isReady()) {
+			savePreviousAnswer();
+			mCurrentSubmission.toParseObject().saveInBackground();
 		}
 	}
 
@@ -122,10 +124,66 @@ public class StudentActivity extends MainActivity {
 				return true;
 
 			case R.id.menu_option_submit_answers:
-				
+				ensureCompleteAnswers();
 				return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void ensureCompleteAnswers() {
+		int position = 0;
+		boolean incomplete = false;
+		final List<Question> questions = getQuestionListFragment().getQuestionList();
+		for (int i = 0, sz = questions.size(); i < sz; i++) {
+			/*
+
+			if (!question.isComplete()) {
+				incomplete = true;
+				position = i;
+				break;
+			}
+
+			*/
+		}
+		if (incomplete) {
+			final int incompletePosition = position;
+			final YesNoDialogFragment dialog = YesNoDialogFragment.create(
+					"You have some unanswered questions.\nDo you wish to continue with submission?");
+			dialog.setListener(new YesNoDialogFragment.YesNoListener() {
+				@Override
+				public void onYes() {
+					gradeAndSubmitAnswers();
+				}
+				@Override
+				public void onNo() {
+					getMainPane().openPane();
+					getQuestionListFragment().scrollToQuestion(incompletePosition);
+				}
+			});
+			dialog.show(getFragmentManager(), "yesNo");
+		} else {
+			gradeAndSubmitAnswers();
+		}
+	}
+
+	private void gradeAndSubmitAnswers() {
+		double grade = 0.0f;
+		for (Question question : getQuestionListFragment().getQuestionList()) {
+			final Answer.Results results = Answer.checkAnswer(question,
+					mCurrentSubmission.getAnswer(question.getObjectId()));
+			grade += results.score;
+			mCurrentSubmission.setAnswer(question.getObjectId(), results.data);
+		}
+		mCurrentSubmission.setGrade(grade);
+		ProgressDialogFragment.create("Submitting test...").show(getFragmentManager(), null);
+		mCurrentSubmission.toParseObject().saveInBackground(new SaveCallback() {
+			@Override
+			public void done(ParseException e) {
+				Toast.makeText(getApplicationContext(),
+						"Thank you! Your answers have been submitted", Toast.LENGTH_LONG).show();
+				finish();
+			}
+		});
 	}
 
 	@Override

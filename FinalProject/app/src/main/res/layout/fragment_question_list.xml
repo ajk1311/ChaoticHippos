@@ -3,7 +3,8 @@
 <ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/switcher"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+    android:background="#FAFAFA">
 
 	<ProgressBar
 		style="?android:progressBarStyleLarge"
@@ -15,6 +16,8 @@
 		android:id="@android:id/list"
 		android:listSelector="@drawable/list_selector_gray"
 		android:dividerHeight="0dp"
+		android:footerDividersEnabled="false"
+		android:divider="@null"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent" />
 

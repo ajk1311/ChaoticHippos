@@ -4,5 +4,7 @@
 	<color name="gray_lighter">#ddd</color>
 	<color name="purple">#a805b7</color>
     <color name="purple_lighter">#aa66cc</color>
+    <color name="white">#ffffff</color>
+
 
 </resources>

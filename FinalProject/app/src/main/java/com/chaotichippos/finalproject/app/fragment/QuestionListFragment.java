@@ -192,7 +192,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	 * @param test The current Test from the instructor
 	 */
 	public void onTestLoaded(Test test) {
-		if (test == null || !test.isReady()) {
+		if (test == null) {
 			// Ignore a null test, the activity will take care of it
 			mViewSwitcher.setDisplayedChild(1);
 			return;

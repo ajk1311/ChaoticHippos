@@ -22,7 +22,7 @@ public interface QuestionViewer {
 	 *
 	 * @param question The Question to display
 	 */
-	public void setQuestion(Question question);
+	public void setQuestion(int index, Question question);
 
 	/**
 	 * @return An array of {@link com.chaotichippos.finalproject.app.model.Answer} objects to be

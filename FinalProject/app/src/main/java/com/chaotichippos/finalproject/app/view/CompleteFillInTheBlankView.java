@@ -125,7 +125,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     }
 
     @Override
-    public void setQuestion(Question question) {
+    public void setQuestion(int index, Question question) {
         this.question = question;
         setQuestionText();
     }

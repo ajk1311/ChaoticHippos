@@ -159,7 +159,7 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
                         m_answers.get(((MatchingQuestion)adapterView.getItemAtPosition(i)).getAnswerId()).setQuestionID(-1);
                         listAdapter2.notifyDataSetChanged();
                     }
-                    view.setBackground(null);
+                    view.setBackgroundDrawable(null);
                     if(curSelectedQuestion != -1 && m_questions.get(curSelectedQuestion).getAnswerId() == -1)
                     {
                         Log.v(TAG, "in");
@@ -206,7 +206,7 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
                 {
                     if(curSelectedColor.isEmpty())
                     {
-                        view.setBackground(null);
+                        view.setBackgroundDrawable(null);
                         if(((MatchingAnswer)adapterView.getItemAtPosition(i)).getQuestionID() != -1)
                         {
                             Log.v(TAG,Integer.toString(((MatchingAnswer)adapterView.getItemAtPosition(i)).getQuestionID()));
@@ -218,7 +218,7 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
                         ((MatchingAnswer)adapterView.getItemAtPosition(i)).setQuestionID(-1);
                     } else if(((ColorDrawable)view.getBackground()).getColor() == Color.parseColor(curSelectedColor))
                     {
-                        view.setBackground(null);
+                        view.setBackgroundDrawable(null);
                         ((MatchingAnswer)adapterView.getItemAtPosition(i)).setQuestionID(-1);
                         m_questions.get(curSelectedQuestion).setAnswerId(-1);
                         m_questions.get(curSelectedQuestion).setSelected(false);
@@ -303,7 +303,7 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
                     }
                 } else
                 {
-                    convertView.setBackground(null);
+                    convertView.setBackgroundDrawable(null);
                 }
             }
             return convertView;
@@ -347,7 +347,7 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
                     }
                 } else
                 {
-                    convertView.setBackground(null);
+                    convertView.setBackgroundDrawable(null);
                 }
             }
             return convertView;
@@ -509,7 +509,7 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
     }
 
     @Override
-    public void setQuestion(Question question) {
+    public void setQuestion(int index, Question question) {
         this.question = question;
         setMyQuestion();
         //String test = "";

@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.chaotichippos.finalproject.app.App;
+import com.chaotichippos.finalproject.app.event.DisplayQuestionEvent;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.activity.InstructorActivity;
 import com.chaotichippos.finalproject.app.activity.MainActivity;
@@ -110,7 +111,7 @@ public class StudentTestFragment extends Fragment {
 		if (incomplete) {
 			final int incompletePosition = position;
 			final YesNoDialogFragment dialog = YesNoDialogFragment.create(
-					"You have some unanswered questions.\nDo you wish to continue with submission?");
+					"You have some unanswered questions. Do you wish to continue with submission?");
 			dialog.setListener(new YesNoDialogFragment.YesNoListener() {
 				@Override
 				public void onYes() {
@@ -137,16 +138,24 @@ public class StudentTestFragment extends Fragment {
 			mCurrentSubmission.setAnswer(question.getObjectId(), results.data);
 		}
 		mCurrentSubmission.setGrade(grade);
-		ProgressDialogFragment.create("Submitting test...").show(getFragmentManager(), null);
+		final ProgressDialogFragment dialog = ProgressDialogFragment.create("Submitting test...");
+		dialog.show(getFragmentManager(), null);
 		mCurrentSubmission.toParseObject().saveInBackground(new SaveCallback() {
 			@Override
 			public void done(ParseException e) {
-				if (!isAdded()) {
-					return;
+				dialog.dismiss();
+				if (e == null) {
+					Toast.makeText(mMainActivity.getApplicationContext(),
+							"Thank you! Your answers have been submitted",
+							Toast.LENGTH_LONG)
+							.show();
+					if (isAdded()) mMainActivity.finish();
+				} else {
+					Toast.makeText(App.getContext(),
+							"Sorry, there was an error processing your request: " + e.getMessage(),
+							Toast.LENGTH_SHORT)
+							.show();
 				}
-				Toast.makeText(mMainActivity.getApplicationContext(),
-						"Thank you! Your answers have been submitted", Toast.LENGTH_LONG).show();
-				mMainActivity.finish();
 			}
 		});
 	}
@@ -195,7 +204,10 @@ public class StudentTestFragment extends Fragment {
 				} else if (e.getCode() == ParseException.OBJECT_NOT_FOUND) {
 					startNewSubmission(currentTest);
 				} else {
-					// TODO handle error
+					Toast.makeText(App.getContext(),
+							"Sorry, there was an error processing your request: " + e.getMessage(),
+							Toast.LENGTH_SHORT)
+							.show();
 				}
 			}
 		});
@@ -214,8 +226,9 @@ public class StudentTestFragment extends Fragment {
 	}
 
 	@Subscribe
-	public void onQuestionSelected(Question question) {
+	public void onQuestionSelected(DisplayQuestionEvent event) {
 		View view = null;
+		final Question question = event.getQuestion();
 		switch (question.getType()) {
 			case FILL_IN_THE_BLANK:
 				view = new CompleteFillInTheBlankView(getActivity());
@@ -236,7 +249,7 @@ public class StudentTestFragment extends Fragment {
 		savePreviousAnswer();
 		mContainer.removeAllViews();
 		mContainer.addView(view);
-		((QuestionViewer) view).setQuestion(question);
+		((QuestionViewer) view).setQuestion(event.getIndex(), question);
 		((QuestionViewer) view).setAnswer(mCurrentSubmission.getAnswer(question.getObjectId()));
 	}
 

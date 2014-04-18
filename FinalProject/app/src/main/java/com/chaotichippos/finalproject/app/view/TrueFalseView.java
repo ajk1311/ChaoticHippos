@@ -73,7 +73,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 	}
 
 	@Override
-	public void setQuestion(Question question) {
+	public void setQuestion(int index, Question question) {
 		mQuestionWrapper = new TrueOrFalseQuestionWrapper(question);
 		mQuestionText.setText(mQuestionWrapper.getQuestionText());
 		mAnswer.setSelectedIndex(mQuestionWrapper.getAnswer());

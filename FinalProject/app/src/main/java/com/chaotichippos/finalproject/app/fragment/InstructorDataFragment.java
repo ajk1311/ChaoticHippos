@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.chaotichippos.finalproject.app.App;
@@ -26,6 +27,8 @@ import com.squareup.otto.Subscribe;
 
 public class InstructorDataFragment extends Fragment {
 
+	private FrameLayout mContainer;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,7 +37,9 @@ public class InstructorDataFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return super.onCreateView(inflater, container, savedInstanceState);
+		mContainer = (FrameLayout) inflater
+				.inflate(R.layout.fragment_student_test, container, false);
+		return mContainer;
 	}
 
 	@Override

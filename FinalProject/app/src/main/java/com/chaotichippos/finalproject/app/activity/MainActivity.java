@@ -197,7 +197,7 @@ public abstract class MainActivity extends Activity
 		}
 	}
 
-	public void savePreviousQuestion(ViewGroup container) {
+	public void saveCurrentQuestion(ViewGroup container) {
 		if (container.getChildCount() == 0) {
 			return;
 		}

@@ -192,8 +192,9 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	 * @param test The current Test from the instructor
 	 */
 	public void onTestLoaded(Test test) {
-		if (test == null) {
+		if (test == null || !test.isReady()) {
 			// Ignore a null test, the activity will take care of it
+			mViewSwitcher.setDisplayedChild(1);
 			return;
 		}
 		ParseQuery questionQuery = ParseQuery.getQuery(Question.TAG);

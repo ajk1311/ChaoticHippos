@@ -24,8 +24,8 @@ public class TestInfoDialog extends DialogFragment {
 	static {
 		final int size = MAX_DURATION / TIME_STEP;
 		sDurationTimes = new String[size];
-		for (int i = 1; i <= size; i++) {
-			sDurationTimes[i] = String.valueOf(i * TIME_STEP);
+		for (int i = 0; i < size; i++) {
+			sDurationTimes[i] = String.valueOf((i+1) * TIME_STEP);
 		}
 	}
 

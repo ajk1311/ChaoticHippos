@@ -147,6 +147,7 @@ public class InstructorEditorFragment extends Fragment {
 				publishTest(name, duration, expiration);
 			}
 		});
+        dialog.show(getFragmentManager(), null);
 	}
 
 	private void publishTest(String name, long duration, long expiration) {

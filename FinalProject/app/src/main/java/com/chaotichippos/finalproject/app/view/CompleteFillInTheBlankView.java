@@ -22,6 +22,7 @@ import org.json.JSONException;
  */
 public class CompleteFillInTheBlankView extends LinearLayout implements QuestionViewer {
 
+    private TextView questionTitleTextView;
     private TextView questionTextTextView;
     private EditText blank1EditText;
     private EditText blank2EditText;
@@ -34,6 +35,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     public CompleteFillInTheBlankView(Context context) {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.complete_fill_in_the_blank_base_view, this, true);
+        questionTitleTextView = (TextView) findViewById(R.id.fitb_complete_title);
         questionTextTextView = (TextView) findViewById(R.id.fitb_qtext_textview);
         blank1EditText = (EditText) findViewById(R.id.fitb_blank1_answer_edittext);
         blank2EditText = (EditText) findViewById(R.id.fitb_blank2_answer_edittext);
@@ -128,6 +130,7 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     public void setQuestion(int index, Question question) {
         this.question = question;
         setQuestionText();
+        questionTitleTextView.setText(String.valueOf(index) + ". Fill in the Blank");
     }
 
     @Override

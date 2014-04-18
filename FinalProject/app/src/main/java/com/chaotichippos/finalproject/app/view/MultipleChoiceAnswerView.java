@@ -32,6 +32,7 @@ import java.util.List;
  * Created by SebastianMartinez on 4/10/14.
  */
 public class MultipleChoiceAnswerView extends RelativeLayout implements QuestionViewer {
+    TextView questionTitleTextView;
     ListView listView;
     TextView questionText;
     TextView selectedAnswerText;
@@ -58,6 +59,7 @@ public class MultipleChoiceAnswerView extends RelativeLayout implements Question
 
         LayoutInflater.from(context).inflate(R.layout.multiple_choice_student_view, this, true);
 
+        questionTitleTextView = (TextView) findViewById(R.id.mc_complete_title);
         listView = (ListView) findViewById(R.id.listview);
         questionText = (TextView) findViewById(R.id.QuestionText);
         selectedAnswerText = (TextView) findViewById(R.id.SelectedAnswerText);
@@ -150,6 +152,7 @@ public class MultipleChoiceAnswerView extends RelativeLayout implements Question
     @Override
 	public void setQuestion(int index, Question question) {
         this.question = question;
+        questionTitleTextView.setText(String.valueOf(index) + ". Multiple Choice");
         try {
             questionText.setText(this.question.getData().getString("questionText"));
             JSONArray answers = this.question.getData().getJSONArray("answers");

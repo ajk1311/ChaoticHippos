@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
@@ -19,6 +20,7 @@ import com.chaotichippos.finalproject.app.model.Question;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 /**
  *
@@ -28,6 +30,7 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     private static char BLANK_CHAR = (char) 1;
 
     private Question question;
+    private TextView questionTitleTextView;
     private Button insertBlankButton;
     private EditText questionTextEditText;
     private EditText blank1EditText;
@@ -41,6 +44,7 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
         super(context);
         LayoutInflater.from(context).inflate(R.layout.create_fill_in_the_blank_base_view, this, true);
         numBlanks = 0;
+        questionTitleTextView = (TextView) findViewById(R.id.fitb_create_title);
         insertBlankButton = (Button) findViewById(R.id.fitb_insertblank_button);
         questionTextEditText = (EditText) findViewById(R.id.fitb_qtext_edittext);
         blank1EditText = (EditText) findViewById(R.id.fitb_blank1_edittext);
@@ -218,6 +222,7 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     public void setQuestion(int index, Question question) {
         this.question = question;
         setQuestionText();
+        questionTitleTextView.setText(String.valueOf(index) + ". Fill in the Blank");
     }
 
     @Override

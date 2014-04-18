@@ -59,16 +59,25 @@ public class Answer {
 	}
 
 	private static Results checkTrueFalseAnswer(Question question, String answerText) {
-		int provided = Integer.parseInt(answerText);
-		int correct = new TrueOrFalseQuestionWrapper(question).getAnswer();
-		final Results results = new Results();
-		results.score = provided == correct ? 1 : 0;
-		results.data = String.valueOf(results.score);
+        final Results results = new Results();
+        if(answerText != null) {
+            int provided = Integer.parseInt(answerText);
+            int correct = new TrueOrFalseQuestionWrapper(question).getAnswer();
+            results.score = provided == correct ? 1 : 0;
+            results.data = String.valueOf(results.score);
+        }
+        else {
+            results.score = 0;
+            results.data = "0";
+        }
 		return results;
 	}
 
 	private static Results checkFillInTheBlankAnswer(Question question, String answerText) {
-		String provided[] = answerText.split(";");
+        String provided[] = null;
+        if(answerText != null) {
+            provided = answerText.split(";");
+        }
         String correct1 = null, correct2 = null, correct3 = null;
         int numBlanks = 0, correct = 0;
         try {
@@ -79,19 +88,21 @@ public class Answer {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(correct1 != null) {
-            if(correct1.compareTo(provided[0]) == 0) {
-                correct++;
+        if(provided != null) {
+            if (correct1 != null && provided.length >=1) {
+                if (correct1.compareTo(provided[0]) == 0) {
+                    correct++;
+                }
             }
-        }
-        if(correct2 != null) {
-            if(correct2.compareTo(provided[1]) == 0) {
-                correct++;
+            if (correct2 != null && provided.length >= 2) {
+                if (correct2.compareTo(provided[1]) == 0) {
+                    correct++;
+                }
             }
-        }
-        if(correct3 != null) {
-            if(correct3.compareTo(provided[2]) == 0) {
-                correct++;
+            if (correct3 != null && provided.length >= 3) {
+                if (correct3.compareTo(provided[2]) == 0) {
+                    correct++;
+                }
             }
         }
 		final Results results = new Results();
@@ -108,7 +119,7 @@ public class Answer {
             e.printStackTrace();
         }
         int score = 0;
-        if(correct.compareTo(answerText) == 0) {
+        if(answerText != null && correct.compareTo(answerText) == 0) {
             score = 1;
         }
         final Results results = new Results();
@@ -125,12 +136,12 @@ public class Answer {
             numPairs = right.length();
             String[] strArray;
             String delimiter = ";";
-            strArray = answerText.split(delimiter);
-            for(int i = 0; i <  right.length(); i++)
-            {
-                if(strArray[i].equals(right.get(i)))
-                {
-                    correct++;
+            if(answerText != null) {
+                strArray = answerText.split(delimiter);
+                for (int i = 0; i < right.length(); i++) {
+                    if (strArray[i].equals(right.get(i))) {
+                        correct++;
+                    }
                 }
             }
         } catch (JSONException e) {

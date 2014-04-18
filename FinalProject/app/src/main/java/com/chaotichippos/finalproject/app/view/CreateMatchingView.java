@@ -35,6 +35,7 @@ import java.util.Set;
 
 public class CreateMatchingView extends LinearLayout implements QuestionViewer{
 
+    private TextView questionTitleTextView;
     private TextView addChoice;
     private ListView list1;
     private ListView list2;
@@ -64,6 +65,7 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
         myColors.add("#5F9F9F");
         myColors.add("#00FFFF");
         LayoutInflater.from(context).inflate(R.layout.create_matching_list, this, true);
+        questionTitleTextView = (TextView) findViewById(R.id.matching_create_title);
         curSelectedPair = -1;
 
         setWillNotDraw(false);
@@ -308,6 +310,7 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
     public void setQuestion(int index, Question question) {
         this.question = question;
         setMyQuestion();
+        questionTitleTextView.setText(String.valueOf(index) + ". Matching");
     }
 
     @Override

@@ -23,6 +23,7 @@ import com.chaotichippos.finalproject.app.model.Question;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +37,7 @@ import java.util.Random;
 
 public class StudentMatchingView extends LinearLayout implements QuestionViewer{
 
+    private TextView questionTitleTextView;
     private ListView list1;
     private ListView list2;
     private MatchQuestionAdapter listAdapter1;
@@ -74,7 +76,7 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
 
         LayoutInflater.from(context).inflate(R.layout.student_matching_list, this, true);
 
-
+        questionTitleTextView = (TextView) findViewById(R.id.matching_complete_title);
         m_questions = new ArrayList<MatchingQuestion>();
         m_answers = new ArrayList<MatchingAnswer>();
         myColors = new ArrayList<String>();
@@ -512,6 +514,7 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
     public void setQuestion(int index, Question question) {
         this.question = question;
         setMyQuestion();
+        questionTitleTextView.setText(String.valueOf(index) + ". Matching");
         //String test = "";
         //test += "everyone else;doony;";
         //parseAnswers(test);

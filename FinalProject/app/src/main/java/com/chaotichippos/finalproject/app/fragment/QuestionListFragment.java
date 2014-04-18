@@ -263,15 +263,16 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		 */
 		private int mSelectedPosition = INVALID_POSITION;
 
+		private QuestionListAdapter() {
+			mList = new ArrayList<Question>();
+		}
+
 		/**
 		 * Adds a new question to the list
 		 *
 		 * @param question The new question
 		 */
 		public void addQuestion(Question question) {
-			if (mList == null) {
-				return;
-			}
 			mList.add(question);
 			notifyDataSetChanged();
 		}
@@ -283,7 +284,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		 */
 		public void swapQuestions(ArrayList<Question> list) {
 			if (list != mList) {
-				mList = list;
+				mList = list == null ? new ArrayList<Question>() : list;
 				notifyDataSetChanged();
 			}
 		}
@@ -304,12 +305,12 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 
 		@Override
 		public int getCount() {
-			return mList == null ? 0 : mList.size();
+			return mList.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
-			return mList == null ? null : mList.get(position);
+			return mList.get(position);
 		}
 
 		@Override

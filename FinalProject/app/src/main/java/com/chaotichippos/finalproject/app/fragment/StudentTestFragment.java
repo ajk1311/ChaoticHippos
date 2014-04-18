@@ -137,6 +137,7 @@ public class StudentTestFragment extends Fragment {
 			grade += results.score;
 			mCurrentSubmission.setAnswer(question.getObjectId(), results.data);
 		}
+		final double finalGrade = grade;
 		mCurrentSubmission.setGrade(grade);
 		final ProgressDialogFragment dialog = ProgressDialogFragment.create("Submitting test...");
 		dialog.show(getFragmentManager(), null);
@@ -145,6 +146,7 @@ public class StudentTestFragment extends Fragment {
 			public void done(ParseException e) {
 				dialog.dismiss();
 				if (e == null) {
+					// TODO show grade popup
 					Toast.makeText(mMainActivity.getApplicationContext(),
 							"Thank you! Your answers have been submitted",
 							Toast.LENGTH_LONG)
@@ -180,6 +182,11 @@ public class StudentTestFragment extends Fragment {
 	public void onDestroyView() {
 		super.onDestroyView();
 		App.getEventBus().unregister(this);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
 		if (!mCurrentSubmission.isReady()) {
 			savePreviousAnswer();
 			mCurrentSubmission.toParseObject().saveInBackground();

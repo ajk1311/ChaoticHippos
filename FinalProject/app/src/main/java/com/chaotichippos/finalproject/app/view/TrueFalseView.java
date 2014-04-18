@@ -30,7 +30,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 
 	public static final int ANSWER_FALSE = 1;
 
-
+	private TextView mTitleText;
 	private TextView mQuestionText;
 	private TrueFalseAnswerGroup mAnswer;
 
@@ -49,11 +49,11 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		titleParams.setMargins(0, marginMedium, 0, marginSmall);
 
-		final TextView title = new TextView(context);
-		title.setText("True or False");
-		title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
-		title.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
-		container.addView(title, titleParams);
+		mTitleText = new TextView(context);
+		mTitleText.setText("True or False");
+		mTitleText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+		mTitleText.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+		container.addView(mTitleText, titleParams);
 
 		final LinearLayout.LayoutParams questionParams = new LinearLayout.LayoutParams(
 				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -74,6 +74,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 
 	@Override
 	public void setQuestion(int index, Question question) {
+		mTitleText.setText(index + ". " + mTitleText.getText());
 		mQuestionWrapper = new TrueOrFalseQuestionWrapper(question);
 		mQuestionText.setText(mQuestionWrapper.getQuestionText());
 		mAnswer.setSelectedIndex(mQuestionWrapper.getAnswer());

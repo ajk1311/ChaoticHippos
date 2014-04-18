@@ -70,6 +70,11 @@ public class InstructorEditorFragment extends Fragment {
 	public void onDestroyView() {
 		super.onDestroyView();
 		App.getEventBus().unregister(this);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
 		if (!mMainActivity.getCurrentTest().isReady()) {
 			mMainActivity.savePreviousQuestion(mContainer);
 			for(Question question: mMainActivity.getQuestionListFragment().getQuestionList()) {

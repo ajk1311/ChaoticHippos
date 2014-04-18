@@ -139,6 +139,7 @@ public class StudentTestFragment extends Fragment {
 		}
 		final double finalGrade = grade;
 		mCurrentSubmission.setGrade(grade);
+        mCurrentSubmission.setReady(true);
 		final ProgressDialogFragment dialog = ProgressDialogFragment.create("Submitting test...");
 		dialog.show(getFragmentManager(), null);
 		mCurrentSubmission.toParseObject().saveInBackground(new SaveCallback() {

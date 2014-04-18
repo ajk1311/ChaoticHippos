@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TimePicker;
 
 import com.chaotichippos.finalproject.app.R;
 
@@ -35,7 +36,8 @@ public class TestInfoDialog extends DialogFragment {
 
 	private EditText mNameField;
 	private NumberPicker mDurationPicker;
-	private DatePicker mExpirationPicker;
+	private DatePicker mDatePicker;
+	private TimePicker mTimePicker;
 
 	private OnInfoSubmittedListener mListener;
 
@@ -53,8 +55,11 @@ public class TestInfoDialog extends DialogFragment {
 		mDurationPicker = (NumberPicker) customView.findViewById(R.id.test_info_duration);
 		setupDurationPicker();
 
-		mExpirationPicker = (DatePicker) customView.findViewById(R.id.test_info_expiration);
+		mDatePicker = (DatePicker) customView.findViewById(R.id.test_info_date);
 		setupExpirationPicker();
+
+		mTimePicker = (TimePicker) customView.findViewById(R.id.test_info_time);
+		setupTimePicker();
 
 		return new AlertDialog.Builder(getActivity())
 				.setView(customView)
@@ -81,7 +86,11 @@ public class TestInfoDialog extends DialogFragment {
 		int year = c.get(Calendar.YEAR);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
-		mExpirationPicker.init(year, month, day, null);
+		mDatePicker.init(year, month, day, null);
+	}
+
+	private void setupTimePicker() {
+		mTimePicker.setIs24HourView(false);
 	}
 
 	private void collectAndCheckInfo() {
@@ -98,12 +107,16 @@ public class TestInfoDialog extends DialogFragment {
 
 		final int duration = Integer.parseInt(sDurationTimes[mDurationPicker.getValue()]);
 
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.DAY_OF_MONTH, mExpirationPicker.getDayOfMonth());
-		c.set(Calendar.MONTH, mExpirationPicker.getMonth());
-		c.set(Calendar.YEAR, mExpirationPicker.getYear());
-		final long expiration = c.getTimeInMillis();
+		final Calendar c = Calendar.getInstance();
+		c.set(Calendar.DAY_OF_MONTH, mDatePicker.getDayOfMonth());
+		c.set(Calendar.MONTH, mDatePicker.getMonth());
+		c.set(Calendar.YEAR, mDatePicker.getYear());
 
+		c.set(Calendar.HOUR_OF_DAY, mTimePicker.getCurrentHour());
+		c.set(Calendar.MINUTE, mTimePicker.getCurrentMinute());
+
+		System.currentTimeMillis();
+		final long expiration = c.getTimeInMillis() / 1000L;
 		mListener.onInfoSubmitted(name, duration, expiration);
 	}
 }

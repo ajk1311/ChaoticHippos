@@ -1,39 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:padding="16dp">
+	android:layout_height="match_parent">
 
-	<EditText
-		android:id="@+id/test_info_name"
+	<LinearLayout
+		android:orientation="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="16dp"
-		android:hint="Test name"/>
+		android:padding="16dp">
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="left"
-		android:layout_marginTop="16dp"
-		android:text="Duration:"/>
+		<EditText
+			android:id="@+id/test_info_name"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="16dp"
+			android:hint="Test name"/>
 
-	<NumberPicker
-		android:id="@+id/test_info_duration"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"/>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="left"
+			android:layout_marginTop="16dp"
+			android:text="Duration:"/>
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="left"
-		android:layout_marginTop="16dp"
-		android:text="Expires on:"/>
+		<NumberPicker
+			android:id="@+id/test_info_duration"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
 
-	<DatePicker
-		android:id="@+id/test_info_expiration"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"/>
-</LinearLayout>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="left"
+			android:layout_marginTop="16dp"
+			android:text="Expires on:"/>
+
+		<DatePicker
+			android:id="@+id/test_info_date"
+			android:layout_gravity="center_horizontal"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:spinnersShown="true"
+			android:calendarViewShown="false"/>
+
+		<TextView
+			android:text="at:"
+			android:layout_gravity="center_horizontal"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp" />
+
+		<TimePicker
+			android:id="@+id/test_info_time"
+			android:layout_gravity="center_horizontal"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	</LinearLayout>
+</ScrollView>

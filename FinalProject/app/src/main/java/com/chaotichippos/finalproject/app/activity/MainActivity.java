@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chaotichippos.finalproject.app.App;
+import com.chaotichippos.finalproject.app.event.DisplayQuestionEvent;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.dialog.QuestionAdditionDialogFragment;
 import com.chaotichippos.finalproject.app.fragment.QuestionListFragment;
@@ -123,8 +124,8 @@ public abstract class MainActivity extends Activity
 	}
 
 	@Override
-	public void onQuestionSelected(final Question question) {
-		showViewWhenAppropriate(question);
+	public void onQuestionSelected(int index, final Question question) {
+		showViewWhenAppropriate(index, question);
 	}
 
 	@Override
@@ -138,9 +139,13 @@ public abstract class MainActivity extends Activity
 				if (e == null) {
 					Question question = new Question(newQuestion);
 					getQuestionListFragment().addQuestion(question);
-					showViewWhenAppropriate(question);
+					showViewWhenAppropriate(getQuestionListFragment().getQuestionList().size(),
+							question);
 				} else {
-					// TODO handle error
+					Toast.makeText(App.getContext(),
+							"Sorry, there was an error processing your request: " + e.getMessage(),
+							Toast.LENGTH_SHORT)
+							.show();
 				}
 			}
 		});
@@ -178,17 +183,17 @@ public abstract class MainActivity extends Activity
 	 *
 	 * @param question The question for which to display the view
 	 */
-	private void showViewWhenAppropriate(final Question question) {
+	private void showViewWhenAppropriate(final int index, final Question question) {
 		if (mMainPane.isSlideable() && mMainPane.isOpen()) {
 			sPendingOperation = new Runnable() {
 				@Override
 				public void run() {
-					App.getEventBus().post(question);
+					App.getEventBus().post(new DisplayQuestionEvent(index, question));
 				}
 			};
 			mMainPane.closePane();
 		} else {
-			App.getEventBus().post(question);
+			App.getEventBus().post(new DisplayQuestionEvent(index, question));
 		}
 	}
 

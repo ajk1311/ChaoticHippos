@@ -359,7 +359,7 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 	}
 
 	@Override
-    public void setQuestion(Question question) {
+    public void setQuestion(int index, Question question) {
 		this.question = question;
         try {
 			questionTextEditor.setText(this.question.getData().getString("questionText"));

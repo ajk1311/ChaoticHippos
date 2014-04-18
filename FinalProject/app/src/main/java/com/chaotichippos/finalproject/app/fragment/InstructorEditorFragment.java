@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.chaotichippos.finalproject.app.App;
+import com.chaotichippos.finalproject.app.dialog.TestInfoDialog;
 import com.chaotichippos.finalproject.app.event.DisplayQuestionEvent;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.activity.MainActivity;
@@ -76,7 +77,7 @@ public class InstructorEditorFragment extends Fragment {
 	public void onPause() {
 		super.onPause();
 		if (!mMainActivity.getCurrentTest().isReady()) {
-			mMainActivity.savePreviousQuestion(mContainer);
+			mMainActivity.saveCurrentQuestion(mContainer);
 			for(Question question: mMainActivity.getQuestionListFragment().getQuestionList()) {
 				question.toParseObject().saveInBackground();
 			}
@@ -124,7 +125,7 @@ public class InstructorEditorFragment extends Fragment {
 			dialog.setListener(new YesNoDialogFragment.YesNoListener() {
 				@Override
 				public void onYes() {
-					publishTest();
+					gatherTestInfo();
 				}
 				@Override
 				public void onNo() {
@@ -134,15 +135,24 @@ public class InstructorEditorFragment extends Fragment {
 			});
 			dialog.show(getFragmentManager(), "yesNo");
 		} else {
-			publishTest();
+			gatherTestInfo();
 		}
 	}
 
-	private void publishTest() {
-		// TODO dialog for duration, etc.
+	private void gatherTestInfo() {
+		final TestInfoDialog dialog = new TestInfoDialog();
+		dialog.setOnInfoSubmittedListener(new TestInfoDialog.OnInfoSubmittedListener() {
+			@Override
+			public void onInfoSubmitted(String name, long duration, long expiration) {
+				publishTest(name, duration, expiration);
+			}
+		});
+	}
+
+	private void publishTest(String name, long duration, long expiration) {
 		final ProgressDialogFragment dialog = ProgressDialogFragment.create("Publishing test...");
 		dialog.show(getFragmentManager(), "progress");
-		mMainActivity.savePreviousQuestion(mContainer);
+		mMainActivity.saveCurrentQuestion(mContainer);
 		for(Question question: mMainActivity.getQuestionListFragment().getQuestionList()) {
 			if (question.isComplete()) {
 				question.toParseObject().saveInBackground();
@@ -152,6 +162,9 @@ public class InstructorEditorFragment extends Fragment {
 		}
 		final Test test = mMainActivity.getCurrentTest();
 		test.setReady(true);
+		test.setName(name);
+		test.setDuration(duration);
+		test.setExpiration(expiration);
 		test.toParseObject().saveInBackground(new SaveCallback() {
 			@Override
 			public void done(ParseException e) {
@@ -194,7 +207,7 @@ public class InstructorEditorFragment extends Fragment {
 				view = new TrueFalseCreateView(getActivity());
 				break;
 		}
-		mMainActivity.savePreviousQuestion(mContainer);
+		mMainActivity.saveCurrentQuestion(mContainer);
 		mContainer.removeAllViews();
 		mContainer.addView(view);
 		((QuestionViewer) view).setQuestion(event.getIndex(), question);

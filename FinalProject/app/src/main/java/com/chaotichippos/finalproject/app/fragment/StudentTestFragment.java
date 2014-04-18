@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.chaotichippos.finalproject.app.App;
+import com.chaotichippos.finalproject.app.dialog.StudentGradeDialog;
 import com.chaotichippos.finalproject.app.event.DisplayQuestionEvent;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.activity.InstructorActivity;
@@ -98,6 +99,8 @@ public class StudentTestFragment extends Fragment {
 	}
 
 	private void ensureCompleteAnswers() {
+		saveCurrentAnswer();
+		mMainActivity.saveCurrentQuestion(mContainer);
 		int position = 0;
 		boolean incomplete = false;
 		final List<Question> questions = mMainActivity.getQuestionListFragment().getQuestionList();
@@ -146,12 +149,8 @@ public class StudentTestFragment extends Fragment {
 			public void done(ParseException e) {
 				dialog.dismiss();
 				if (e == null) {
-					// TODO show grade popup
-					Toast.makeText(mMainActivity.getApplicationContext(),
-							"Thank you! Your answers have been submitted",
-							Toast.LENGTH_LONG)
-							.show();
-					if (isAdded()) mMainActivity.finish();
+					displayResults(finalGrade, 
+							mMainActivity.getQuestionListFragment().getQuestionList().size());
 				} else {
 					Toast.makeText(App.getContext(),
 							"Sorry, there was an error processing your request: " + e.getMessage(),
@@ -160,6 +159,21 @@ public class StudentTestFragment extends Fragment {
 				}
 			}
 		});
+	}
+
+	private void displayResults(double grade, int max) {
+		final StudentGradeDialog dialog = StudentGradeDialog.create(grade, max);
+		dialog.setOnDoneListener(new StudentGradeDialog.OnDoneListener() {
+			@Override
+			public void onDone() {
+				Toast.makeText(mMainActivity.getApplicationContext(),
+						"Thank you! Your answers have been submitted",
+						Toast.LENGTH_LONG)
+						.show();
+				if (isAdded()) mMainActivity.finish();
+			}
+		});
+		dialog.show(getFragmentManager(), null);
 	}
 
 	@Override
@@ -188,7 +202,7 @@ public class StudentTestFragment extends Fragment {
 	public void onPause() {
 		super.onPause();
 		if (!mCurrentSubmission.isReady()) {
-			savePreviousAnswer();
+			saveCurrentAnswer();
 			mCurrentSubmission.toParseObject().saveInBackground();
 		}
 	}
@@ -253,7 +267,8 @@ public class StudentTestFragment extends Fragment {
 				view = new TrueFalseCompleteView(getActivity());
 				break;
 		}
-		savePreviousAnswer();
+		saveCurrentAnswer();
+		mMainActivity.saveCurrentQuestion(mContainer);
 		mContainer.removeAllViews();
 		mContainer.addView(view);
 		((QuestionViewer) view).setQuestion(event.getIndex(), question);
@@ -261,7 +276,7 @@ public class StudentTestFragment extends Fragment {
 	}
 
 
-	private void savePreviousAnswer() {
+	private void saveCurrentAnswer() {
 		if (mContainer.getChildCount() == 0) {
 			return;
 		}

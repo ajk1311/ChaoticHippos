@@ -17,7 +17,7 @@ import com.chaotichippos.finalproject.app.activity.InstructorActivity;
 import com.chaotichippos.finalproject.app.activity.StudentActivity;
 import com.chaotichippos.finalproject.app.dialog.ProgressDialogFragment;
 import com.chaotichippos.finalproject.app.dialog.YesNoDialogFragment;
-import com.chaotichippos.finalproject.app.model.Question;
+import com.chaotichippos.finalproject.app.event.DisplayQuestionEvent;
 import com.chaotichippos.finalproject.app.model.Test;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -121,7 +121,7 @@ public class InstructorDataFragment extends Fragment {
 	}
 
 	@Subscribe
-	public void onQuestionSelected(Question question) {
+	public void onQuestionSelected(DisplayQuestionEvent question) {
 		// TODO show appropriate graph
 	}
 }

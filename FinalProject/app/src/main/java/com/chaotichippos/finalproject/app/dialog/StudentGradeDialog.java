@@ -46,6 +46,7 @@ public class StudentGradeDialog extends DialogFragment {
 
 		return new AlertDialog.Builder(getActivity())
 				.setView(view)
+				.setCancelable(false)
 				.setPositiveButton("Done", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {

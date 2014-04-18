@@ -150,7 +150,7 @@ public class StudentTestFragment extends Fragment {
 			public void done(ParseException e) {
 				dialog.dismiss();
 				if (e == null) {
-					displayResults(finalGrade, 
+					displayResults(finalGrade,
 							mMainActivity.getQuestionListFragment().getQuestionList().size());
 				} else {
 					Toast.makeText(App.getContext(),

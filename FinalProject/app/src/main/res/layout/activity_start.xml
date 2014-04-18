@@ -20,7 +20,6 @@
 		android:id="@+id/start_btn_student"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-        android:background="#A805B7"
         android:textColor="#FFFFFF"
 		android:text="@string/btn_student"/>
 
@@ -32,7 +31,6 @@
 		android:id="@+id/start_btn_instructor"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-        android:background="#A805B7"
         android:textColor="#FFFFFF"
 		android:text="@string/btn_instructor"/>
 

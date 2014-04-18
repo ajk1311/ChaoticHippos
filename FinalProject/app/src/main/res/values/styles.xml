@@ -36,4 +36,10 @@ a
         <item name="android:icon">@drawable/silhouette</item>
     </style>
 
+    <style name="BtnStyle" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/purple_button_selector</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>

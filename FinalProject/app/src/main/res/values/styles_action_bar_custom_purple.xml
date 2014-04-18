@@ -29,8 +29,10 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_action_bar_custom_purple</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_action_bar_custom_purple</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Action_bar_custom_purple</item>
-        
-                <!-- Light.DarkActionBar specific -->
+        <item name="android:buttonStyle">@style/BtnStyle</item>
+
+
+        <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Action_bar_custom_purple.Widget</item>
 
     </style>

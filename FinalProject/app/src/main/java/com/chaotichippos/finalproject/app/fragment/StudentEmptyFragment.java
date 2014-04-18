@@ -47,6 +47,12 @@ public class StudentEmptyFragment extends Fragment {
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		mMainActivity.getQuestionListFragment().getListView().setVisibility(View.GONE);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_option_switch:

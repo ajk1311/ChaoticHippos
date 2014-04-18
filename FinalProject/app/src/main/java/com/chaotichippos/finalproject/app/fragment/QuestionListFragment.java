@@ -52,7 +52,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		public void onAddQuestionRequested();
 
 		/** Called when the user selects a question from the list */
-		public void onQuestionSelected(Question question);
+		public void onQuestionSelected(int index, Question question);
 	}
 
 
@@ -114,7 +114,8 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 			final int savedSelectedPosition = savedInstanceState.getInt(KEY_SELECTED_QUESTION);
 			mListAdapter.setQuestionSelected(savedSelectedPosition);
 			if (savedSelectedPosition >= 0) {
-				mListener.onQuestionSelected(questions.get(savedSelectedPosition));
+				mListener.onQuestionSelected(savedSelectedPosition + 1,
+						questions.get(savedSelectedPosition));
 			}
 		}
 	}
@@ -238,7 +239,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		} else {
 			// A question was selected
 			mListAdapter.setQuestionSelected(position);
-			mListener.onQuestionSelected((Question) mListAdapter.getItem(position));
+			mListener.onQuestionSelected(position + 1, (Question) mListAdapter.getItem(position));
 		}
 	}
 
@@ -341,16 +342,12 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 								new DeleteCallback() {
 									@Override
 									public void done(ParseException e) {
-										// TODO off-by-one error
-										mList.remove(position);
-										if (position == mSelectedPosition && getCount() > 1) {
-											int newPosition = position == mList.size() - 1 ?
-													position - 1 : position + 1;
-											setQuestionSelected(newPosition);
-											mListener.onQuestionSelected(mList.get(newPosition));
-										} else {
-											notifyDataSetChanged();
+										if (position == mSelectedPosition &&
+												mSelectedPosition == getCount() - 1) {
+											mSelectedPosition--;
 										}
+										mList.remove(position);
+										notifyDataSetChanged();
 										mViewSwitcher.setDisplayedChild(1);
 									}
 								});

@@ -23,7 +23,6 @@ import android.widget.TextView;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
-import com.parse.ParseException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -306,7 +305,7 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
     }
 
     @Override
-    public void setQuestion(Question question) {
+    public void setQuestion(int index, Question question) {
         this.question = question;
         setMyQuestion();
     }

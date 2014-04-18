@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.chaotichippos.finalproject.app.App;
+import com.chaotichippos.finalproject.app.event.DisplayQuestionEvent;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.activity.MainActivity;
 import com.chaotichippos.finalproject.app.activity.StudentActivity;
@@ -114,7 +115,7 @@ public class InstructorEditorFragment extends Fragment {
 		if (incomplete) {
 			final int incompletePosition = position;
 			final YesNoDialogFragment dialog = YesNoDialogFragment.create(
-					"You have some incomplete questions.\nDo you wish to continue publishing?");
+					"You have some incomplete questions. Do you wish to continue publishing?");
 			dialog.setListener(new YesNoDialogFragment.YesNoListener() {
 				@Override
 				public void onYes() {
@@ -134,7 +135,8 @@ public class InstructorEditorFragment extends Fragment {
 
 	private void publishTest() {
 		// TODO dialog for duration, etc.
-		ProgressDialogFragment.create("Publishing test...").show(getFragmentManager(), null);
+		final ProgressDialogFragment dialog = ProgressDialogFragment.create("Publishing test...");
+		dialog.show(getFragmentManager(), "progress");
 		mMainActivity.savePreviousQuestion(mContainer);
 		for(Question question: mMainActivity.getQuestionListFragment().getQuestionList()) {
 			if (question.isComplete()) {
@@ -148,20 +150,28 @@ public class InstructorEditorFragment extends Fragment {
 		test.toParseObject().saveInBackground(new SaveCallback() {
 			@Override
 			public void done(ParseException e) {
-				if (!isAdded()) {
-					return;
+				dialog.dismiss();
+				if (e == null) {
+					Toast.makeText(App.getContext(),
+							"Thank you! Your test has been published",
+							Toast.LENGTH_LONG)
+							.show();
+					// TODO restart activity with graphs showing
+					if (isAdded()) mMainActivity.finish();
+				} else {
+					Toast.makeText(App.getContext(),
+							"Sorry, there was an error processing your request: " + e.getMessage(),
+							Toast.LENGTH_SHORT)
+							.show();
 				}
-				Toast.makeText(getActivity(),
-						"Thank you! Your test has been published", Toast.LENGTH_LONG).show();
-				// TODO restart activity with graphs showing
-				mMainActivity.finish();
 			}
 		});
 	}
 
 	@Subscribe
-	public void onQuestionSelected(Question question) {
+	public void onQuestionSelected(DisplayQuestionEvent event) {
 		View view = null;
+		final Question question = event.getQuestion();
 		switch (question.getType()) {
 			case FILL_IN_THE_BLANK:
 				view = new CreateFillInTheBlankView(getActivity());
@@ -182,6 +192,6 @@ public class InstructorEditorFragment extends Fragment {
 		mMainActivity.savePreviousQuestion(mContainer);
 		mContainer.removeAllViews();
 		mContainer.addView(view);
-		((QuestionViewer) view).setQuestion(question);
+		((QuestionViewer) view).setQuestion(event.getIndex(), question);
 	}
 }

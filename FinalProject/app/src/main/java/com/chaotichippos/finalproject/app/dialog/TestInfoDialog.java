@@ -78,7 +78,6 @@ public class TestInfoDialog extends DialogFragment {
 
 	private void setupExpirationPicker() {
 		Calendar c = Calendar.getInstance();
-		c.setTimeInMillis(System.currentTimeMillis() * 1000L);
 		int year = c.get(Calendar.YEAR);
 		int month = c.get(Calendar.MONTH);
 		int day = c.get(Calendar.DAY_OF_MONTH);
@@ -103,7 +102,7 @@ public class TestInfoDialog extends DialogFragment {
 		c.set(Calendar.DAY_OF_MONTH, mExpirationPicker.getDayOfMonth());
 		c.set(Calendar.MONTH, mExpirationPicker.getMonth());
 		c.set(Calendar.YEAR, mExpirationPicker.getYear());
-		final long expiration = c.getTimeInMillis() / 1000L;
+		final long expiration = c.getTimeInMillis();
 
 		mListener.onInfoSubmitted(name, duration, expiration);
 	}

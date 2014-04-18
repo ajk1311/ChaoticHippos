@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<transition xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/list_pressed_holo_light"  />
+    <item android:drawable="@drawable/longpressed_purple"  />
+</transition><!-- From: file:/C:/Users/Nick/Documents/GitHub/ChaoticHippos/FinalProject/app/src/main/res/drawable/list_transition_custom.xml -->

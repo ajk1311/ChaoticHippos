@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="16dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:text="Multiple Choice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25.0sp"
+        />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.7">
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/QuestionText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:minLines="1">
+            </TextView>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/SelectedAnswerText"
+        android:text="Selected Answer: _____"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20.0sp"
+        />
+
+    <!--List of Answers-->
+    <ListView
+        android:id="@+id/listview"
+        android:listSelector="@drawable/list_selector_custom"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:focusableInTouchMode="true"
+        android:choiceMode="multipleChoiceModal"
+        android:layout_weight="0.4"
+        />
+
+</LinearLayout>
+<!-- From: file:/C:/Users/Nick/Documents/GitHub/ChaoticHippos/FinalProject/app/src/main/res/layout/multiple_choice_student_view.xml -->

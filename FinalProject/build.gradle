@@ -3,6 +3,7 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven { url "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.9.+'
@@ -12,5 +13,6 @@ buildscript {
 allprojects {
     repositories {
         mavenCentral()
+        maven { url "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases" }
     }
 }

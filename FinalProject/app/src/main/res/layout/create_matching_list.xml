@@ -6,7 +6,13 @@ android:layout_height="match_parent"
 android:layout_width="match_parent"
 android:orientation="vertical"
     >
-
+    <TextView
+        android:id="@+id/matching_create_title"
+        android:text="Matching"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25.0sp"
+        />
     <ListView
         android:id="@+id/createMatchingList1"
         android:listSelector="@drawable/list_selector_custom"

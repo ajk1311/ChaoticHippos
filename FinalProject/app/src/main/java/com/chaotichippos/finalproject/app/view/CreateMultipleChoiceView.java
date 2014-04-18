@@ -34,6 +34,7 @@ import java.util.List;
 public class CreateMultipleChoiceView extends RelativeLayout implements QuestionViewer {
     private static final String TAG = "MainActivity";
 
+    TextView questionTitleTextView;
     EditText questionTextEditor;
     EditText answerTextEditor;
     TextView selectedAnswerText;
@@ -70,6 +71,7 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
         /** For contextual action mode, the choice mode should be CHOICE_MODE_MULTIPLE_MODAL */
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
+        questionTitleTextView = (TextView) findViewById(R.id.mc_create_title);
         questionTextEditor = (EditText)findViewById(R.id.QuestionText);
         answerTextEditor = (EditText)findViewById(R.id.CurrentAnswerText);
         selectedAnswerText = (TextView)findViewById(R.id.SelectedAnswerText);
@@ -361,6 +363,7 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 	@Override
     public void setQuestion(int index, Question question) {
 		this.question = question;
+        questionTitleTextView.setText(String.valueOf(index) + ". Multiple Choice");
         try {
 			questionTextEditor.setText(this.question.getData().getString("questionText"));
 			JSONArray answers = this.question.getData().getJSONArray("answers");

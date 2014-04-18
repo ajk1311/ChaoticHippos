@@ -33,6 +33,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 
 	private TextView mQuestionText;
 	private TrueFalseAnswerGroup mAnswer;
+    private TextView title;
 
 	private TrueOrFalseQuestionWrapper mQuestionWrapper;
 
@@ -49,7 +50,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		titleParams.setMargins(0, marginMedium, 0, marginSmall);
 
-		final TextView title = new TextView(context);
+		title = new TextView(context);
 		title.setText("True or False");
 		title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
 		title.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
@@ -77,6 +78,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 		mQuestionWrapper = new TrueOrFalseQuestionWrapper(question);
 		mQuestionText.setText(mQuestionWrapper.getQuestionText());
 		mAnswer.setSelectedIndex(mQuestionWrapper.getAnswer());
+        title.setText(String.valueOf(index) + ". True or False");
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import com.chaotichippos.finalproject.app.dialog.QuestionAdditionDialogFragment;
 import com.chaotichippos.finalproject.app.fragment.QuestionListFragment;
 import com.chaotichippos.finalproject.app.model.Question;
 import com.chaotichippos.finalproject.app.model.Test;
+import com.chaotichippos.finalproject.app.util.ScopedBus;
 import com.chaotichippos.finalproject.app.view.QuestionViewer;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -52,6 +53,12 @@ public abstract class MainActivity extends Activity
 	/** A task to be run when the pane is done sliding, if it is indeed slidable */
 	private static Runnable sPendingOperation = null;
 
+	private ScopedBus mEventBus = new ScopedBus();
+
+	public ScopedBus getEventBus() {
+		return mEventBus;
+	}
+
 
 	// Methods
 	//================================================================
@@ -78,11 +85,18 @@ public abstract class MainActivity extends Activity
 	@Override
 	protected void onResume() {
 		super.onResume();
+		mEventBus.resumed();
 		QuestionAdditionDialogFragment dialog = (QuestionAdditionDialogFragment)
 				getFragmentManager().findFragmentByTag(KEY_DIALOG_ADD_QUESTION);
 		if (dialog != null) {
 			dialog.setOnQuestionTypeSelectedListener(this);
 		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		mEventBus.paused();
 	}
 
 	@Override
@@ -188,12 +202,12 @@ public abstract class MainActivity extends Activity
 			sPendingOperation = new Runnable() {
 				@Override
 				public void run() {
-					App.getEventBus().post(new DisplayQuestionEvent(index, question));
+					mEventBus.post(new DisplayQuestionEvent(index, question));
 				}
 			};
 			mMainPane.closePane();
 		} else {
-			App.getEventBus().post(new DisplayQuestionEvent(index, question));
+			mEventBus.post(new DisplayQuestionEvent(index, question));
 		}
 	}
 

@@ -191,13 +191,13 @@ public class StudentTestFragment extends Fragment {
 		if (savedInstanceState == null) {
 			loadSubmission();
 		}
-		App.getEventBus().register(this);
+		mMainActivity.getEventBus().register(this);
 	}
 
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		App.getEventBus().unregister(this);
+		mMainActivity.getEventBus().unregister(this);
 	}
 
 	@Override

@@ -15,6 +15,8 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.chaotichippos.finalproject.app.R;
+import com.chaotichippos.finalproject.app.activity.MainActivity;
+import com.chaotichippos.finalproject.app.event.DisplayQuestionEvent;
 import com.chaotichippos.finalproject.app.model.Question;
 import com.chaotichippos.finalproject.app.model.Test;
 import com.chaotichippos.finalproject.app.view.EditableQuestionListItemView;
@@ -71,6 +73,8 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 
 	private View mAddQuestionListFooterView = null;
 
+	private MainActivity mMainActivity;
+
 
 	// Methods
 	//================================================================
@@ -78,6 +82,9 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		if (activity instanceof  MainActivity) {
+			mMainActivity = (MainActivity) activity;
+		}
 		if (activity instanceof OnQuestionSelectedListener) {
 			mListener = (OnQuestionSelectedListener) activity;
 		} else {
@@ -119,8 +126,8 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 			final int savedSelectedPosition = savedInstanceState.getInt(KEY_SELECTED_QUESTION);
 			mListAdapter.setQuestionSelected(savedSelectedPosition);
 			if (savedSelectedPosition >= 0) {
-				mListener.onQuestionSelected(savedSelectedPosition + 1,
-						questions.get(savedSelectedPosition));
+				mMainActivity.getEventBus().post(new DisplayQuestionEvent(savedSelectedPosition + 1,
+						questions.get(savedSelectedPosition)));
 			}
 		}
 	}

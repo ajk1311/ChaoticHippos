@@ -73,13 +73,13 @@ public class InstructorDataFragment extends Fragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		App.getEventBus().register(this);
+		mMainActivity.getEventBus().register(this);
 	}
 
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		App.getEventBus().unregister(this);
+		mMainActivity.getEventBus().unregister(this);
 	}
 
 	@Override

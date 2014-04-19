@@ -106,6 +106,11 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		}
 		mListAdapter = new QuestionListAdapter();
 		mListView.setAdapter(mListAdapter);
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		if (savedInstanceState != null) {
 			mViewSwitcher.setDisplayedChild(1);
 			ArrayList<Question> questions =
@@ -222,6 +227,10 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 		mListView.setSelection(question);
 	}
 
+	public void clearSelection() {
+		mListAdapter.setQuestionSelected(-1);
+	}
+
 	/**
 	 * Adds a question to display in the list
 	 *
@@ -234,11 +243,12 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		if (position == mListAdapter.getCount()) {
+		if (position == mListAdapter.getCount() && mListView.getFooterViewsCount() > 0) {
 			// The "add question" footer was selected
 			mListener.onAddQuestionRequested();
 		} else {
 			// A question was selected
+			position -= mListView.getHeaderViewsCount();
 			mListAdapter.setQuestionSelected(position);
 			mListener.onQuestionSelected(position + 1, (Question) mListAdapter.getItem(position));
 		}

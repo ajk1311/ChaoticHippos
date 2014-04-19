@@ -6,12 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chaotichippos.finalproject.app.R;
-import com.chaotichippos.finalproject.app.activity.MainActivity;
 import com.echo.holographlibrary.PieGraph;
 import com.echo.holographlibrary.PieSlice;
 
@@ -21,7 +20,7 @@ import java.util.List;
 /**
  * Created by SebastianMartinez on 4/18/14.
  */
-public class MatchingBlankPieGraph extends RelativeLayout {
+public class MatchingBlankPieGraph extends LinearLayout {
     MyAdapter adapter;
     ListView listView;
     int unAnswered = 0;
@@ -29,39 +28,14 @@ public class MatchingBlankPieGraph extends RelativeLayout {
     int[] countArray;
     private ArrayList<String> myColors;
 
-    public MatchingBlankPieGraph(Context context, int correctMax, List<Float> answers) {
+    public MatchingBlankPieGraph(Context context, int index, int correctMax, List<Float> answers) {
         super(context);
-        LayoutInflater.from(context).inflate(R.layout.complete_fill_in_the_blank_base_view, this, true);
+		setOrientation(VERTICAL);
+        LayoutInflater.from(context).inflate(R.layout.complex_pie_graph_base_view, this, true);
+
+		((TextView) findViewById(R.id.Title)).append(" " + index + '.');
 
         countArray = new int[correctMax + 1];
-
-        answers.add(6f);
-        answers.add(6f);
-        answers.add(5f);
-        answers.add(5f);
-        answers.add(5f);
-        answers.add(5f);
-        answers.add(5f);
-        answers.add(5f);
-        answers.add(5f);
-        answers.add(5f);
-        answers.add(5f);
-        answers.add(5f);
-        answers.add(5f);
-        answers.add(5f);
-        answers.add(5f);
-        answers.add(4f);
-        answers.add(4f);
-        answers.add(3f);
-        answers.add(3f);
-        answers.add(3f);
-        answers.add(3f);
-        answers.add(2f);
-        answers.add(1f);
-        answers.add(1f);
-        answers.add(0f);
-        answers.add(-1f);
-        answers.add(-1f);
 
         myColors = new ArrayList<String>();
 
@@ -107,7 +81,6 @@ public class MatchingBlankPieGraph extends RelativeLayout {
                 unAnswered++;
             } else {
                 countArray[answers.get(i).intValue()]++;
-
             }
         }
 

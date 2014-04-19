@@ -187,6 +187,7 @@ public class StudentTestFragment extends Fragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		getActivity().getActionBar().setTitle(mMainActivity.getCurrentTest().getName());
 		if (savedInstanceState == null) {
 			loadSubmission();
 		}
@@ -202,7 +203,7 @@ public class StudentTestFragment extends Fragment {
 	@Override
 	public void onPause() {
 		super.onPause();
-		if (!mCurrentSubmission.isReady()) {
+		if (mCurrentSubmission != null && !mCurrentSubmission.isReady()) {
 			saveCurrentAnswer();
 			mCurrentSubmission.toParseObject().saveInBackground();
 		}

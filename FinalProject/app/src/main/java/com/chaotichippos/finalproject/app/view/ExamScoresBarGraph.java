@@ -31,31 +31,6 @@ public class ExamScoresBarGraph extends RelativeLayout {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.bar_graph_base_view, this, true);
 
-        scores.add(83f);
-        scores.add(83f);
-        scores.add(84f);
-        scores.add(84f);
-        scores.add(84f);
-        scores.add(84f);
-        scores.add(84f);
-        scores.add(82f);
-        scores.add(82f);
-        scores.add(88f);
-        scores.add(88f);
-        scores.add(89f);
-        scores.add(90f);
-        scores.add(90f);
-        scores.add(92f);
-        scores.add(92f);
-        scores.add(92f);
-        scores.add(93f);
-        scores.add(94f);
-        scores.add(95f);
-        scores.add(95f);
-        scores.add(95f);
-        scores.add(95f);
-        scores.add(100f);
-
         /**** ADD COLORS TO ARRAY ****/
 
         myColors.add("#000099"); //dark blue
@@ -118,9 +93,10 @@ public class ExamScoresBarGraph extends RelativeLayout {
         listView.setAdapter(adapter);
 
         for(int i = 0; i < scores.size(); i++) {
-            countArray[scores.get(i).intValue()/5]++;
+            countArray[scores.get(i).intValue() / 5]++;
         }
 
+		boolean hasData = false;
         ArrayList<Bar> points = new ArrayList<Bar>();
 
         for(int i = 0; i < countArray.length; i++) {
@@ -130,6 +106,10 @@ public class ExamScoresBarGraph extends RelativeLayout {
             d.setValue(countArray[i]);
             points.add(d);
 
+			if (countArray[i] > 0) {
+				hasData = true;
+			}
+
             double value = (double)countArray[i]/scores.size()*100;
             double finalValue = (double)Math.round(value*100)/100;
             adapter.addString("Score " + setNames.get(i) + ": " + countArray[i] + " students (" + finalValue + "%)");
@@ -137,6 +117,8 @@ public class ExamScoresBarGraph extends RelativeLayout {
 
         BarGraph g = (BarGraph)findViewById(R.id.BarGraph);
         g.setBars(points);
+
+		g.setVisibility(hasData ? View.VISIBLE : View.INVISIBLE);
     }
 
     private class MyAdapter extends BaseAdapter {

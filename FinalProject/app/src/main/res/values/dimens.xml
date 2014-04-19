@@ -9,4 +9,8 @@
 
 	<dimen name="question_list_parallax">32dp</dimen>
 
+	<dimen name="bar_graph_width">1000dp</dimen>
+	<dimen name="bar_graph_height">200dp</dimen>
+	<dimen name="pie_graph_height">200dp</dimen>
+
 </resources>

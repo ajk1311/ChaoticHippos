@@ -3,7 +3,7 @@ package com.chaotichippos.finalproject.app.view;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chaotichippos.finalproject.app.R;
@@ -13,19 +13,19 @@ import com.echo.holographlibrary.PieSlice;
 /**
  * Created by SebastianMartinez on 4/18/14.
  */
-public class TrueFalseMultiChoicePierGraph extends RelativeLayout{
+public class TrueFalseMultiChoicePieGraph extends LinearLayout {
     float totalCount;
 
     TextView correctTextView;
     TextView incorrectTextView;
     TextView noAnswerTextView;
-    TextView titleTextView;
 
-    public TrueFalseMultiChoicePierGraph(Context context, float correctCount, float incorrectCount, float noAnswerCount) {
+    public TrueFalseMultiChoicePieGraph(Context context, int index, float correctCount, float incorrectCount, float noAnswerCount) {
         super(context);
+		setOrientation(VERTICAL);
         LayoutInflater.from(context).inflate(R.layout.simple_pie_graph, this, true);
 
-        titleTextView = (TextView) findViewById(R.id.Title);
+		((TextView) findViewById(R.id.Title)).append(" " + index + '.');
 
         totalCount = correctCount + incorrectCount + noAnswerCount;
 

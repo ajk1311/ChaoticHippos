@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="bar_graph_width">1200dp</dimen>
+	<dimen name="bar_graph_height">300dp</dimen>
+	<dimen name="pie_graph_height">600dp</dimen>
+</resources>

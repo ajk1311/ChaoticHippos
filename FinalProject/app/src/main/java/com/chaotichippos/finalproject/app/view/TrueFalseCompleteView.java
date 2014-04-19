@@ -16,7 +16,7 @@ public class TrueFalseCompleteView extends TrueFalseView {
 	@Override
 	protected TextView getTextDisplayView(Context context) {
 		final TextView questionText = new TextView(context);
-		questionText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+		questionText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 		return questionText;
 	}
 

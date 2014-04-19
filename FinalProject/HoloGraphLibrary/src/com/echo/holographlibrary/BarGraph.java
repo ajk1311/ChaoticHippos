@@ -45,7 +45,7 @@ public class BarGraph extends View {
     private OnBarClickedListener listener;
     private Bitmap fullImage;
     private boolean shouldUpdate = false;
-    private String unit = "$";
+    private String unit = " ";
     private Boolean append = false;
     private Rect r2 = new Rect();
     private Rect r3 = new Rect();

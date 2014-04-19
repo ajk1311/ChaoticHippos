@@ -121,7 +121,7 @@ public class InstructorDataFragment extends Fragment {
 					showOverallStats(init);
 				} else {
 					Toast.makeText(App.getContext(),
-							getString(R.string.error) + ": " + e.getMessage(),
+							"Sorry, there was an error with your request: " + e.getMessage(),
 							Toast.LENGTH_SHORT)
 							.show();
 				}
@@ -146,6 +146,7 @@ public class InstructorDataFragment extends Fragment {
 					showOverallStats(false);
 				}
 			});
+			mOverallHeaderView.setText("Overall stats");
 			questionListView.addHeaderView(mOverallHeaderView);
 			questionListView.setAdapter(adapter);
 			mOverallHeaderView.setActivated(true);
@@ -163,15 +164,13 @@ public class InstructorDataFragment extends Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE,
-				R.string.menu_option_switch_student)
+		menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE, "Switch to Student")
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(Menu.NONE, R.id.menu_option_new_exam, Menu.NONE,
-				R.string.instructor_data_start_new_test)
+		menu.add(Menu.NONE, R.id.menu_option_new_exam, Menu.NONE, "Start new Test")
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        menu.add(Menu.NONE, R.id.menu_option_refresh, Menu.NONE, "Refresh Data")
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
+        MenuItem refresh = menu.add(Menu.NONE, R.id.menu_option_refresh, Menu.NONE, "Refresh Data")
+                .setIcon(R.drawable.navigation_refresh);
+        refresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	}
 
 	@Override
@@ -194,8 +193,9 @@ public class InstructorDataFragment extends Fragment {
 	}
 
 	private void ensureStartNewTest() {
-		final YesNoDialogFragment dialog = YesNoDialogFragment
-				.create(getString(R.string.instructor_data_ensure_new_test));
+		final YesNoDialogFragment dialog = YesNoDialogFragment.create(
+				"Are you sure you want to start a new test? " +
+						"The old test will no longer be available to students.");
 		dialog.setListener(new YesNoDialogFragment.YesNoListener() {
 			@Override
 			public void onYes() {
@@ -209,8 +209,7 @@ public class InstructorDataFragment extends Fragment {
 	}
 
 	private void startNewTest() {
-		final ProgressDialogFragment dialog = ProgressDialogFragment
-				.create(getString(R.string.instructor_data_new_test_progress));
+		final ProgressDialogFragment dialog = ProgressDialogFragment.create("Creating new test...");
 		dialog.show(getFragmentManager(), "progress");
 		ParseObject test = new ParseObject(Test.TAG);
 		test.put(Test.KEY_READY, false);
@@ -226,7 +225,7 @@ public class InstructorDataFragment extends Fragment {
 					}
 				} else {
 					Toast.makeText(App.getContext(),
-							getString(R.string.error) + ": " + e.getMessage(),
+							"Sorry, there was an error processing your request: " + e.getMessage(),
 							Toast.LENGTH_SHORT)
 							.show();
 				}

@@ -1,0 +1,35 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"  >
+
+	<TextView
+		android:text="Question"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="22.0sp"
+		android:id="@+id/Title"
+		android:textStyle="bold" />
+
+	<com.echo.holographlibrary.PieGraph
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/pie_graph_height"
+		android:id="@+id/PieGraph"/>
+
+	<TextView
+		android:text="Statistics"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="18.0sp"
+		android:textStyle="bold"
+		android:layout_marginTop="8dp"
+		android:layout_marginBottom="8dp"
+		/>
+
+	<ListView
+		android:id="@+id/listview"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:focusableInTouchMode="true"
+		android:layout_weight="1"
+		/>
+
+</merge>
+<!-- From: file:/C:/Users/Nick/Documents/GitHub/ChaoticHippos/FinalProject/app/src/main/res/layout/complex_pie_graph_base_view.xml -->

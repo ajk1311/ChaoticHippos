@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="no_question_selected_message">Select question from list to begin</string>
+</resources>

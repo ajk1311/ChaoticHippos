@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/C:/Users/Nick/Documents/GitHub/ChaoticHippos/FinalProject/app/src/main/res/values-zh/strings.xml -->
+    <eat-comment />
+
+    <string name="add">Add</string>
+    <string name="answer">Answer</string>
+    <string name="app_name">Professor Hippo</string>
+    <string name="bar_graph_overall_title">Overall Test Scores</string>
+    <string name="btn_instructor">Instructor</string>
+    <string name="btn_student">Student</string>
+    <string name="delete">Delete</string>
+    <string name="done">Done</string>
+    <string name="error">Sorry, there was an error processing your request</string>
+    <string name="fill_in_the_blank_answer_1">Blank 1 answer</string>
+    <string name="fill_in_the_blank_answer_2">Blank 2 answer</string>
+    <string name="fill_in_the_blank_answer_3">Blank 3 answer</string>
+    <string name="fill_in_the_blank_insert_blank">Insert blank</string>
+    <string name="fill_in_the_blank_title">Fill in the Blank</string>
+    <string name="hide">Hide</string>
+    <string name="instructor_data_ensure_new_test">Are you sure you want to start a new test? The old test will no longer be available to students.</string>
+    <string name="instructor_data_header_title">Overall stats</string>
+    <string name="instructor_data_new_test_progress">Creating new test...</string>
+    <string name="instructor_data_start_new_test">Start new test</string>
+    <string name="instructor_editor_ensure_publish_test">You have some incomplete questions. Do you wish to continue publishing?</string>
+    <string name="instructor_editor_publish_test">Publish test</string>
+    <string name="instructor_editor_publish_test_progress">Publishing test...</string>
+    <string name="instructor_editor_publish_test_success">Thank you! Your test has been published</string>
+    <string name="matching_title">Matching</string>
+    <string name="menu_option_switch_instructor">Switch to instructor</string>
+    <string name="menu_option_switch_student">Switch to student</string>
+    <string name="multiple_choice_answer_empty">Answer: _____</string>
+    <string name="multiple_choice_selected">Selected:</string>
+    <string name="multiple_choice_selected_answer">Selected answer: _____</string>
+    <string name="multiple_choice_title">Multiple Choice</string>
+    <string name="no">No</string>
+    <string name="no_question_selected_message">Slide pane over to reveal question list</string>
+    <string name="pie_graph_correct">Correct: </string>
+    <string name="pie_graph_incorrect">Incorrect: </string>
+    <string name="pie_graph_no_answers">No answers: </string>
+    <string name="question_list_btn_add">Add Question</string>
+    <string name="question_prefix">Question </string>
+    <string name="question_text">Question text</string>
+    <string name="question_type_dialog_title">Select Question Type</string>
+    <string name="question_type_fill_in_the_blank">Fill in the Blank</string>
+    <string name="question_type_matching">Matching</string>
+    <string name="question_type_multiple_choice">Multiple Choice</string>
+    <string name="question_type_true_or_false">True or False</string>
+    <string name="score">Score</string>
+    <string name="statistics">Statistics</string>
+    <string name="student_empty_message">Your instructor has not published a test yet. Please check again later.</string>
+    <string name="student_grade_score_msg">Your score:</string>
+    <string name="student_test_ensure_submit_answers">You have some unanswered questions. Do you wish to continue with submission?</string>
+    <string name="student_test_submit_answers">Submit answers</string>
+    <string name="student_test_submit_answers_progress">Submitting answers...</string>
+    <string name="student_test_submit_answers_success">Thank you! Your answers have been submitted</string>
+    <string name="students">students</string>
+    <string name="test_info_duration">Duration:</string>
+    <string name="test_info_expires_at">At:</string>
+    <string name="test_info_expires_on">Expires on:</string>
+    <string name="test_info_name_error">Please enter a name for your test</string>
+    <string name="test_info_test_name">Test name</string>
+    <string name="test_info_title">Enter your test info</string>
+    <string name="true_or_false_false_short">F</string>
+    <string name="true_or_false_title">True or False</string>
+    <string name="true_or_false_true_short">T</string>
+    <string name="yes">Yes</string>
+
+</resources>

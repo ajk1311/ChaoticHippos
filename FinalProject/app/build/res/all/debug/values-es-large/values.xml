@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/C:/Users/Nick/Documents/GitHub/ChaoticHippos/FinalProject/app/src/main/res/values-es-large/strings.xml -->
+    <eat-comment />
+
+    <string name="no_question_selected_message">Select question from list to begin</string>
+
+</resources>

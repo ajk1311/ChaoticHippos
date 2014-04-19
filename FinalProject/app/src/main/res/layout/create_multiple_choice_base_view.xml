@@ -7,6 +7,7 @@
     <TextView
         android:id="@+id/mc_create_title"
         android:text="@string/multiple_choice_title"
+		android:layout_marginBottom="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25.0sp"
@@ -14,8 +15,7 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="0.7">
+        android:layout_height="100dp" >
 
         <RelativeLayout
             android:orientation="horizontal"
@@ -45,18 +45,20 @@
     <ListView
         android:id="@+id/listview"
         android:listSelector="@drawable/list_selector_custom"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:focusableInTouchMode="true"
         android:choiceMode="multipleChoiceModal"
-        android:layout_weight="0.4"
+        android:layout_weight="1"
         />
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="0.85">
+		android:layout_gravity="bottom"
+		android:paddingTop="8dp"
+		android:background="@drawable/bottom_section_bg" >
 
         <EditText
             android:id="@+id/CurrentAnswerText"
@@ -73,6 +75,7 @@
             android:id="@+id/AddAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+			android:layout_marginLeft="8dp"
             android:text="@string/add"
             />
 

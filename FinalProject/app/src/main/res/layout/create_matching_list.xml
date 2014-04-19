@@ -1,9 +1,8 @@
 <LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_height="match_parent"
-android:layout_width="match_parent"
-android:orientation="vertical"
-    >
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:orientation="vertical" >
 
     <TextView
         android:id="@+id/matching_create_title"
@@ -11,9 +10,7 @@ android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25.0sp"
-        android:layout_gravity="top"
-
-        />
+        android:layout_gravity="top" />
 
     <ListView
         android:id="@+id/createMatchingList1"
@@ -21,56 +18,49 @@ android:orientation="vertical"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        >
+        android:layout_alignParentLeft="true" >
 
     </ListView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#A805B7"
             android:orientation="horizontal"
+			android:paddingTop="8dp"
+			android:background="@drawable/bottom_section_bg"
             android:layout_gravity="bottom">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight=".1"
-                >
+                android:layout_weight="1" >
 
                 <EditText
                     android:id="@+id/matchingText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/question_prefix"
-                    android:textColorHint="#B8B8B8"
-                    android:textColor="#FFFFFF"
-                    />
-
+					android:inputType="text"
+					android:imeOptions="actionNext" />
 
                 <EditText
                     android:id="@+id/matchingText2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/answer"
-                    android:textColorHint="#B8B8B8"
-                    android:textColor="#FFFFFF"
-                    />
+					android:inputType="text"
+					android:imeOptions="actionNext" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/add_question"
-                android:text="+"
-                android:textColor="#FFFFFF"
-                android:gravity="center_horizontal|center_vertical"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:layout_width="match_parent"
-                android:layout_height="?android:listPreferredItemHeight"
-                android:layout_weight="1"
-                />
+			<Button
+				android:id="@+id/add_question"
+				android:text="@string/add"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="8dp"
+				android:layout_gravity="right|center_vertical"/>
 
         </LinearLayout>
 

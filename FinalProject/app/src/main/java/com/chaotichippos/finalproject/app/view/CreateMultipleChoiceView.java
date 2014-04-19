@@ -72,9 +72,9 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
         questionTitleTextView = (TextView) findViewById(R.id.mc_create_title);
-        questionTextEditor = (EditText)findViewById(R.id.QuestionText);
-        answerTextEditor = (EditText)findViewById(R.id.CurrentAnswerText);
-        selectedAnswerText = (TextView)findViewById(R.id.SelectedAnswerText);
+        questionTextEditor = (EditText) findViewById(R.id.QuestionText);
+        answerTextEditor = (EditText) findViewById(R.id.CurrentAnswerText);
+        selectedAnswerText = (TextView) findViewById(R.id.SelectedAnswerText);
 
         addListenerOnAnswerButton();
 

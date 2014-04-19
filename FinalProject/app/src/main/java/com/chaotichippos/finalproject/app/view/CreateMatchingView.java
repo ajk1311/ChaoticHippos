@@ -36,7 +36,6 @@ import java.util.Set;
 public class CreateMatchingView extends LinearLayout implements QuestionViewer{
 
     private TextView questionTitleTextView;
-    private TextView addChoice;
     private ListView list1;
     private ListView list2;
     private ArrayAdapter<String> listAdapter1;
@@ -131,10 +130,8 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
         matchingText1 = (EditText) findViewById(R.id.matchingText1);
         matchingText2 = (EditText) findViewById(R.id.matchingText2);
         list1.setAdapter(listAdapter);
-        addChoice = (TextView) findViewById(R.id.add_question);
 
-
-        addChoice.setOnClickListener(new View.OnClickListener() {
+		findViewById(R.id.add_question).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!matchingText1.getText().toString().isEmpty() && !matchingText2.getText().toString().isEmpty())

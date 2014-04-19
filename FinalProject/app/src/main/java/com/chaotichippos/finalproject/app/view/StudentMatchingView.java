@@ -34,22 +34,44 @@ import java.util.Random;
  * Created by Nick on 4/3/14.
  */
 
-public class StudentMatchingView extends LinearLayout implements QuestionViewer{
+public class StudentMatchingView extends LinearLayout implements QuestionViewer {
+
+	private static final ArrayList<String> COLORS = new ArrayList<String>();
+	static {
+		/**** ADD COLORS TO ARRAY ****/
+		COLORS.add("#FF66CC"); //dark green
+		COLORS.add("#0066FF"); //gray pale blue
+		COLORS.add("#CC9900"); //gold
+		COLORS.add("#FF0000"); //red
+		COLORS.add("#669999"); // gray blue
+		COLORS.add("#009933"); //lighter green
+		COLORS.add("#FF00FF"); //pinkish
+		COLORS.add("#FFFF00"); //yellow
+		COLORS.add("#66FFFF"); //very light blue
+		COLORS.add("#663300"); //brown
+		COLORS.add("#00FF00"); //bright green
+		COLORS.add("#FF66CC"); //light pink
+		COLORS.add("#FF6600"); //orange
+		COLORS.add("#FFFF99"); //light pale
+		COLORS.add("#FF99CC"); //very light pink
+		COLORS.add("#66FF66"); //pale green
+		COLORS.add("#CC3300"); //dark orange
+		COLORS.add("#00CCFF"); //light blue
+		COLORS.add("#000099"); //dark blue
+		COLORS.add("#660066"); //magenta
+	}
 
     private TextView questionTitleTextView;
     private ListView list1;
     private ListView list2;
     private MatchQuestionAdapter listAdapter1;
     private MatchAnswerAdapter listAdapter2;
-    private ArrayList<String> myColors;
     private String curSelectedColor;
     private int curSelectedQuestion;
     private  ArrayList<MatchingQuestion> m_questions;
     private ArrayList<MatchingAnswer> m_answers;
     private static final String TAG = "OUTPUT";
     private Question question;
-
-
 
     class questData {
 
@@ -71,37 +93,11 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
     public StudentMatchingView(Context context) {
         super(context);
 
-        //((Activity)getContext()).startActionMode();
-
         LayoutInflater.from(context).inflate(R.layout.student_matching_list, this, true);
 
         questionTitleTextView = (TextView) findViewById(R.id.matching_complete_title);
         m_questions = new ArrayList<MatchingQuestion>();
         m_answers = new ArrayList<MatchingAnswer>();
-        myColors = new ArrayList<String>();
-
-        /**** ADD COLORS TO ARRAY ****/
-
-        myColors.add("#000099"); //dark blue
-        myColors.add("#660066"); //magenta
-        myColors.add("#FF66CC"); //dark green
-        myColors.add("#0066FF"); //gray pale blue
-        myColors.add("#CC9900"); //gold
-        myColors.add("#FF0000"); //red
-        myColors.add("#669999"); // gray blue
-        myColors.add("#009933"); //lighter green
-        myColors.add("#FF00FF"); //pinkish
-        myColors.add("#FFFF00"); //yellow
-        myColors.add("#66FFFF"); //very light blue
-        myColors.add("#663300"); //brown
-        myColors.add("#00FF00"); //bright green
-        myColors.add("#FF66CC"); //light pink
-        myColors.add("#FF6600"); //orange
-        myColors.add("#FFFF99"); //light pale
-        myColors.add("#FF99CC"); //very light pink
-        myColors.add("#66FF66"); //pale green
-        myColors.add("#CC3300"); //dark orange
-        myColors.add("#00CCFF"); //light blue
 
         /*****************************/
 
@@ -138,16 +134,6 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
         list2 = (ListView) findViewById(R.id.studentMatchingList2);
         list1.setAdapter(listAdapter1);
         list2.setAdapter(listAdapter2);
-
-        /*for(int i = 0; i < 20; i++)
-        {
-            listAdapter1.add(new MatchingQuestion("Question " + i,myColors.get(i),false,i,-1));
-            listAdapter2.add(new MatchingAnswer("Answer " + i,-1));
-        }*/
-
-
-        //testing
-
 
         list1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -489,7 +475,7 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
                 for(int i = 0; i < left.length(); i++)
                 {
                     listAdapter1.add(new MatchingQuestion((String)left.get(i),
-							myColors.get(i),false,i,-1));
+							COLORS.get(i), false, i,-1));
                 }
             }
             if(right != null)

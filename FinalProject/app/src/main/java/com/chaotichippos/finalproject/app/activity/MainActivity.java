@@ -157,7 +157,7 @@ public abstract class MainActivity extends Activity
 							question);
 				} else {
 					Toast.makeText(App.getContext(),
-							"Sorry, there was an error processing your request: " + e.getMessage(),
+							getString(R.string.error) + ": " + e.getMessage(),
 							Toast.LENGTH_SHORT)
 							.show();
 				}
@@ -180,7 +180,8 @@ public abstract class MainActivity extends Activity
 					getQuestionListFragment().onTestLoaded(mCurrentTest);
 					onTestLoaded(mCurrentTest);
 				} else {
-					Toast.makeText(MainActivity.this, "Error loading test: " + e.getMessage(),
+					Toast.makeText(App.getContext(),
+							getString(R.string.error) + ": " + e.getMessage(),
 							Toast.LENGTH_SHORT)
 							.show();
 				}

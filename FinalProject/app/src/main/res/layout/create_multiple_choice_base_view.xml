@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/mc_create_title"
-        android:text="Multiple Choice"
+        android:text="@string/multiple_choice_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25.0sp"
@@ -26,7 +26,7 @@
                 android:id="@+id/QuestionText"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Question Here"
+                android:hint="@string/question_text"
                 android:minLines="1">
             </EditText>
 
@@ -35,7 +35,7 @@
 
     <TextView
         android:id="@+id/SelectedAnswerText"
-        android:text="Answer: _____"
+        android:text="@string/multiple_choice_answer_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20.0sp"
@@ -62,7 +62,7 @@
             android:id="@+id/CurrentAnswerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter Answer"
+            android:hint="@string/answer"
             android:minLines="1"
             android:layout_weight="1"
             android:singleLine="true"
@@ -73,7 +73,7 @@
             android:id="@+id/AddAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:text="@string/add"
             />
 
     </LinearLayout>

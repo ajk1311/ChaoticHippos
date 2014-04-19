@@ -83,7 +83,7 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
         // Instantiating an adapter for the list
         adapter = new MyAdapter();
 
-        // Getting a reference to listview of main.xml layout file
+        // Getting a reference to list view of main.xml layout file
         listView = ( ListView ) findViewById(R.id.listview);
 
         // Setting the adapter to the listView
@@ -150,7 +150,8 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
     public void setAnswer() {
         Pair<String,String> answer = adapter.getSelectedAnswer();
         currentlySelectedAnswerString = answer.first;
-        selectedAnswerText.setText("Selected: " + answer.first);
+        selectedAnswerText.setText(getContext()
+				.getString(R.string.multiple_choice_selected) + " " + answer.first);
     }
 
     public void addListenerOnAnswerButton() {
@@ -232,7 +233,8 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
                 if(checkedItemIndexes.get(i) == true) {
                     deleteItems.add(mList.get(i));
                     if(mList.get(i).first == currentlySelectedAnswerString) {
-                        selectedAnswerText.setText("Selected: " + blank);
+                        selectedAnswerText.setText(getContext()
+								.getString(R.string.multiple_choice_selected) + " " + blank);
                         currentlySelectedAnswerString = null;
                     }
                 }
@@ -363,17 +365,21 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 	@Override
     public void setQuestion(int index, Question question) {
 		this.question = question;
-        questionTitleTextView.setText(String.valueOf(index) + ". Multiple Choice");
+        questionTitleTextView.setText(String.valueOf(index) + ". " +
+				getContext().getString(R.string.multiple_choice_title));
         try {
 			questionTextEditor.setText(this.question.getData().getString("questionText"));
 			JSONArray answers = this.question.getData().getJSONArray("answers");
 
             currentlySelectedAnswerString = this.question.getData().getString("correctAnswer");
+
             if(currentlySelectedAnswerString != blank) {
-                selectedAnswerText.setText("Selected: " + currentlySelectedAnswerString);
+                selectedAnswerText.setText(getContext().getString(
+						R.string.multiple_choice_selected) + " " + currentlySelectedAnswerString);
             }
             else {
-                selectedAnswerText.setText("Selected: " + blank);
+                selectedAnswerText.setText(getContext()
+						.getString(R.string.multiple_choice_selected) + " " + blank);
             }
 
             List<Pair<String, String>> answersList = new ArrayList<Pair<String, String>>();
@@ -388,53 +394,4 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
             e.printStackTrace();
         }
     }
-//-------------------------------------------------------
-//    @Override
-//    public Parcelable onSaveInstanceState() {
-//        Bundle bundle = new Bundle();
-//        // The vars you want to save - in this instance a string and a boolean
-//
-//        String questionString = questionTextEditor.getText().toString();
-//        String answerString = answerTextEditor.getText().toString();
-//        List<Pair<String, String>> list = adapter.getList();
-//
-//        State state = new State(super.onSaveInstanceState(), questionString, answerString, list);
-//        bundle.putParcelable(State.STATE, state);
-//        return bundle;
-//    }
-//
-//    @Override
-//    public void onRestoreInstanceState(Parcelable state) {
-//        if (state instanceof Bundle) {
-//            Bundle bundle = (Bundle) state;
-//            State customViewState = (State) bundle.getParcelable(State.STATE);
-//            // The vars you saved - do whatever you want with them
-//            questionTextEditor.setText(customViewState.getQuestionText());
-//            answerTextEditor.setText(customViewState.getAnswerText());
-//            adapter.setList(customViewState.getList());
-//
-//            super.onRestoreInstanceState(customViewState.getSuperState());
-//            return;
-//        }
-//        super.onRestoreInstanceState(BaseSavedState.EMPTY_STATE); // Stops a bug with the wrong state being passed to the super
-//    }
-//
-//    protected static class State extends BaseSavedState {
-//        protected static final String STATE = "YourCustomView.STATE";
-//
-//        private final String questionText;
-//        private final String answerText;
-//        private final List<Pair<String, String>> list;
-//
-//        public State(Parcelable superState, String questionText, String answerText, List<Pair<String, String>> list) {
-//            super(superState);
-//            this.questionText = questionText;
-//            this.answerText = answerText;
-//            this.list = list;
-//        }
-//
-//        public List<Pair<String, String>> getList() {
-//            return this.list;
-//        }
-//    }
 }

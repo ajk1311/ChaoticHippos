@@ -112,7 +112,8 @@ public class ExamScoresBarGraph extends RelativeLayout {
 
             double value = (double)countArray[i]/scores.size()*100;
             double finalValue = (double)Math.round(value*100)/100;
-            adapter.addString("Score " + setNames.get(i) + ": " + countArray[i] + " students (" + finalValue + "%)");
+            adapter.addString(getContext().getString(R.string.score) + " " + setNames.get(i) + ": " +
+					countArray[i] + " " + getContext().getString(R.string.students) + " (" + finalValue + "%)");
         }
 
         BarGraph g = (BarGraph)findViewById(R.id.BarGraph);

@@ -42,7 +42,8 @@ public class StudentEmptyFragment extends Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE, "Switch to Instructor")
+		menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE,
+				R.string.menu_option_switch_instructor)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 	}
 

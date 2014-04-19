@@ -23,7 +23,6 @@ import com.chaotichippos.finalproject.app.model.Question;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -489,7 +488,8 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
             if(left != null) {
                 for(int i = 0; i < left.length(); i++)
                 {
-                    listAdapter1.add(new MatchingQuestion((String)left.get(i) ,myColors.get(i),false,i,-1));
+                    listAdapter1.add(new MatchingQuestion((String)left.get(i),
+							myColors.get(i),false,i,-1));
                 }
             }
             if(right != null)
@@ -514,10 +514,8 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
     public void setQuestion(int index, Question question) {
         this.question = question;
         setMyQuestion();
-        questionTitleTextView.setText(String.valueOf(index) + ". Matching");
-        //String test = "";
-        //test += "everyone else;doony;";
-        //parseAnswers(test);
+        questionTitleTextView.setText(String.valueOf(index) + ". " +
+				getContext().getString(R.string.matching_title));
     }
 
     @Override
@@ -540,10 +538,6 @@ public class StudentMatchingView extends LinearLayout implements QuestionViewer{
         }
        Answer answer = new Answer(question.getObjectId(), answerText);
        return answer;
-
-//        String answerText = blank1EditText.getText().toString() + ";" + blank2EditText.getText().toString() + ";" + blank3EditText.getText().toString() + ";";
-//        Answer answer = new Answer(question.getObjectId(), answerText);
-//        return answer;
     }
 
 	@Override

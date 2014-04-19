@@ -92,7 +92,8 @@ public class MatchingBlankPieGraph extends LinearLayout {
 
             double value = (double)countArray[i]/answers.size()*100;
             double finalValue = (double)Math.round(value*100)/100;
-            adapter.addString("Score " + i + "/" + correctMax + ": " + countArray[i] + " students (" + finalValue + "%)");
+            adapter.addString(getContext().getString(R.string.score) + " " + i + "/" + correctMax +
+					": " + countArray[i] + " " + getContext().getString(R.string.students) + " (" + finalValue + "%)");
         }
 
         PieSlice firstSlice = new PieSlice();
@@ -101,7 +102,8 @@ public class MatchingBlankPieGraph extends LinearLayout {
         pg.addSlice(firstSlice);
         double value = (double)unAnswered/answers.size()*100;
         double finalValue = (double)Math.round(value*100)/100;
-        adapter.addString("No Answer: " +  unAnswered + " students (" + finalValue + "%)");
+        adapter.addString(getContext().getString(R.string.pie_graph_no_answers) + " " +  unAnswered +
+				" " + getContext().getString(R.string.students) + " (" + finalValue + "%)");
     }
 
     private class MyAdapter extends BaseAdapter {

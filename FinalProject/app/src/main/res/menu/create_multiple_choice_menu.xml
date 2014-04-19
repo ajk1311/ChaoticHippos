@@ -3,10 +3,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/Delete"
-        android:title="Delete"
+        android:title="@string/hide"
         />
     <item
         android:id="@+id/Answer"
-        android:title="Answer"
+        android:title="@string/answer"
         />
 </menu>

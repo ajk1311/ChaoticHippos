@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,6 +22,7 @@ import android.widget.TextView;
 import com.chaotichippos.finalproject.app.R;
 import com.chaotichippos.finalproject.app.model.Answer;
 import com.chaotichippos.finalproject.app.model.Question;
+import com.chaotichippos.finalproject.app.util.DebugLog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,7 +85,7 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
         list1.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
             public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
-                Log.v(TAG, "here: " + Integer.toString(i));
+                DebugLog.v(TAG, "here: " + Integer.toString(i));
                 if(selectedIndexes.contains(i))
                 {
                     selectedIndexes.remove(i);
@@ -223,7 +223,7 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
                 {
                     v.setBackgroundColor(Color.parseColor("#aa66cc"));
                 } else {
-                    v.setBackground(null);
+                    v.setBackgroundDrawable(null);
                 }
             }
             return v;
@@ -269,12 +269,12 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
 
     private void setMyQuestion() {
         try {
-            Log.v(TAG, "inside try");
+            DebugLog.v(TAG, "inside try");
 
             JSONArray left = this.question.getData().getJSONArray("leftSide");
             JSONArray right = this.question.getData().getJSONArray("rightSide");
             if(left != null) {
-                Log.v(TAG, "not null list");
+                DebugLog.v(TAG, "not null list");
                 for(int i = 0; i < left.length(); i++)
                 {
                     listAdapter.add(new TeacherMatchingPair((String)left.get(i),(String)right.get(i),false));
@@ -310,7 +310,8 @@ public class CreateMatchingView extends LinearLayout implements QuestionViewer{
     public void setQuestion(int index, Question question) {
         this.question = question;
         setMyQuestion();
-        questionTitleTextView.setText(String.valueOf(index) + ". Matching");
+        questionTitleTextView.setText(String.valueOf(index) + ". " +
+				getContext().getString(R.string.matching_title));
     }
 
     @Override

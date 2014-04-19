@@ -8,7 +8,7 @@
 	android:gravity="center">
 
 	<TextView
-		android:text="Your score:"
+		android:text="@string/student_grade_score_msg"
 		android:textSize="20dp"
 		android:layout_gravity="center_horizontal"
 		android:layout_margin="16dp"
@@ -17,7 +17,6 @@
 
 	<TextView
 		android:id="@+id/student_grade_text"
-		android:text="Grade"
 		android:textSize="32dp"
 		android:layout_marginBottom="32dp"
 		android:layout_gravity="center_horizontal"

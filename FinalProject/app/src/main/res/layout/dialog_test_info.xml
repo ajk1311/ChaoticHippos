@@ -14,14 +14,14 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="16dp"
-			android:hint="Test name"/>
+			android:hint="@string/test_info_test_name"/>
 
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="left"
 			android:layout_marginTop="16dp"
-			android:text="Duration:"/>
+			android:text="@string/test_info_duration"/>
 
 		<NumberPicker
 			android:id="@+id/test_info_duration"
@@ -33,7 +33,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="left"
 			android:layout_marginTop="16dp"
-			android:text="Expires on:"/>
+			android:text="@string/test_info_expires_on"/>
 
 		<DatePicker
 			android:id="@+id/test_info_date"
@@ -44,7 +44,7 @@
 			android:calendarViewShown="false"/>
 
 		<TextView
-			android:text="at:"
+			android:text="@string/test_info_expires_at"
 			android:layout_gravity="center_horizontal"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

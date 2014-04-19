@@ -8,7 +8,7 @@
 	android:descendantFocusability="afterDescendants">
 
 	<TextView
-		android:text="Your instructor has not published a test yet. Please check again later."
+		android:text="@string/student_empty_message"
 		android:textSize="32sp"
 		android:textStyle="italic"
 		android:gravity="center"

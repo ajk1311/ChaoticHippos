@@ -130,7 +130,8 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
     public void setQuestion(int index, Question question) {
         this.question = question;
         setQuestionText();
-        questionTitleTextView.setText(String.valueOf(index) + ". Fill in the Blank");
+        questionTitleTextView.setText(String.valueOf(index) + ". " +
+				getContext().getString(R.string.fill_in_the_blank_title));
     }
 
     @Override
@@ -140,7 +141,9 @@ public class CompleteFillInTheBlankView extends LinearLayout implements Question
 
     @Override
     public Answer getAnswer() {
-        String answerText = blank1EditText.getText().toString() + ";" + blank2EditText.getText().toString() + ";" + blank3EditText.getText().toString() + ";";
+        String answerText = blank1EditText.getText().toString() + ";" +
+				blank2EditText.getText().toString() + ";" +
+				blank3EditText.getText().toString() + ";";
         Answer answer = new Answer(question.toParseObject().getObjectId(), answerText);
         return answer;
     }

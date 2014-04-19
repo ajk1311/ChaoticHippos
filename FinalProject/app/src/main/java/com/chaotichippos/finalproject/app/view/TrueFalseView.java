@@ -50,7 +50,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 		titleParams.setMargins(0, 0, 0, marginSmall);
 
 		mTitleText = new TextView(context);
-		mTitleText.setText("True or False");
+		mTitleText.setText(R.string.true_or_false_title);
 		mTitleText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
 		mTitleText.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
 		container.addView(mTitleText, titleParams);
@@ -145,7 +145,8 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 					.getColorStateList(R.drawable.true_false_answer_text_color));
 			textView.setOnClickListener(mSelectionListener);
 			textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
-			textView.setText(answer == ANSWER_TRUE ? "T" : "F");
+			textView.setText(answer == ANSWER_TRUE ?
+					R.string.true_or_false_true_short : R.string.true_or_false_false_short);
 			textView.setGravity(Gravity.CENTER);
 			textView.setLayoutParams(PARAMS);
 			textView.setClickable(true);

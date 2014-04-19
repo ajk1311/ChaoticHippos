@@ -6,6 +6,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.chaotichippos.finalproject.app.R;
+
 public class YesNoDialogFragment extends DialogFragment {
 
 	public interface YesNoListener {
@@ -32,12 +34,12 @@ public class YesNoDialogFragment extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		return new AlertDialog.Builder(getActivity())
 				.setMessage(getArguments().getString("msg"))
-				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+				.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (mListener != null) mListener.onNo();
 					}
-				}).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				}).setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (mListener != null) mListener.onYes();

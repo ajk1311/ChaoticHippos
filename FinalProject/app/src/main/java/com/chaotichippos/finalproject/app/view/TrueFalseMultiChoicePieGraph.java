@@ -37,19 +37,22 @@ public class TrueFalseMultiChoicePieGraph extends LinearLayout {
         correctTextView.setTextColor(Color.parseColor("#007d03"));
         double value = (double)(correctCount/totalCount)*100;
         double finalValue = (double)Math.round(value*100)/100;
-        correctTextView.setText("Correct: " + correctCount + " students (" + finalValue + "%)");
+        correctTextView.setText(getContext().getString(R.string.pie_graph_correct) + " " +
+				correctCount + " " + getContext().getString(R.string.students) + " (" + finalValue + "%)");
 
         incorrectTextView = (TextView) findViewById(R.id.Incorrect);
         incorrectTextView.setTextColor(Color.parseColor("#ff0000"));
         value = (double)(incorrectCount/totalCount)*100;
         finalValue = (double)Math.round(value*100)/100;
-        incorrectTextView.setText("Incorrect: " + incorrectCount + " students (" + finalValue + "%)");
+        incorrectTextView.setText(getContext().getString(R.string.pie_graph_incorrect) + " " +
+				incorrectCount + " " + getContext().getString(R.string.students) + " (" + finalValue + "%)");
 
         noAnswerTextView = (TextView) findViewById(R.id.NoAnswer);
         noAnswerTextView.setTextColor(Color.parseColor("#ffb71b"));
         value = (double)(noAnswerCount/totalCount)*100;
         finalValue = (double)Math.round(value*100)/100;
-        noAnswerTextView.setText("No Answer: " + noAnswerCount + " students (" + finalValue + "%)");
+        noAnswerTextView.setText(getContext().getString(R.string.pie_graph_no_answers) + " " +
+				noAnswerCount + " " + getContext().getString(R.string.students) + " (" + finalValue + "%)");
 
         slice.setColor(Color.parseColor("#007d03"));
         slice.setValue(correctCount);

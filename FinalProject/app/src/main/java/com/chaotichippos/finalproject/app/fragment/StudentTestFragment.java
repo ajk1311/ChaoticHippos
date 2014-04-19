@@ -77,9 +77,11 @@ public class StudentTestFragment extends Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE, "Switch to Instructor")
+		menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE,
+				R.string.menu_option_switch_instructor)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(Menu.NONE, R.id.menu_option_submit_answers, Menu.NONE, "Submit answers")
+		menu.add(Menu.NONE, R.id.menu_option_submit_answers, Menu.NONE,
+				R.string.student_test_submit_answers)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 	}
 
@@ -113,8 +115,8 @@ public class StudentTestFragment extends Fragment {
 		}
 		if (incomplete) {
 			final int incompletePosition = position;
-			final YesNoDialogFragment dialog = YesNoDialogFragment.create(
-					"You have some unanswered questions. Do you wish to continue with submission?");
+			final YesNoDialogFragment dialog = YesNoDialogFragment
+					.create(getString(R.string.student_test_ensure_submit_answers));
 			dialog.setListener(new YesNoDialogFragment.YesNoListener() {
 				@Override
 				public void onYes() {
@@ -143,7 +145,8 @@ public class StudentTestFragment extends Fragment {
 		final double finalGrade = grade;
 		mCurrentSubmission.setGrade(grade);
         mCurrentSubmission.setReady(true);
-		final ProgressDialogFragment dialog = ProgressDialogFragment.create("Submitting test...");
+		final ProgressDialogFragment dialog = ProgressDialogFragment
+				.create(getString(R.string.student_test_submit_answers_progress));
 		dialog.show(getFragmentManager(), null);
 		mCurrentSubmission.toParseObject().saveInBackground(new SaveCallback() {
 			@Override
@@ -154,7 +157,7 @@ public class StudentTestFragment extends Fragment {
 							mMainActivity.getQuestionListFragment().getQuestionList().size());
 				} else {
 					Toast.makeText(App.getContext(),
-							"Sorry, there was an error processing your request: " + e.getMessage(),
+							getString(R.string.error) + ": " + e.getMessage(),
 							Toast.LENGTH_SHORT)
 							.show();
 				}
@@ -168,7 +171,7 @@ public class StudentTestFragment extends Fragment {
 			@Override
 			public void onDone() {
 				Toast.makeText(mMainActivity.getApplicationContext(),
-						"Thank you! Your answers have been submitted",
+						R.string.student_test_submit_answers_success,
 						Toast.LENGTH_LONG)
 						.show();
 				if (isAdded()) mMainActivity.finish();
@@ -228,7 +231,7 @@ public class StudentTestFragment extends Fragment {
 					startNewSubmission(currentTest);
 				} else {
 					Toast.makeText(App.getContext(),
-							"Sorry, there was an error processing your request: " + e.getMessage(),
+							getString(R.string.error) + ": " + e.getMessage(),
 							Toast.LENGTH_SHORT)
 							.show();
 				}

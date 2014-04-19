@@ -20,11 +20,7 @@ import com.chaotichippos.finalproject.app.model.Question;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-/**
- *
- */
 public class CreateFillInTheBlankView extends LinearLayout implements QuestionViewer {
 
     private static char BLANK_CHAR = (char) 1;
@@ -222,7 +218,8 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     public void setQuestion(int index, Question question) {
         this.question = question;
         setQuestionText();
-        questionTitleTextView.setText(String.valueOf(index) + ". Fill in the Blank");
+        questionTitleTextView.setText(String.valueOf(index) + ". " +
+				getContext().getString(R.string.fill_in_the_blank_title));
     }
 
     @Override

@@ -65,8 +65,7 @@ public class Answer {
             int correct = new TrueOrFalseQuestionWrapper(question).getAnswer();
             results.score = provided == correct ? 1 : 0;
             results.data = String.valueOf(results.score);
-        }
-        else {
+        } else {
             results.score = 0;
             results.data = "0";
         }
@@ -90,17 +89,17 @@ public class Answer {
         }
         if(provided != null) {
             if (correct1 != null && provided.length >=1) {
-                if (correct1.compareTo(provided[0]) == 0) {
+                if (correct1.equalsIgnoreCase(provided[0])) {
                     correct++;
                 }
             }
             if (correct2 != null && provided.length >= 2) {
-                if (correct2.compareTo(provided[1]) == 0) {
+                if (correct2.equalsIgnoreCase(provided[1])) {
                     correct++;
                 }
             }
             if (correct3 != null && provided.length >= 3) {
-                if (correct3.compareTo(provided[2]) == 0) {
+                if (correct3.equalsIgnoreCase(provided[2])) {
                     correct++;
                 }
             }
@@ -119,7 +118,7 @@ public class Answer {
             e.printStackTrace();
         }
         int score = 0;
-        if(answerText != null && correct.compareTo(answerText) == 0) {
+        if(answerText != null && correct.equalsIgnoreCase(answerText)) {
             score = 1;
         }
         final Results results = new Results();
@@ -139,7 +138,7 @@ public class Answer {
             if(answerText != null) {
                 strArray = answerText.split(delimiter);
                 for (int i = 0; i < right.length(); i++) {
-                    if (strArray[i].equals(right.get(i))) {
+                    if (strArray[i].equalsIgnoreCase(right.getString(i))) {
                         correct++;
                     }
                 }

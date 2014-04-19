@@ -9,7 +9,7 @@
 
 	<TextView
 		android:gravity="center"
-		android:text="Slide pane over to reveal question list"
+		android:text="@string/no_question_selected_message"
 		android:textSize="32sp"
 		android:textStyle="italic"
 		android:layout_width="wrap_content"

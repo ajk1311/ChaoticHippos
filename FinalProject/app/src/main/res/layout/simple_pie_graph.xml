@@ -1,7 +1,7 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
 	<TextView
-		android:text="Question"
+		android:text="@string/question_prefix"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:textSize="22.0sp"
@@ -14,7 +14,7 @@
 		android:id="@+id/PieGraph"/>
 
 	<TextView
-		android:text="Statistics"
+		android:text="@string/statistics"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="8dp"
@@ -23,7 +23,7 @@
 		android:textStyle="bold"/>
 
 	<TextView
-		android:text="Correct:"
+		android:text="@string/pie_graph_correct"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="4dp"
@@ -37,7 +37,7 @@
 		android:background="@android:color/darker_gray"/>
 
 	<TextView
-		android:text="Incorrect:"
+		android:text="@string/pie_graph_incorrect"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="8dp"
@@ -51,7 +51,7 @@
 		android:background="@android:color/darker_gray"/>
 
 	<TextView
-		android:text="No Answer:"
+		android:text="@string/pie_graph_no_answers"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="4dp"

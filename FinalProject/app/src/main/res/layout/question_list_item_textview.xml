@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:text="@string/question_prefix"
+	android:text="@string/instructor_data_header_title"
 	android:background="@drawable/list_item_bg"
 	android:textAppearance="?android:textAppearanceMedium"
 	android:padding="@dimen/activity_vertical_margin"
 	android:layout_width="match_parent"
+	android:gravity="center_vertical|left"
 	android:layout_height="?android:listPreferredItemHeight"/>

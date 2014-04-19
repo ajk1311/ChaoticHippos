@@ -13,7 +13,7 @@
 
 		<TextView
                 android:id="@+id/fitb_complete_title"
-				android:text="Fill in the Blank"
+				android:text="@string/fill_in_the_blank_title"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:textSize="25.0sp"

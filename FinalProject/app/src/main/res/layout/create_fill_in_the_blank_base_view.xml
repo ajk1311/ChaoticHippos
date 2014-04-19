@@ -13,7 +13,7 @@
 
 		<TextView
                 android:id="@+id/fitb_create_title"
-				android:text="Fill in the Blank"
+				android:text="@string/fill_in_the_blank_title"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:textSize="25.0sp"
@@ -23,7 +23,7 @@
 				android:id="@+id/fitb_qtext_edittext"
 				android:clickable="false"
 				android:layout_weight="0"
-				android:hint="Insert question text"
+				android:hint="@string/question_text"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="16dp"
@@ -34,7 +34,7 @@
 				android:id="@+id/fitb_insertblank_button"
 				android:layout_gravity="center"
 				android:layout_weight="0"
-				android:text="Insert Blank"
+				android:text="@string/fill_in_the_blank_insert_blank"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginBottom="8dp"
@@ -51,7 +51,7 @@
 		<EditText
 				android:id="@+id/fitb_blank1_edittext"
 				android:clickable="false"
-				android:hint="First blank answers"
+				android:hint="@string/fill_in_the_blank_answer_1"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:drawableLeft="@drawable/blank_1"
@@ -61,7 +61,7 @@
 		<EditText
 				android:id="@+id/fitb_blank2_edittext"
 				android:clickable="false"
-				android:hint="Second blank answers"
+				android:hint="@string/fill_in_the_blank_answer_2"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:drawableLeft="@drawable/blank_2"
@@ -71,7 +71,7 @@
 		<EditText
 				android:id="@+id/fitb_blank3_edittext"
 				android:clickable="false"
-				android:hint="Thrid blank answers"
+				android:hint="@string/fill_in_the_blank_answer_3"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:drawableLeft="@drawable/blank_3"

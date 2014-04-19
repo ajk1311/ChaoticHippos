@@ -87,9 +87,11 @@ public class InstructorEditorFragment extends Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE, "Switch to Student")
+		menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE,
+				R.string.menu_option_switch_student)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(Menu.NONE, R.id.menu_option_create_exam, Menu.NONE, "Publish Exam")
+		menu.add(Menu.NONE, R.id.menu_option_create_exam, Menu.NONE,
+				R.string.instructor_editor_publish_test)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 	}
 
@@ -120,8 +122,8 @@ public class InstructorEditorFragment extends Fragment {
 		}
 		if (incomplete) {
 			final int incompletePosition = position;
-			final YesNoDialogFragment dialog = YesNoDialogFragment.create(
-					"You have some incomplete questions. Do you wish to continue publishing?");
+			final YesNoDialogFragment dialog = YesNoDialogFragment
+					.create(getString(R.string.instructor_editor_ensure_publish_test));
 			dialog.setListener(new YesNoDialogFragment.YesNoListener() {
 				@Override
 				public void onYes() {
@@ -151,7 +153,8 @@ public class InstructorEditorFragment extends Fragment {
 	}
 
 	private void publishTest(String name, long duration, long expiration) {
-		final ProgressDialogFragment dialog = ProgressDialogFragment.create("Publishing test...");
+		final ProgressDialogFragment dialog = ProgressDialogFragment
+				.create(getString(R.string.instructor_editor_publish_test_progress));
 		dialog.show(getFragmentManager(), "progress");
 		mMainActivity.saveCurrentQuestion(mContainer);
 		for(Question question: mMainActivity.getQuestionListFragment().getQuestionList()) {
@@ -172,14 +175,14 @@ public class InstructorEditorFragment extends Fragment {
 				dialog.dismiss();
 				if (e == null) {
 					Toast.makeText(App.getContext(),
-							"Thank you! Your test has been published",
+							R.string.instructor_editor_publish_test_success,
 							Toast.LENGTH_LONG)
 							.show();
 					// TODO restart activity with graphs showing
 					if (isAdded()) mMainActivity.finish();
 				} else {
 					Toast.makeText(App.getContext(),
-							"Sorry, there was an error processing your request: " + e.getMessage(),
+							getString(R.string.error) + ": " + e.getMessage(),
 							Toast.LENGTH_SHORT)
 							.show();
 				}

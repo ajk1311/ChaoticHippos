@@ -222,7 +222,7 @@ public class QuestionListFragment extends Fragment implements AdapterView.OnItem
 					mViewSwitcher.setDisplayedChild(1);
 					mListAdapter.swapQuestions(Question.fromParseList(questions));
 				} else {
-					Toast.makeText(getActivity(), "Error loading test questions: " + e.getMessage(),
+					Toast.makeText(getActivity(), getString(R.string.error) + ": " + e.getMessage(),
 							Toast.LENGTH_SHORT)
 							.show();
 				}

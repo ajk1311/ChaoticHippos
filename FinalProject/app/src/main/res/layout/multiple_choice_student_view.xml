@@ -5,7 +5,7 @@
 
     <TextView
         android:id="@+id/mc_complete_title"
-        android:text="Multiple Choice"
+        android:text="@string/multiple_choice_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25.0sp"
@@ -36,7 +36,7 @@
 
     <TextView
         android:id="@+id/SelectedAnswerText"
-        android:text="Selected Answer: _____"
+        android:text="@string/multiple_choice_selected_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20.0sp"

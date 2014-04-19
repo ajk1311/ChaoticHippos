@@ -64,8 +64,8 @@ public class TestInfoDialog extends DialogFragment {
 		return new AlertDialog.Builder(getActivity())
 				.setView(customView)
 				.setCancelable(false)
-				.setTitle("Enter your test info")
-				.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+				.setTitle(R.string.test_info_title)
+				.setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						collectAndCheckInfo();
@@ -95,7 +95,7 @@ public class TestInfoDialog extends DialogFragment {
 
 	private void collectAndCheckInfo() {
 		if (mNameField.getText().length() == 0) {
-			mNameField.setError("Please enter a test name");
+			mNameField.setError(getString(R.string.test_info_name_error));
 			return;
 		}
 

@@ -90,7 +90,7 @@ public class InstructorDataFragment extends Fragment {
 			question.setComplete(true);
 		}
 		if (savedInstanceState == null) {
-			loadSubmissions();
+			loadSubmissions(true);
 		} else {
 			final ArrayList<Submission> submissions = savedInstanceState
 					.getParcelableArrayList(KEY_SAVE_SUBMISSIONS);
@@ -105,7 +105,7 @@ public class InstructorDataFragment extends Fragment {
 		outState.putParcelableArrayList(KEY_SAVE_SUBMISSIONS, mSubmissions);
 	}
 
-	private void loadSubmissions() {
+	private void loadSubmissions(final boolean init) {
 		final Test currentTest = mMainActivity.getCurrentTest();
 		ParseQuery<ParseObject> query = ParseQuery.getQuery(Submission.TAG);
 		query.whereEqualTo(Submission.KEY_PARENT_EXAM, currentTest.getObjectId());
@@ -118,7 +118,7 @@ public class InstructorDataFragment extends Fragment {
 					for (ParseObject object : parseObjects) {
 						mSubmissions.add(new Submission(object));
 					}
-					showOverallStats(true);
+					showOverallStats(init);
 				} else {
 					Toast.makeText(App.getContext(),
 							"Sorry, there was an error with your request: " + e.getMessage(),
@@ -168,6 +168,9 @@ public class InstructorDataFragment extends Fragment {
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, R.id.menu_option_new_exam, Menu.NONE, "Start new Test")
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        menu.add(Menu.NONE, R.id.menu_option_refresh, Menu.NONE, "Refresh Data")
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+
 	}
 
 	@Override
@@ -181,6 +184,10 @@ public class InstructorDataFragment extends Fragment {
 			case R.id.menu_option_new_exam:
 				startNewTest();
 				return true;
+
+            case R.id.menu_option_refresh:
+                loadSubmissions(false);
+                return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}

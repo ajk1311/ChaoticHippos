@@ -47,7 +47,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 
 		final LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
 				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		titleParams.setMargins(0, marginMedium, 0, marginSmall);
+		titleParams.setMargins(0, 0, 0, marginSmall);
 
 		mTitleText = new TextView(context);
 		mTitleText.setText("True or False");

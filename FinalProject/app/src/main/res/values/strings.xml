@@ -42,6 +42,7 @@
 	<string name="instructor_data_start_new_test">Start new test</string>
 	<string name="instructor_data_ensure_new_test">Are you sure you want to start a new test? The old test will no longer be available to students.</string>
 	<string name="instructor_data_new_test_progress">Creating new test...</string>
+	<string name="instructor_data_refresh_data">Refresh data</string>
 
 	<!-- InstructorEditorFragment strings -->
 	<string name="instructor_editor_publish_test">Publish test</string>
@@ -75,6 +76,7 @@
 	<!-- Multiple choice strings -->
 	<string name="multiple_choice_title">Multiple Choice</string>
 	<string name="multiple_choice_selected">Selected:</string>
+	<string name="multiple_choice_answer">Answer:</string>
 	<string name="multiple_choice_answer_empty">Answer: _____</string>
 	<string name="multiple_choice_selected_answer">Selected answer: _____</string>
 

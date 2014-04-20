@@ -82,7 +82,7 @@ public class StudentTestFragment extends Fragment {
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, R.id.menu_option_submit_answers, Menu.NONE,
 				R.string.student_test_submit_answers)
-				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	}
 
 	@Override

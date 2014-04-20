@@ -92,7 +92,7 @@ public class InstructorEditorFragment extends Fragment {
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		menu.add(Menu.NONE, R.id.menu_option_create_exam, Menu.NONE,
 				R.string.instructor_editor_publish_test)
-				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	}
 
 	@Override

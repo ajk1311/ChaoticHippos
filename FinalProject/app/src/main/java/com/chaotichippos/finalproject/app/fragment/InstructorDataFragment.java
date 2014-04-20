@@ -164,13 +164,16 @@ public class InstructorDataFragment extends Fragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE, "Switch to Student")
+		menu.add(Menu.NONE, R.id.menu_option_switch, Menu.NONE,
+				R.string.menu_option_switch_student)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(Menu.NONE, R.id.menu_option_new_exam, Menu.NONE, "Start new Test")
-				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        MenuItem refresh = menu.add(Menu.NONE, R.id.menu_option_refresh, Menu.NONE, "Refresh Data")
-                .setIcon(R.drawable.navigation_refresh);
-        refresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		menu.add(Menu.NONE, R.id.menu_option_new_exam, Menu.NONE,
+				R.string.instructor_data_start_new_test)
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(Menu.NONE, R.id.menu_option_refresh, Menu.NONE,
+				R.string.instructor_data_refresh_data)
+                .setIcon(R.drawable.navigation_refresh)
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	}
 
 	@Override

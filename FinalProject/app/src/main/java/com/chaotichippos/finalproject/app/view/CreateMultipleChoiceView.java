@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -89,23 +90,25 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
         // Setting the adapter to the listView
         listView.setAdapter(adapter);
 
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				final Pair<String, String> answer =
+						(Pair<String, String>) parent.getAdapter().getItem(position);
+				currentlySelectedAnswerString = answer.first;
+				selectedAnswerText.setText(getContext()
+						.getString(R.string.multiple_choice_answer) + " " + answer.first);
+			}
+		});
+
         listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
 
 			@Override
 			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                int checkedCount =  listView.getCheckedItemCount();
-                MenuItem deleteItem = menu.findItem(R.id.Delete);
-                MenuItem answerItem = menu.findItem(R.id.Answer);
-
-                if(checkedCount > 1) {
-                    deleteItem.setVisible(true);
-                    answerItem.setVisible(false);
-                }
-                else if(checkedCount == 1) {
-                    deleteItem.setVisible(false);
-                    answerItem.setVisible(true);
-                }
-
+                final int checkedCount =  listView.getCheckedItemCount();
+                final MenuItem answerItem = menu.findItem(R.id.Answer);
+				answerItem.setVisible(checkedCount == 1);
+				answerItem.setEnabled(checkedCount == 1);
                 return true;
 			}
 
@@ -124,13 +127,17 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
 			/** Invoked when an action in the action mode is clicked */
 			@Override
 			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-				if(item.getItemId() == R.id.Delete) {
-                    deleteCheckedItems();
-                }
-                if(item.getItemId() == R.id.Answer) {
-                    setAnswer();
-                }
+				switch (item.getItemId()) {
+					case R.id.Delete:
+						deleteCheckedItems();
+						mode.finish();
+						return true;
 
+					case R.id.Answer:
+						setAnswer();
+						mode.finish();
+						return true;
+				}
 				return false;
 			}
 
@@ -151,7 +158,7 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
         Pair<String,String> answer = adapter.getSelectedAnswer();
         currentlySelectedAnswerString = answer.first;
         selectedAnswerText.setText(getContext()
-				.getString(R.string.multiple_choice_selected) + " " + answer.first);
+				.getString(R.string.multiple_choice_answer) + " " + answer.first);
     }
 
     public void addListenerOnAnswerButton() {
@@ -234,7 +241,7 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
                     deleteItems.add(mList.get(i));
                     if(mList.get(i).first == currentlySelectedAnswerString) {
                         selectedAnswerText.setText(getContext()
-								.getString(R.string.multiple_choice_selected) + " " + blank);
+								.getString(R.string.multiple_choice_answer) + " " + blank);
                         currentlySelectedAnswerString = null;
                     }
                 }
@@ -297,7 +304,8 @@ public class CreateMultipleChoiceView extends RelativeLayout implements Question
         public View getView(final int position, View convertView, ViewGroup parent) {
             //on first create
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.create_multiple_choice_list_item_view, null);
+                convertView = LayoutInflater.from(getContext())
+						.inflate(R.layout.create_multiple_choice_list_item_view, null);
             }
 
             if(listView.isItemChecked(position)) {

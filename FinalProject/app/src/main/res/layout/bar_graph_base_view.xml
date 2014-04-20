@@ -24,6 +24,7 @@
 			<com.echo.holographlibrary.BarGraph
 				android:layout_width="@dimen/bar_graph_width"
 				android:layout_height="@dimen/bar_graph_height"
+				android:layout_marginTop="16dp"
 				android:id="@+id/BarGraph"
 				/>
 		</FrameLayout>

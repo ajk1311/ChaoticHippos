@@ -2,10 +2,10 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/assets" />
+        <source path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/assets" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/src/debug/assets" />
+        <source path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/src/debug/assets" />
     </dataSet>
 
 </merger>

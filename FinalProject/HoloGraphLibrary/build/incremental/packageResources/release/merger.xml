@@ -2,30 +2,30 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/res" >
+        <source path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/res" >
             <file
                 name="ic_launcher"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/res/drawable-hdpi/ic_launcher.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/res/drawable-hdpi/ic_launcher.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/res/drawable-mdpi/ic_launcher.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/res/drawable-mdpi/ic_launcher.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="popup_black"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/res/drawable-xhdpi/popup_black.9.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/res/drawable-xhdpi/popup_black.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/res/values/strings.xml"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/res/values/strings.xml"
                 qualifiers="" >
                 <string name="app_name" >HoloGraphLibrary
                 </string>
             </file>
             <file
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/res/values/styles.xml"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/res/values/styles.xml"
                 qualifiers="" >
 
                 <style
@@ -47,7 +47,7 @@
                 </style>
             </file>
             <file
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/res/values-v11/styles.xml"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/res/values-v11/styles.xml"
                 qualifiers="v11" >
 
                 <style
@@ -58,7 +58,7 @@
                 </style>
             </file>
             <file
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/res/values-v14/styles.xml"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/res/values-v14/styles.xml"
                 qualifiers="v14" >
 
                 <style
@@ -69,11 +69,11 @@
                 </style>
             </file>
         </source>
-        <source path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/build/res/rs/release" />
-        <source path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/build/res/generated/release" />
+        <source path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/build/res/rs/release" />
+        <source path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/build/res/generated/release" />
     </dataSet>
     <dataSet config="release" >
-        <source path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/HoloGraphLibrary/src/release/res" />
+        <source path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/HoloGraphLibrary/src/release/res" />
     </dataSet>
 
 </merger>

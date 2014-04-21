@@ -39,7 +39,7 @@
 
 	<!-- InstructorDataFragment strings -->
 	<string name="instructor_data_header_title">Totalidad de las Estadísticas</string>
-	<string name="instructor_data_start_new_test">Comience un Nuevo Examen</string>
+	<string name="instructor_data_start_new_test">Nuevo Examen</string>
 	<string name="instructor_data_ensure_new_test">Esta seguro/segura que quiere empezar un Nuevo examen? El examen Viejo no quedara disponible para los estudiantes.</string>
 	<string name="instructor_data_new_test_progress">Creando un Nuevo examen...</string>
 

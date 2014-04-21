@@ -54,6 +54,7 @@
 	<string name="student_test_ensure_submit_answers">Tiene preguntas sin respuestas. Desea continuar con la sumisión?</string>
 	<string name="student_test_submit_answers_progress">Submitting answers...</string>
 	<string name="student_test_submit_answers_success">Gracias! Sus respuestas han sido sometidas</string>
+    <string name="student_test_are_you_sure">Esta seguro/segura que quiere continuar con la sumisión sin respuestas?</string>
 
 	<string name="student_empty_message">Su instructor no ha publicado un examen todavía. Por favor revise después.</string>
 

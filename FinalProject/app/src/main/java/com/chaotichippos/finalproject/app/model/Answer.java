@@ -1,5 +1,7 @@
 package com.chaotichippos.finalproject.app.model;
 
+import com.chaotichippos.finalproject.app.util.DebugLog;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -61,8 +63,10 @@ public class Answer {
 	private static Results checkTrueFalseAnswer(Question question, String answerText) {
         final Results results = new Results();
         if(answerText != null) {
+			DebugLog.w("TF", "answerText=" + answerText);
+			int correct = new TrueOrFalseQuestionWrapper(question).getAnswer();
+			DebugLog.w("TF", "correct=" + correct);
             int provided = Integer.parseInt(answerText);
-            int correct = new TrueOrFalseQuestionWrapper(question).getAnswer();
             results.score = provided == correct ? 1 : 0;
             results.data = String.valueOf(results.score);
         } else {

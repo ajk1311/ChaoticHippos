@@ -193,6 +193,7 @@ public abstract class MainActivity extends Activity
 		/* STUB */
 	}
 
+
 	/** Either shows a view for the given question immediately,
 	 * or queues up an task that will show the view when the panel is closed
 	 *

@@ -31,10 +31,11 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 	public static final int ANSWER_FALSE = 1;
 
 	private TextView mTitleText;
-	private TextView mQuestionText;
-	private TrueFalseAnswerGroup mAnswer;
 
-	private TrueOrFalseQuestionWrapper mQuestionWrapper;
+	// Eeeew protected fields
+	protected TextView mQuestionText;
+	protected TrueFalseAnswerGroup mAnswer;
+	protected TrueOrFalseQuestionWrapper mQuestionWrapper;
 
 	public TrueFalseView(Context context) {
 		super(context);
@@ -81,16 +82,10 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 	}
 
 	@Override
-	public Question getQuestion() {
-		mQuestionWrapper.setQuestionText(mQuestionText.getText().toString().trim());
-		mQuestionWrapper.setAnswer(mAnswer.getSelectedAnswerIndex());
-		return mQuestionWrapper.get();
-	}
-
-	@Override
 	public Answer getAnswer() {
+		final int answer = mAnswer.getSelectedAnswerIndex();
 		return new Answer(mQuestionWrapper.get().getObjectId(),
-				String.valueOf(mAnswer.getSelectedAnswerIndex()));
+				String.valueOf(answer));
 	}
 
 	@Override
@@ -110,7 +105,7 @@ public abstract class TrueFalseView extends ScrollView implements QuestionViewer
 	}
 
 	/** Layout that holds the two choices for a true or false question */
-	private static class TrueFalseAnswerGroup extends LinearLayout {
+	public static class TrueFalseAnswerGroup extends LinearLayout {
 
 		/** Each of the choices will have these parameters */
 		private static final LayoutParams PARAMS = new LayoutParams(0,

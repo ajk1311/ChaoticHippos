@@ -85,6 +85,10 @@
 
 	<!-- Exam bar graph strings -->
 	<string name="bar_graph_overall_title">Puntaje Total</string>
+    <string name="bar_graph_mean">Significar:</string>
+    <string name="bar_graph_median">Mediana:</string>
+    <string name="bar_graph_mode">Modo:</string>
+    <string name="bar_graph_standard_dev">Desviación Estándar:</string>
 
 	<!-- Pie graph strings -->
 	<string name="pie_graph_no_answers">Sin Respuestas: </string>

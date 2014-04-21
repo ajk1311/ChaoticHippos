@@ -17,8 +17,8 @@
 	<string name="question_list_btn_add">Adicione una Pregunta</string>
 
 	<!-- Generic words -->
-	<string name="No">No</string>
-	<string name="Si">Yes</string>
+	<string name="no">No</string>
+	<string name="yes">Si</string>
 	<string name="done">Terminado</string>
 	<string name="score">Puntaje</string>
 	<string name="students">Estudiantes</string>

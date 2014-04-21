@@ -146,7 +146,6 @@ public class InstructorDataFragment extends Fragment {
 					showOverallStats(false);
 				}
 			});
-			mOverallHeaderView.setText("Overall stats");
 			questionListView.addHeaderView(mOverallHeaderView);
 			questionListView.setAdapter(adapter);
 			mOverallHeaderView.setActivated(true);

@@ -134,7 +134,7 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
 
     private void insertBlank() {
         boolean addSpace = false;
-        if(questionTextEditText.getText().charAt(questionTextEditText.getText().length() - 1) != ' ') {
+        if(questionTextEditText.getSelectionStart() != 0 && questionTextEditText.getText().charAt(questionTextEditText.getText().length() - 1) != ' ') {
             addSpace = true;
         }
         ++numBlanks;

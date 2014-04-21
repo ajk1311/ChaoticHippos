@@ -54,6 +54,7 @@
 	<string name="student_test_ensure_submit_answers">Tiene preguntas sin respuestas. Desea continuar con la sumisión?</string>
 	<string name="student_test_submit_answers_progress">Submitting answers...</string>
 	<string name="student_test_submit_answers_success">Gracias! Sus respuestas han sido sometidas</string>
+    <string name="student_test_are_you_sure">Esta seguro/segura que quiere continuar con la sumisión sin respuestas?</string>
 
 	<string name="student_empty_message">Su instructor no ha publicado un examen todavía. Por favor revise después.</string>
 
@@ -85,6 +86,10 @@
 
 	<!-- Exam bar graph strings -->
 	<string name="bar_graph_overall_title">Puntaje Total</string>
+    <string name="bar_graph_mean">Significar:</string>
+    <string name="bar_graph_median">Mediana:</string>
+    <string name="bar_graph_mode">Modo:</string>
+    <string name="bar_graph_standard_dev">Desviación Estándar:</string>
 
 	<!-- Pie graph strings -->
 	<string name="pie_graph_no_answers">Sin Respuestas: </string>

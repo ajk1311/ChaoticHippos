@@ -39,7 +39,7 @@
 
 	<!-- InstructorDataFragment strings -->
 	<string name="instructor_data_header_title">Overall stats</string>
-	<string name="instructor_data_start_new_test">Start new test</string>
+	<string name="instructor_data_start_new_test">New test</string>
 	<string name="instructor_data_ensure_new_test">Are you sure you want to start a new test? The old test will no longer be available to students.</string>
 	<string name="instructor_data_new_test_progress">Creating new test...</string>
 	<string name="instructor_data_refresh_data">Refresh data</string>
@@ -55,6 +55,7 @@
 	<string name="student_test_ensure_submit_answers">You have some unanswered questions. Do you wish to continue with submission?</string>
 	<string name="student_test_submit_answers_progress">Submitting answers...</string>
 	<string name="student_test_submit_answers_success">Thank you! Your answers have been submitted</string>
+	<string name="student_test_are_you_sure">Are you sure you want to submit your answers?</string>
 
 	<string name="student_empty_message">Your instructor has not published a test yet. Please check again later.</string>
 
@@ -87,6 +88,10 @@
 
 	<!-- Exam bar graph strings -->
 	<string name="bar_graph_overall_title">Overall Test Scores</string>
+	<string name="bar_graph_mean">Mean:</string>
+	<string name="bar_graph_median">Median:</string>
+	<string name="bar_graph_mode">Mode:</string>
+	<string name="bar_graph_standard_dev">Standard Deviation:</string>
 
 	<!-- Pie graph strings -->
 	<string name="pie_graph_no_answers">No answers: </string>

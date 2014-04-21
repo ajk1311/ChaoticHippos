@@ -1,1 +1,1 @@
-include ':app', 'HoloGraphLibrary', 'ShowcaseView'
+include ':app', 'HoloGraphLibrary'

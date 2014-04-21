@@ -4,15 +4,17 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chaotichippos.finalproject.app.R;
+import com.chaotichippos.finalproject.app.util.ScreenUtil;
 import com.echo.holographlibrary.Bar;
 import com.echo.holographlibrary.BarGraph;
+
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.apache.commons.math3.stat.descriptive.rank.Median;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +23,14 @@ import java.util.List;
  * Created by SebastianMartinez on 4/18/14.
  */
 public class ExamScoresBarGraph extends RelativeLayout {
+
+	private static final int BAR_WIDTH = ScreenUtil.getDimensionPixelSize(50);
+
     int[] countArray = new int[21];
     List<String> setNames = new ArrayList<String>();
-    ListView listView;
-    MyAdapter adapter;
     ArrayList<String> myColors = new ArrayList<String>();
 
-    public ExamScoresBarGraph(Context context, List<Float> scores) {
+    public ExamScoresBarGraph(Context context, float[] scores) {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.bar_graph_base_view, this, true);
 
@@ -83,96 +86,50 @@ public class ExamScoresBarGraph extends RelativeLayout {
 
         /*****************************/
 
-        // Instantiating an adapter for the list
-        adapter = new MyAdapter();
-
-        // Getting a reference to listview of main.xml layout file
-        listView = (ListView) findViewById(R.id.listview);
-
-        // Setting the adapter to the listView
-        listView.setAdapter(adapter);
-
-        for(int i = 0; i < scores.size(); i++) {
-            countArray[scores.get(i).intValue() / 5]++;
+        for(int i = 0, sz = scores.length; i < sz; i++) {
+            countArray[(int) scores[i] / 5]++;
         }
 
-		boolean hasData = false;
-        ArrayList<Bar> points = new ArrayList<Bar>();
+        ArrayList<Bar> bars = new ArrayList<Bar>();
 
-        for(int i = 0; i < countArray.length; i++) {
-            Bar d = new Bar();
-            d.setColor(Color.parseColor(myColors.get(i)));
-            d.setName(setNames.get(i));
-            d.setValue(countArray[i]);
-            points.add(d);
-
-			if (countArray[i] > 0) {
-				hasData = true;
+        for(int i = 0, sz = countArray.length; i < sz; i++) {
+			if (countArray[i] == 0) {
+				continue;
 			}
-
-            double value = (double)countArray[i]/scores.size()*100;
-            double finalValue = (double)Math.round(value*100)/100;
-            adapter.addString(getContext().getString(R.string.score) + " " + setNames.get(i) + ": " +
-					countArray[i] + " " + getContext().getString(R.string.students) + " (" + finalValue + "%)");
+            Bar bar = new Bar();
+            bar.setColor(Color.parseColor(myColors.get(i)));
+            bar.setName(setNames.get(i));
+            bar.setValue(countArray[i]);
+            bars.add(bar);
         }
 
-        BarGraph g = (BarGraph)findViewById(R.id.BarGraph);
-        g.setBars(points);
+		BarGraph graph = (BarGraph)findViewById(R.id.BarGraph);
+		if (bars.size() > 0) {
+			final int barHeight = context.getResources()
+					.getDimensionPixelSize(R.dimen.bar_graph_height);
+			final FrameLayout.LayoutParams params =
+					new FrameLayout.LayoutParams(bars.size() * BAR_WIDTH, barHeight);
+			graph.setLayoutParams(params);
+			graph.setBars(bars);
+		} else {
+			graph.setVisibility(View.GONE);
+		}
 
-		g.setVisibility(hasData ? View.VISIBLE : View.INVISIBLE);
+		// Statistics
+		final double[] data = new double[scores.length];
+		for (int i = 0, sz = scores.length; i < sz; i++) {
+			data[i] = (double) scores[i];
+		}
+		DescriptiveStatistics stats = new DescriptiveStatistics(data);
+		((TextView) findViewById(R.id.bar_graph_mean_value))
+				.setText(String.valueOf(round(stats.getMean())));
+		((TextView) findViewById(R.id.bar_graph_median_value))
+				.setText(String.valueOf(round(stats.apply(new Median()))));
+		((TextView) findViewById(R.id.bar_graph_stddev_value))
+				.setText(String.valueOf(round(stats.getStandardDeviation())));
     }
 
-    private class MyAdapter extends BaseAdapter {
-
-        private List<String> mList;
-
-        public MyAdapter() {
-            mList = new ArrayList<String>();
-        }
-
-        public void addString(String stringData) {
-            mList.add(stringData);
-            notifyDataSetChanged();
-        }
-
-        public void setList(List<String> list) {
-            mList = list;
-            notifyDataSetChanged();
-        }
-
-        public List<String> getList() {
-            return mList;
-        }
-
-        @Override
-        public int getCount() {
-            return mList.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return mList.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            //on first create
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.bar_graph_list_item, null);
-            }
-
-            // TextViews
-            String stringData = mList.get(position);
-            TextView text = (TextView) convertView.findViewById(R.id.text);
-            text.setText(stringData);
-            text.setTextColor(Color.parseColor(myColors.get(position)));
-
-            return convertView;
-        }
-    }
+	private float round(double toRound) {
+		return (float) Math.round(toRound * 1000) / 1000;
+	}
 }

@@ -94,10 +94,25 @@ public class StudentTestFragment extends Fragment {
 				return true;
 
 			case R.id.menu_option_submit_answers:
-				ensureCompleteAnswers();
+				ensureSubmission();
 				return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void ensureSubmission() {
+		final YesNoDialogFragment dialog = YesNoDialogFragment
+				.create(getString(R.string.student_test_are_you_sure));
+		dialog.setListener(new YesNoDialogFragment.YesNoListener() {
+			@Override
+			public void onYes() {
+				ensureCompleteAnswers();
+			}
+			@Override
+			public void onNo() {
+			}
+		});
+		dialog.show(getFragmentManager(), null);
 	}
 
 	private void ensureCompleteAnswers() {
@@ -183,7 +198,7 @@ public class StudentTestFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mContainer = (FrameLayout) inflater
-				.inflate(R.layout.fragment_student_test, container, false);
+				.inflate(R.layout.fragment_empty_content, container, false);
 		return mContainer;
 	}
 

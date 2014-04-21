@@ -66,7 +66,7 @@ public class InstructorDataFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mContainer = (FrameLayout) inflater
-				.inflate(R.layout.fragment_student_test, container, false);
+				.inflate(R.layout.fragment_empty_content, container, false);
 		return mContainer;
 	}
 
@@ -121,7 +121,7 @@ public class InstructorDataFragment extends Fragment {
 					showOverallStats(init);
 				} else {
 					Toast.makeText(App.getContext(),
-							"Sorry, there was an error with your request: " + e.getMessage(),
+							getString(R.string.error) + ": " + e.getMessage(),
 							Toast.LENGTH_SHORT)
 							.show();
 				}
@@ -152,10 +152,12 @@ public class InstructorDataFragment extends Fragment {
 			mOverallHeaderView.setActivated(true);
 		}
 
-		final int max = mMainActivity.getQuestionListFragment().getQuestionList().size();
-		final List<Float> scores = new ArrayList<Float>();
-		for (Submission submission : mSubmissions) {
-			scores.add((float) (submission.getGrade() / max) * 100.0f);
+		Submission submission;
+		final float[] scores = new float[mSubmissions.size()];
+		for (int i = 0, sz = scores.length; i < sz; i++) {
+			submission = mSubmissions.get(i);
+			final int max = submission.getAnswers().length();
+			scores[i] = ((float) submission.getGrade() / max) * 100;
 		}
 		mContainer.removeAllViews();
 		mContainer.addView(new ExamScoresBarGraph(getActivity(), scores));
@@ -185,7 +187,7 @@ public class InstructorDataFragment extends Fragment {
 				return true;
 
 			case R.id.menu_option_new_exam:
-				startNewTest();
+				ensureStartNewTest();
 				return true;
 
             case R.id.menu_option_refresh:
@@ -196,9 +198,8 @@ public class InstructorDataFragment extends Fragment {
 	}
 
 	private void ensureStartNewTest() {
-		final YesNoDialogFragment dialog = YesNoDialogFragment.create(
-				"Are you sure you want to start a new test? " +
-						"The old test will no longer be available to students.");
+		final YesNoDialogFragment dialog = YesNoDialogFragment
+				.create(getString(R.string.instructor_data_ensure_new_test));
 		dialog.setListener(new YesNoDialogFragment.YesNoListener() {
 			@Override
 			public void onYes() {
@@ -212,7 +213,8 @@ public class InstructorDataFragment extends Fragment {
 	}
 
 	private void startNewTest() {
-		final ProgressDialogFragment dialog = ProgressDialogFragment.create("Creating new test...");
+		final ProgressDialogFragment dialog = ProgressDialogFragment
+				.create(getString(R.string.instructor_data_new_test_progress));
 		dialog.show(getFragmentManager(), "progress");
 		ParseObject test = new ParseObject(Test.TAG);
 		test.put(Test.KEY_READY, false);
@@ -228,7 +230,7 @@ public class InstructorDataFragment extends Fragment {
 					}
 				} else {
 					Toast.makeText(App.getContext(),
-							"Sorry, there was an error processing your request: " + e.getMessage(),
+							getString(R.string.error) + ": " + e.getMessage(),
 							Toast.LENGTH_SHORT)
 							.show();
 				}

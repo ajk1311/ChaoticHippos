@@ -57,7 +57,7 @@ public class InstructorEditorFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mContainer = (FrameLayout) inflater
-				.inflate(R.layout.fragment_student_test, container, false);
+				.inflate(R.layout.fragment_empty_content, container, false);
 		return mContainer;
 	}
 

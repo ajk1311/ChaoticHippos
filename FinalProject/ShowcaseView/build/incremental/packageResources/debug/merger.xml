@@ -2,89 +2,89 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res" >
+        <source path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res" >
             <file
                 name="cling_button_bg"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable/cling_button_bg.xml"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable/cling_button_bg.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="btn_cling_normal"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-hdpi/btn_cling_normal.9.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-hdpi/btn_cling_normal.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="btn_cling_pressed"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-hdpi/btn_cling_pressed.9.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-hdpi/btn_cling_pressed.9.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="cling"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-hdpi/cling.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-hdpi/cling.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="hand"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-hdpi/hand.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-hdpi/hand.png"
                 qualifiers="hdpi"
                 type="drawable" />
             <file
                 name="btn_cling_normal"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-mdpi/btn_cling_normal.9.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-mdpi/btn_cling_normal.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="btn_cling_pressed"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-mdpi/btn_cling_pressed.9.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-mdpi/btn_cling_pressed.9.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="cling"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-mdpi/cling.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-mdpi/cling.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="hand"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-mdpi/hand.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-mdpi/hand.png"
                 qualifiers="mdpi"
                 type="drawable" />
             <file
                 name="btn_cling_normal"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-xhdpi/btn_cling_normal.9.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-xhdpi/btn_cling_normal.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="btn_cling_pressed"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-xhdpi/btn_cling_pressed.9.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-xhdpi/btn_cling_pressed.9.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="cling"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-xhdpi/cling.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-xhdpi/cling.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="cling_bleached"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-xhdpi/cling_bleached.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-xhdpi/cling_bleached.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="hand"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/drawable-xhdpi/hand.png"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/drawable-xhdpi/hand.png"
                 qualifiers="xhdpi"
                 type="drawable" />
             <file
                 name="handy"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/layout/handy.xml"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/layout/handy.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="showcase_button"
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/layout/showcase_button.xml"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/layout/showcase_button.xml"
                 qualifiers=""
                 type="layout" />
             <file
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/values/attrs.xml"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/values/attrs.xml"
                 qualifiers="" >
                 <declare-styleable name="CustomTheme" >
                     <attr
@@ -122,7 +122,7 @@
                 </declare-styleable>
             </file>
             <file
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/values/ids.xml"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/values/ids.xml"
                 qualifiers="" >
                 <item
                     name="showcase_button"
@@ -135,13 +135,13 @@
                     type="id"/>
             </file>
             <file
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/values/strings.xml"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/values/strings.xml"
                 qualifiers="" >
                 <string name="ok" >OK
                 </string>
             </file>
             <file
-                path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/res/values/styles.xml"
+                path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/res/values/styles.xml"
                 qualifiers="" >
 
                 <style name="ShowcaseView" >
@@ -239,11 +239,11 @@ bold
                 </style>
             </file>
         </source>
-        <source path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/build/res/rs/debug" />
-        <source path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/build/res/generated/debug" />
+        <source path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/build/res/rs/debug" />
+        <source path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/build/res/generated/debug" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="/Users/akausejr/Desktop/EECS 493/FinalProject/FinalProject/ShowcaseView/src/debug/res" />
+        <source path="/Users/SebastianMartinez/Desktop/ChaoticHippos/FinalProject/ShowcaseView/src/debug/res" />
     </dataSet>
 
 </merger>

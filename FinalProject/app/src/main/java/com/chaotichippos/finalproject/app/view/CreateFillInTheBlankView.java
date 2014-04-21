@@ -133,14 +133,22 @@ public class CreateFillInTheBlankView extends LinearLayout implements QuestionVi
     }
 
     private void insertBlank() {
+        boolean addSpace = false;
+        if(questionTextEditText.getText().charAt(questionTextEditText.getText().length() - 1) != ' ') {
+            addSpace = true;
+        }
         ++numBlanks;
         String temp = "";
         temp += BLANK_CHAR;
         SpannableString s = new SpannableString(temp);
-        int cPos = questionTextEditText.getSelectionStart();
+        int cPos = questionTextEditText.getSelectionStart() + 1;
         s.setSpan(blanks[numBlanks-1], 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+        if(addSpace) {
+            questionTextEditText.append(" ");
+            cPos++;
+        }
         questionTextEditText.append(s);
-        questionTextEditText.setSelection(cPos + 1);
+        questionTextEditText.setSelection(cPos);
         unhideBlank(numBlanks);
     }
 
